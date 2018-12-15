@@ -17,7 +17,7 @@
                               </div>
                             </div>
                             <div class="card-body">
-                            <?php if(isset($actualDate)){ echo "$actualDate<br>$time";} ?>
+                            <?php if(isset($actualDate)){ echo $actualDate;} ?>
                               <div class="input-group no-border input-lg">
                                   <div class="input-group-prepend">
                                     <span class="input-group-text">
