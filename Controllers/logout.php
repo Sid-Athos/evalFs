@@ -5,7 +5,6 @@
     include("./Models/db_connect.php");
     include('./Models/actual_date.php');
     include('./Controllers/Functions/PHP/messages.php');
-    $actual_date = get_date($db);
 
     if (isset($_SESSION['ID'])){
         include('./Models/logout.php');

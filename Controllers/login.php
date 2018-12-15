@@ -7,43 +7,7 @@
     include('./Models/actual_date.php');
     $actual_date = get_date($db);
     
-    var_dump($_POST);
-	$array =
-	array(
-		38,
-		39,
-		73,
-		80,
-	);
-
-    $array = implode("','",$array);
-    $array ="'$array'";
-	$query =
-	"SELECT *
-	FROM users
-	WHERE ID IN(:id);";
-
-	$querySettings =
-	array(
-		":id" => $array
-	);
-
-	try
-		{
-			$stmt = $db -> prepare($query);
-			$stmt -> execute($querySettings);
-		}
-		catch(PDOException $ex)
-		{
-            var_dump($_POST);
-            echo $ex;
-		}
-
-	$res = $stmt -> fetchAll();
-
-	var_dump($res);
-    unset($res);
-    echo $array;
+    
     switch(isset($_POST['login'])):  
         case 'Register':
         $email = htmlspecialchars(trim($_POST['em']), ENT_QUOTES, 'UTF-8');

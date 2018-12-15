@@ -1,6 +1,6 @@
 <?php
     /* Juste pour le fun */
-    function get_date(&$db){
+    function get_date($db){
         $query = 
             "SELECT 
             DAYNAME(CURRENT_TIMESTAMP()), 
