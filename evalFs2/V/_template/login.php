@@ -1,8 +1,6 @@
-    <!-- Navbar -->
-    <!-- End Navbar -->
-    
+
     <div class="wrapper">
-      <div class="page-header clear-filter" filter-color="orange">
+      <div class="page-header clear-filter">
           <div class="page-header-image" data-parallax="true" style="background-image:url('V/_template/assets/img/header.jpg');"></div>
           <div class="container">
           <?php if(isset($message)){ echo $message; }?>                            
@@ -13,7 +11,7 @@
                         <form class="form" method="POST" action="index.php?page=login" autocomplete="false">
                             <div class="card-header text-center">
                               <div class="logo-container mb-3">
-                              <a href="" onclick="logoEvent(event)"><img src="V/_template/assets/img/logo.png" alt="Glance logo" style="width:250px;height:200px"></a>
+                              <!--<a href="" onclick="logoEvent(event)"><img src="V/_template/assets/img/logo.png" alt="Glance logo" style="width:250px;height:200px"></a>-->
                               </div>
                             </div>
                             <div class="card-body">
@@ -41,7 +39,7 @@
                                   <span class="form-check-sign form-check-inline">
                                     </span>
                                   </label>
-                                  <span onclick="showPw()">Afficher le mot de passe</span>
+                                  <span onclick="showPass()">Afficher le mot de passe</span>
                               </div>  
                             <div class="card-footer text-center">
                               <button type="submit" class="btn btn-primary btn-round btn-lg btn-block"

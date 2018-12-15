@@ -1,5 +1,5 @@
 <?php
-	function actualDate()
+	function actualDate($db)
 	{
 		$query = 
 			"SELECT 
@@ -28,7 +28,7 @@
 			return $actual_date;
 	}
 
-    function fetchNoSets($query)
+    function fetchNoSets($db,$query)
     {
         
         try 
@@ -44,7 +44,7 @@
         
     }
 
-    function fetchOneSet($query,$set1)
+    function fetchOneSet($db,$query,$set1)
     {
         
         try 
@@ -64,7 +64,7 @@
         
     }
 
-    function fetchTwoSets($query,$set1,$set2)
+    function fetchTwoSets($db,$query,$set1,$set2)
     {
         
         try 
@@ -85,12 +85,12 @@
         
     }
     
-    function fetchThreeSets($query,$set1,$set2,$set3)
+    function fetchThreeSets($db,$query,$set1,$set2,$set3)
     {
         
         try 
         {
-            $stmt = $db->prepare($query);
+            $stmt = $db->prepare($db,$query);
             $stmt->execute(
                 array(
                     ":set1" => $set1,
@@ -107,7 +107,7 @@
         
     }
 
-    function fetchFourSets($query,$set1,$set2,$set3,$set4)
+    function fetchFourSets($db,$query,$set1,$set2,$set3,$set4)
     {
         
         try 

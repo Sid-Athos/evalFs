@@ -31,7 +31,7 @@
                         }
                         
                         // check if a user exists for account recovery
-                        $check = fetchTwoSets($mail,$phone);
+                        $check = fetchTwoSets($db,$mail,$phone);
                         if(empty($check))
                         {
                             $message = alert("Erreur dans le formulaire, nous ne reconnaissons pas votre mail ou votre numéro de téléphone!");
@@ -102,7 +102,7 @@
                             if($flagMail === true && $flagPassword === true && 
                             $flagPseudo === true)
                             {
-                                $check = addUser($db,$pseudo,$mail,$pass,$phone);
+                                $check = twoSets($db,$pseudo,$mail,$pass,$phone);
                                 if($check === true)
                                 {
                                     $_SESSION['ID'] = $db -> lastInsertId();

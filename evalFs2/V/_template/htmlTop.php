@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="V/_template/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Glance - <?php if(isset($page)){ echo $page; }?>
+    Fetch - <?php if(isset($page)){ echo $page; }?>
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -21,10 +21,23 @@
   <script src="V/_template/assets/js/app.js"></script>
   <style>
     .sid{
-      border:none;background:none;text-decoration:none;color:orange;outline:none;
+      border:none;background:none;text-decoration:none;color:orange;outline:none;cursor:pointer;
     }
     .sid:focus{
       border:none;background:none;text-decoration:none;color:orange;outline:none;
+    }
+    
+    .btn-primary{
+      background-color:#333333;
+    }
+    .btn-primary:hover{
+      background: #f46b45;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #eea849, #f46b45);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #eea849, #f46b45); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+    .btn-primary:focus{
+      background-color:#A43931;
     }
   </style>
   <!-- FontAwesome -->
