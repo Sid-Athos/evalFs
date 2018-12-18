@@ -22,8 +22,8 @@
                                     <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
                                     </span>
                                   </div>
-                                  <input type="text" class="form-control" placeholder="Adresse email ou pseudo"  name="mail" id="0"
-                                  value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" required>
+                                  <input type="text" class="form-control" placeholder="Adresse email ou pseudo"  name="mail" id="0" title="Adresse mail ou identifiant"
+                                  value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required>
                               </div>
                               <div class="input-group no-border input-lg">
                                   <div class="input-group-prepend">
@@ -66,7 +66,7 @@
         </div>
       </div>
     </div>    
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document" style="position:absolute;margin-top:100px;left:50px">
         <div class="modal-content" style="background-color:#333333;color:#FFFFFF">
           <div class="modal-header" style="text-align:center;white-space:pre-wrap;color:#ce943b">

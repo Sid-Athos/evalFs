@@ -139,8 +139,26 @@
                                 $flagPassword = htmlspecialchars($_POST['password']);
                                 $flagMail = htmlspecialchars($_POST['mail']);
                                 $password = hash('ripemd160',$flagPassword);
-                                $check = updateLogin($db,$flagMail,$password);
-                                $res = selectLogin($db,$flagMail,$flagMail);
+                                $query = 
+                                "UPDATE USERS
+                                SET lastCo = CURRENT_TIMESTAMP()
+                                WHERE (mail = :set1 
+                                OR pseudo = :set2)
+                                AND password = :set3;";
+
+                                $check = threeSets($db,$query,$flagMail,$flagMail,$password);
+
+                                unset($query);
+
+                                $query =
+                                "SELECT ID, pseudo 
+                                FROM USERS
+                                WHERE (mail = :set1 
+                                OR pseudo = :set2);";
+
+                                $res = fetchTwoSets($db,$query,$flagMail,$flagMail);
+                                
+                                unset($query);
                                 
                                 if($check === 0)
                                 {
@@ -151,7 +169,7 @@
                                     if(!empty($res))
                                     {
                                         $message = success("Connexion réussie");
-                                        sessionKeyller($_SESSION);
+                                        //sessionKeyller($_SESSION);
                                         $_SESSION['ID'] = $res[0]['ID'];
                                         $_SESSION['greetings'] = "Bonjour ".$res[0]['pseudo']." <br>. Nous sommes le $actualDate !";
                                         header("Location:index.php?page=lobby");

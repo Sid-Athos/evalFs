@@ -1,5 +1,5 @@
 <?php
-    function noSets($query)
+    function noSets($db,$query)
     {
         
         try 
@@ -15,7 +15,7 @@
         return $res;
     }
 
-    function oneSet($query,$set1)
+    function oneSet($db,$query,$set1)
     {
         
         try 
@@ -35,7 +35,7 @@
         return $res; 
     }
 
-    function twoSets($query,$set1,$set2)
+    function twoSets($db,$query,$set1,$set2)
     {
         
         try 
@@ -56,7 +56,7 @@
         return $res; 
     }
 
-    function threeSets($query,$set1,$set2,$set3)
+    function threeSets($db,$query,$set1,$set2,$set3)
     {
         
         try 
@@ -78,7 +78,7 @@
         return $res; 
     }
     
-    function fourSets($query,$set1,$set2,$set3,$set4)
+    function fourSets($db,$query,$set1,$set2,$set3,$set4)
     {
         
         try 

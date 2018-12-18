@@ -21,10 +21,20 @@
   <script src="V/_template/assets/js/app.js"></script>
   <style>
     .sid{
-      border:none;background:none;text-decoration:none;color:orange;outline:none;cursor:pointer;
+      border:none;
+      background:none;
+      text-decoration:none;
+      color: #FFFFFF;  /* fallback for old browsers */
+
+      outline:none;
+      cursor:pointer;
     }
     .sid:focus{
-      border:none;background:none;text-decoration:none;color:orange;outline:none;
+      border:none;
+      background:none;
+      text-decoration:none;
+      color:orange;
+      outline:none;
     }
     
     .btn-primary{
