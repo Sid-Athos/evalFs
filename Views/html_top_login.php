@@ -30,7 +30,11 @@
         
             <span style="float:right;margin-top:3px;color:#decba4" >
                     <?php 
-                        echo $actual_date; 
+                        if(isset($actual_date))
+                        {
+
+                            echo $actual_date; 
+                        }
                     ?>
                 <br>
                     <span id="txt" onload="startTime()"style="color:#a2ab58">
