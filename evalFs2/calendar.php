@@ -14,6 +14,7 @@
         $timestamp = strtotime($ym . '-01');
     }
     $today = date('Y-m-j');
+    //$day = date('')
     $title = utf8_encode(ucfirst(strftime('%B,  %Y', $timestamp)));
     $prev = date('Y-m', strtotime('-1 month', $timestamp));
     $next = date('Y-m', strtotime('+1 month', $timestamp));
@@ -27,7 +28,7 @@
     for ($day = 1; $day <= $daysCount; $day++, $str++) {
         $date = "$ym-$day";
         if ($today == $date) {
-            $week .= '<td class="today" title="now" style="width: 250px;min-width: 250px;max-width:250px">';
+            $week .= '<td class="today" data-toggle="tooltip" data-placement="left" title="Ajd" style="width: 250px;min-width: 250px;max-width:250px">';
         } else {
             $week .= '<td style="width: 250px;min-width: 250px;max-width:250px">';
         }
@@ -272,7 +273,7 @@ color: #ce943b;
 <body style="background-color:#333333">
 <div class="wrapper ml-auto"  style="margin-bottom:200px;padding-left:30px">
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -307,28 +308,52 @@ color: #ce943b;
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
+                     </div>
+                     <a href="https://creative-tim.com" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
+                     <a href="https://creative-tim.com" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
+                     <a href="https://creative-tim.com" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
+                 </div>
+                 
+                     
+             </div> <!-- end back panel -->
+         </div> <!-- end card -->
+     </div> <!-- end card-container -->
+     <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
+             <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
+                 <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
+                     <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
+                 </div>
+                 <div class="user" style="z-index:2;border:none">
+                     <img class="img-circle" src="V/_template/assets/img/header.jpg" style="z-index:-2;border:none">
+                 </div>
+                 <div class="content">
+                     <div class="main" style="background-color:#212529;color:rgba(255,255,255,0.7)">
+                         <h3 class="name">Inna Corman</h3>
+                         <p class="profession">Product Manager</p>
 
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
+                         <p class="text-center">"I'm the new Sinatra, and since I made it here I can make it anywhere, yeah, they love me everywhere"</p>
+                     </div>
+                     
+                 </div>
+             </div> <!-- end front panel -->
+             <div class="back" style="overflow-y:scroll;overflow-x:hidden;background-color:#212529;border-top-left-radius:5px;border-top-right-radius:5px">
+                 <div class="header" style="border-top-left-radius:5px;border-top-right-radius:5px">
+                     <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
+                 </div>
+                 <div class="header">
+                     <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
+                 </div>
+                 <div class="header">
+                     <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
+                 </div>
+                 <div class="header">
+                     <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
+                 </div>
+                 <div class="content">
+                     <div class="main" style="background-color:#212529;color:#FFFFFF">
+                         <h4 class="text-center">Job Description</h4>
+                         <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
                      </div>
                  </div>
                  <div class="footer">
@@ -342,7 +367,7 @@ color: #ce943b;
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -377,98 +402,6 @@ color: #ce943b;
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
-                     </div>
-                 </div>
-                 <div class="footer">
-                     <div class="social-links text-center">
-                         <a href="https://creative-tim.com" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
-                         <a href="https://creative-tim.com" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
-                         <a href="https://creative-tim.com" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
-                     </div>
-                 </div>
-             </div> <!-- end back panel -->
-         </div> <!-- end card -->
-     </div> <!-- end card-container -->
-     <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
-             <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
-                 <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
-                     <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
-                 </div>
-                 <div class="user" style="z-index:2;border:none">
-                     <img class="img-circle" src="V/_template/assets/img/header.jpg" style="z-index:-2;border:none">
-                 </div>
-                 <div class="content">
-                     <div class="main" style="background-color:#212529;color:rgba(255,255,255,0.7)">
-                         <h3 class="name">Inna Corman</h3>
-                         <p class="profession">Product Manager</p>
-
-                         <p class="text-center">"I'm the new Sinatra, and since I made it here I can make it anywhere, yeah, they love me everywhere"</p>
-                     </div>
-                     
-                 </div>
-             </div> <!-- end front panel -->
-             <div class="back" style="overflow-y:scroll;overflow-x:hidden;background-color:#212529;border-top-left-radius:5px;border-top-right-radius:5px">
-                 <div class="header" style="border-top-left-radius:5px;border-top-right-radius:5px">
-                     <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
-                 </div>
-                 <div class="header">
-                     <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
-                 </div>
-                 <div class="header">
-                     <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
-                 </div>
-                 <div class="header">
-                     <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
-                 </div>
-                 <div class="content">
-                     <div class="main" style="background-color:#212529;color:#FFFFFF">
-                         <h4 class="text-center">Job Description</h4>
-                         <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -483,7 +416,7 @@ color: #ce943b;
      </div> <!-- end card-container -->
      
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -510,15 +443,15 @@ color: #ce943b;
 transform: scale(-1, 1);background:transparent">
   <div class="card card-plain" style="background:transparent">
     <div class="card-header" role="tab" id="headingOne">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
           Collapsible Group Item #1
 
       <i class="now-ui-icons arrows-1_minimal-down"></i>
         </a>
     </div>
 
-    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-      <div class="card-body" style="background:transparent">
+    <div id="collapseOne" class="collapse hide" role="tabpanel" aria-labelledby="headingOne">
+      <div class="card-body" style="background:transparent;color:rgb(255,255,255,0.7)">
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
       </div>
     </div>
@@ -532,7 +465,7 @@ transform: scale(-1, 1);background:transparent">
         </a>
     </div>
     <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="card-body" style="background:transparent">
+      <div class="card-body" style="background:transparent;color:rgb(255,255,255,0.7)">
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
       </div>
     </div>
@@ -546,7 +479,7 @@ transform: scale(-1, 1);background:transparent">
       </a>
     </div>
     <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" style="background:transparent">
-      <div class="card-body" style="background:transparent">
+      <div class="card-body" style="background:transparent;color:rgb(255,255,255,0.7)">
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
       </div>
     </div>
@@ -567,28 +500,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -602,7 +513,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -637,28 +548,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -672,7 +561,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -707,28 +596,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -742,7 +609,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -777,28 +644,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -812,7 +657,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -847,28 +692,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -882,7 +705,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -917,28 +740,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -952,7 +753,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -987,28 +788,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1022,7 +801,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1057,28 +836,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1092,7 +849,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1127,28 +884,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1162,7 +897,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1197,28 +932,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1232,7 +945,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1267,28 +980,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1302,7 +993,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1337,28 +1028,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1372,7 +1041,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1407,28 +1076,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1443,7 +1090,7 @@ transform: scale(-1, 1);background:transparent">
      </div> <!-- end card-container -->
      
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1478,28 +1125,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1513,7 +1138,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1548,28 +1173,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1583,7 +1186,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1618,28 +1221,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1653,7 +1234,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1688,28 +1269,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1723,7 +1282,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1758,28 +1317,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1793,7 +1330,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1828,28 +1365,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1863,7 +1378,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1898,28 +1413,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -1933,7 +1426,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -1968,28 +1461,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -2003,7 +1474,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -2038,28 +1509,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -2073,7 +1522,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -2108,28 +1557,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -2143,7 +1570,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -2178,28 +1605,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -2213,7 +1618,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -2248,28 +1653,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -2283,7 +1666,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -2318,28 +1701,6 @@ transform: scale(-1, 1);background:transparent">
                      <div class="main" style="background-color:#212529;color:#FFFFFF">
                          <h4 class="text-center">Job Description</h4>
                          <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
-
-                         <div class="stats-container">
-                             <div class="stats">
-                                 <h4>235</h4>
-                                 <p>
-                                     Followers
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>114</h4>
-                                 <p>
-                                     Following
-                                 </p>
-                             </div>
-                             <div class="stats">
-                                 <h4>35</h4>
-                                 <p>
-                                     Projects
-                                 </p>
-                             </div>
-                         </div>
-
                      </div>
                  </div>
                  <div class="footer">
@@ -2353,7 +1714,7 @@ transform: scale(-1, 1);background:transparent">
          </div> <!-- end card -->
      </div> <!-- end card-container -->
      <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-         <div class="card" style="border:none;width:250px">
+         <div class="card" style="border:none;width:250px;position:relative;top:-200px">
              <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                  <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                      <h2 class="motto" style="z-index:99;color:#FFFFFF;font-size:20px">Samedi 8 Décembre 2018</span>
@@ -2392,19 +1753,19 @@ transform: scale(-1, 1);background:transparent">
                          <div class="stats-container">
                              <div class="stats">
                                  <h4>235</h4>
-                                 <p>
+                                 <p style="font-size:12px">
                                      Followers
                                  </p>
                              </div>
                              <div class="stats">
                                  <h4>114</h4>
-                                 <p>
+                                 <p style="font-size:12px">
                                      Following
                                  </p>
                              </div>
                              <div class="stats">
                                  <h4>35</h4>
-                                 <p>
+                                 <p style="font-size:12px">
                                      LAST
                                  </p>
                              </div>
@@ -2490,7 +1851,7 @@ transform: scale(-1, 1);background:transparent">
                                     <span class="input-group-text">
                                     <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
                                     </span>
-                                    <input type="date" class="form-control" name="mail" id="0"
+                                    <input type="date" class="form-control" name="appDate" id="0" min="<?= $today; ?>"
                                      style="color:#FFFFFF" required>
                                   </div>
                               </div>
