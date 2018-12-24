@@ -49,6 +49,58 @@
     .btn-primary:focus{
       background-color:#A43931;
     }
+  
+    .section{
+      text-align:center;
+    }
+    .card{
+      text-align:left;
+    }
+    .form-check .form-check-sign::after {
+
+font-family: 'Nucleo Outline';
+content: "\ea22";
+top: 0px;
+text-align: center;
+font-size: 14px;
+opacity: 0;
+color: #FFFFFF;
+border: 0;
+background-color: inherit;
+
+}
+    .form-check-sign .form-check-inline.checkbox::after {
+		font-family: 'Nucleo Outline';
+		content: "\ea22";
+		top: 0px;
+		text-align: center;
+		font-size: 14px;
+		opacity: 0;
+		color: #FFFFFF;
+		border: 0;
+		background-color: inherit;
+	}
+	.form-check-radio input[type="radio"]:checked + .form-check-sign::after{
+        width: 6px;
+        height: 6px;
+        background-color: #FFFFFF;
+        border-color: #ffffff;
+        top: 10px;
+        left: 10px;
+        opacity: 1;
+	}
+  ul{
+    list-style:none;
+  }
+  body{
+    background-color:#333333;
+  }
+  .section{
+    padding-top:20px;
+  }
+  .wrapper{
+    width:101%;
+  }
   </style>
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">

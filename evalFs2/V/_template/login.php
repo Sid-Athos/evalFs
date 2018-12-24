@@ -14,7 +14,7 @@
                               <!--<a href="" onclick="logoEvent(event)"><img src="V/_template/assets/img/logo.png" alt="Glance logo" style="width:250px;height:200px"></a>-->
                               </div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="text-align:center">
                             <?php if(isset($actualDate)){ echo $actualDate;} ?>
                               <div class="input-group no-border input-lg">
                                   <div class="input-group-prepend">
@@ -32,15 +32,16 @@
                                   <input type="password" placeholder="Mot de passe" name="password" id="1" class="form-control"
                                   value="<?php if(isset($flagPassword)){ echo $flagPassword; } ?>" style="color:#FFFFFF" required>
                               </div>
-                            </div><div class="form-check form-check-inline" style="margin-bottom:30px;margin-right:20px;cursor:pointer">
+                            </div>
+                            <div style="cursor:pointer;position:relative;width:180px" class="form-check ml-auto mr-auto" onclick="showPass()" >
                             <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input" onclick="showPass()"style="color:#FFFFFF" name="passwordCheck" style="margin:auto"
+                                  <span onclick="showPass()">Afficher le mot de passe</span>
+                                  <input type="checkbox" class="form-check-input" style="color:#FFFFFF" name="passwordCheck" 
                                   value="y">
                                   <span class="form-check-sign form-check-inline">
                                     </span>
                                   </label>
-                                  <span onclick="showPass()">Afficher le mot de passe</span>
-                              </div>  
+                              </div>
                             <div class="card-footer text-center">
                               <button type="submit" class="btn btn-primary btn-round btn-lg btn-block"
                               name="choice" value="connexion">Connexion</button>
