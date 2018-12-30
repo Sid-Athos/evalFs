@@ -3,7 +3,7 @@
     <!-- End Navbar -->
     
     <div class="wrapper">
-      <div class="page-header clear-filter" filter-color="orange">
+      <div class="page-header clear-filter">
         
         <div class="page-header-image" data-parallax="true" 
         style="background-image:url('V/_template/assets/img/header.jpg');"></div>
@@ -13,13 +13,13 @@
                 <div class="content-center brand">
                   <div class="col-md-6 ml-auto mr-auto">
                       <div class="card card-login card-plain">
-                        <form class="form" method="POST" action="index.php?page=login" id="form" style="color:white" autocomplete="off">
+                        <form class="form" method="POST" action="index.php?page=login" id="form"  autocomplete="off">
                             <div class="card-header text-center">
                               <div class="logo-container mb-3">
-                                <img src="V/_template/assets/img/logo.png" alt="Glance logo" onclick="logoEventReg(event)"style="width:250px;height:200px;z-index:-10">
+                                <!--<img src="V/_template/assets/img/logo.png" alt="Glance logo" onclick="logoEventReg(event)"style="width:250px;height:200px;z-index:-10">-->
                               </div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="text-align:center">
                             <?php echo "$actualDate"; ?>
                               <div class="input-group no-border input-lg">
                                 <div class="input-group-prepend">
@@ -28,6 +28,7 @@
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" style="color:#FFFFFF" autocomplete="off" id="3"
+                                data-toggle="tooltip" data-placement="top" title="Votre adresse mail, elle doit contenir au moins une arobase et un point."
                                 placeholder="Adresse email" name="mail" required pattern="^[a-zA-Z0-9\.]{2,18}@[a-z]{2,6}.[a-z]{2,5}$"
                                 value="<?php if(isset($mail)){ echo $mail; }?>">
                               </div>
@@ -38,6 +39,7 @@
                                   </span>
                                 </div>
                                 <input type="text" class="form-control" placeholder="Pseudo" style="color:#FFFFFF" autocomplete="off" 
+                                data-toggle="tooltip" data-placement="top"
                                 title="Alphanumériques, point, underscore, tirets et apostrophe uniquement, minimum 4 caractères" 
                                 name="pseudo" required pattern="/^[a-zA-Z0-9\_\'\.\-]{4,45]$/" id="4"
                                 value="<?php if(isset($pseudo)){ echo $pseudo; }?>">
@@ -49,6 +51,7 @@
                                     </span>
                                 </div>
                                 <input type="phone" class="form-control" placeholder="Téléphone" style="color:#FFFFFF" 
+                                data-toggle="tooltip" data-placement="top" title="Numéro de téléphone, 10 à 12 caractères, peut être laissé vide."
                                 pattern="^[0-9]{10,12}$" name="phone" id="5"
                                 value="<?php if(isset($phone)){ if($phone !== NULL){ echo $phone; } }?>" autocomplete="off">
                               </div>
@@ -57,7 +60,8 @@
                                     <span class="input-group-text"><i class="now-ui-icons text_caps-small" style="color:#FFFFFF"></i></span>
                                   </div>
                                   <input type="password" class="form-control" placeholder="Mot de passe" id="1" style="color:#FFFFFF" name="password" required
-                                  title="Alphanumériques, point, underscore, tirets et apostrophe uniquement, minimum 4 caractères, 45 maximum" 
+                                  data-toggle="tooltip" data-placement="top"
+                                  title="Alphanumériques, points, underscores, tirets et apostrophes uniquement, minimum 4 caractères, 45 maximum" 
                                   value="<?php if(isset($pw)){ echo $pw; }?>" autocomplete="off">
                               </div>
                               <div class="input-group no-border input-lg">
@@ -65,6 +69,8 @@
                                     <span class="input-group-text"><i class="now-ui-icons text_caps-small" style="color:#FFFFFF"></i></span>
                                   </div>
                                   <input type="password" class="form-control" id="2" placeholder="Confirmation du mot de passe" autocomplete="off" style="color:#FFFFFF" name="cpassword" required
+                                  data-toggle="tooltip" data-placement="top" title="La confirmation de votre mot de passe. 
+                                  Pensez à en choisir un suffisamment sûr!"
                                   value="">
                               </div>
                             </div>

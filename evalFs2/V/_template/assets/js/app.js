@@ -162,3 +162,50 @@ function searchSelect()
         }
     }
 }
+
+$("#addAppForm").submit(function(event){
+    event.preventDefault();
+    query = $.post({
+        url : 'checkAjax.php',
+        data : 
+        {
+            'addName': $('input[name=appName]').val(), 
+            'addDate': $('input[name=appDate]').val(), 
+            'addCat' : $('select[name=appCat]').val(),
+            'addNotes' : $('textarea[name=appNotes]').val(),
+            'addPlace' : $('input[name=appPlace]').val(),
+        }
+    });
+    query.done(function(response){
+        $('#answer').html(response);
+    });
+});
+
+function showIt(val){
+    val = Number(val);
+    if(val === 1)
+    {
+        document.getElementById('loulilol').style.display = "";
+        document.getElementById('prepit').style.marginTop = "11px";
+    }
+    else
+    {
+        document.getElementById('loulilol').style.display = "none";
+        document.getElementById('prepit').style.marginTop = "10px";
+    }
+}
+
+function newDate(item)
+{
+    query = $.post({
+        url : 'checkAjax.php',
+        data : 
+        {
+            'date': $('input[name=appDate]').val(), 
+        }
+    });
+    query.done(function(response){
+        console.log(response);
+        $('#endDate').attr({"min" :response});
+    });
+}

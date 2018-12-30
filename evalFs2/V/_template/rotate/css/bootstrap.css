@@ -6128,6 +6128,8 @@ button.close {
   opacity: 0;
   filter: alpha(opacity=0);
   visibility: visible;
+  background-color:#000;
+  color:#fff;
 }
 
 .tooltip.in {

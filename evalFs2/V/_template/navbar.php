@@ -15,7 +15,7 @@
 		<div class="container">
 			<div class="navbar-translate" style="background-color:transparent">
 				<a class="navbar-brand" href="index.php?page=lobby" rel="tooltip" title="" data-placement="bottom" target="_self">
-					<img src="V/_template/assets/img/logo.png" height="50px" width="75px">
+					<!--<img src="V/_template/assets/img/logo.png" height="50px" width="75px">-->
 				</a>
 					<?php if(isset($actualDate)){ echo $actualDate;} ?>
 					<?php if(isset($time)){ echo $time;} ?>
@@ -31,43 +31,28 @@
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
 							<i class="now-ui-icons design_bullet-list-67"></i>
-							<p>Catégorie</p>
+							<p>Agenda</p>
 						</a>
 						  
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink1">
-						<?php
-							if(!empty($cats))
-							{
-								?>
-									<form action="index.php?page=search" method="POST">
-								<?php
-								for($i = 0; $i < count($cats);$i++)
-								{
-									?>
-										<button type="submit" class="dropdown-item topDrop" name="fetch" value="<?php echo $cats[$i]['ID']; ?>">
-											<?php echo $cats[$i]['Nom']; ?>
-										</button>
-										<div class="dropdown-divider"></div>									
-									<?php
-								}
-								?>
-									</form>
-								<?php
-							} 
-							else
-							{
-								?>
-								<span class="dropdown-item">Aucune catégorie existante.</span>
-								<?php
-							}
-							?>
-							<div class="dropdown-divider"></div>
-							<form action="index.php?page=lobby" method="POST">
-								<button type="submit" class="dropdown-item" name="choice" value="createCat">
-									Proposer une catégorie
+							<form action="index.php?page=calendar" method="POST">
+								<button type="submit" class="dropdown-item" name="choice" value="dayApps">
+									Aujourdh'ui
 								</button>
 							</form>
-						</div>
+							<div class="dropdown-divider"></div>
+							<form action="index.php?page=calendar" method="POST">
+								<button type="submit" class="dropdown-item" name="choice" value="weekApps">
+									Évènements de la semaine
+								</button>
+							</form>
+							<div class="dropdown-divider"></div>
+							<form action="index.php?page=calendar" method="POST">
+								<button type="submit" class="dropdown-item">
+									Calendrier
+								</button>
+							</form>
+					</div>
 					</li>
 	        		<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">

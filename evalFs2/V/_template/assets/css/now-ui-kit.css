@@ -5083,27 +5083,27 @@ img {
 }
 
 .tooltip.bs-tooltip-right .arrow:before {
-  border-right-color: #FFFFFF;
+  border-right-color: #000;
 }
 
 .tooltip.bs-tooltip-top .arrow:before {
-  border-top-color: #FFFFFF;
+  border-top-color: #000;
 }
 
 .tooltip.bs-tooltip-bottom .arrow:before {
-  border-bottom-color: #FFFFFF;
+  border-bottom-color: #000;
 }
 
 .tooltip.bs-tooltip-left .arrow:before {
-  border-left-color: #FFFFFF;
+  border-left-color: #000;
 }
 
 .tooltip-inner {
   padding: 0.5rem 0.7rem;
   min-width: 130px;
-  background-color: #FFFFFF;
+  background-color: #000;
   font-size: 14px;
-  color: inherit;
+  color: #d9edf7;
   box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
 }
 
