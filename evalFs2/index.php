@@ -30,6 +30,9 @@
                         include('C/messages.php');
                         echo 'Messagerie';
                     break;
+                case($_GET['page'] === 'calendar'):
+                        include('C/calendar.php');
+                    break;
                 default:
                     include('E/404.html');
             endswitch;

@@ -1,3 +1,14 @@
+function select(day,event){
+    event.preventDefault();
+    date = String(document.getElementById('date'+ day).value);
+    date = date.split('-');
+    $('#kill'+ day).tooltip('hide');
+    (date[2] < 10)? date[2] = "0"+ date[2]: date[2] = date[2];
+    $('#loginModal').modal('show');
+    document.getElementById('0').value = date[0]+"-"+date[1]+"-"+date[2];
+}
+
+
 function showPass()
 {
     if(document.getElementById('1').type === "password")
@@ -163,23 +174,7 @@ function searchSelect()
     }
 }
 
-$("#addAppForm").submit(function(event){
-    event.preventDefault();
-    query = $.post({
-        url : 'checkAjax.php',
-        data : 
-        {
-            'addName': $('input[name=appName]').val(), 
-            'addDate': $('input[name=appDate]').val(), 
-            'addCat' : $('select[name=appCat]').val(),
-            'addNotes' : $('textarea[name=appNotes]').val(),
-            'addPlace' : $('input[name=appPlace]').val(),
-        }
-    });
-    query.done(function(response){
-        $('#answer').html(response);
-    });
-});
+
 
 function showIt(val){
     val = Number(val);
@@ -209,3 +204,21 @@ function newDate(item)
         $('#endDate').attr({"min" :response});
     });
 }
+
+    $("#addAppForm").submit(function(event){
+        event.preventDefault();
+        query = $.post({
+            url : 'checkAjax.php',
+            data : 
+            {
+                'appName': $('input[name=appName]').val(), 
+                'appDate': $('input[name=appDate]').val(), 
+                'appCat' : $('select[name=appCat]').val(),
+                'appNotes' : $('textarea[name=appNotes]').val(),
+                'appPlace' : $('input[name=appPlace]').val(),
+            }
+        });
+        query.done(function(response){
+            $('#answer').html(response);
+        });
+    });

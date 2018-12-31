@@ -2,7 +2,7 @@
     $db_username = "root";
     $db_password = "";
     $db_host = "localhost";
-    $db_name = "glance";
+    $db_name = "appsEval";
     /* PDO EN FR OU EN ARABE C ISSI */
     $db_options = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", 
                         PDO::MYSQL_ATTR_INIT_COMMAND => "SET lc_time_names = 'fr_FR'");

@@ -13,7 +13,7 @@
   	<!-- NAVBAR -->
   	<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent" color-on-scroll="600">
 		<div class="container">
-			<div class="navbar-translate" style="background-color:transparent">
+			<div class="navbar-translate" style="background-color:transparent;color:#fff" >
 				<a class="navbar-brand" href="index.php?page=lobby" rel="tooltip" title="" data-placement="bottom" target="_self">
 					<!--<img src="V/_template/assets/img/logo.png" height="50px" width="75px">-->
 				</a>
