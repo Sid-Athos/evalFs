@@ -126,4 +126,33 @@
         }
         return $res; 
     }
+
+    function nineSets($db,$query,$set1,$set2,$set3,$set4,$set5,$set6,$set7,$set8,$set9)
+    {
+        
+        try 
+        {
+            $stmt = $db->prepare($query);
+            $stmt->execute(
+                array(
+                    ":set1" => $set1,
+                    ":set2" => $set2,
+                    ":set3" => $set3,
+                    ":set4" => $set4,
+                    ":set5" => $set5,
+                    ":set6" => $set6,
+                    ":set7" => $set7,
+                    ":set8" => $set8,
+                    ":set9" => $set9
+                )
+            );
+            $res = true;
+        }
+        catch(PDOException $ex)
+        {   
+            $res = false;
+            echo $ex;
+        }
+        return $res; 
+    }
 ?>

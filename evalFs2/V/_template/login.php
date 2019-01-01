@@ -1,19 +1,15 @@
 
     <div class="wrapper">
-      <div class="page-header clear-filter">
+      <div class="page-header clear-filter" style="margin-top:0px">
           <div class="page-header-image" data-parallax="true" style="background-image:url('V/_template/assets/img/header.jpg');"></div>
           <div class="container">
           <?php if(isset($message)){ echo $message; }?>                            
             <div>
                 <div class="content-center brand" style="margin-top:35%">
                   <div class="col-md-6 ml-auto mr-auto">
-                      <div class="card card-login card-plain">
+                      <div class="card-login">
                         <form class="form" method="POST" action="index.php?page=login" autocomplete="false">
-                            <div class="card-header text-center">
-                              <div class="logo-container mb-3">
-                              <!--<a href="" onclick="logoEvent(event)"><img src="V/_template/assets/img/logo.png" alt="Glance logo" style="width:250px;height:200px"></a>-->
-                              </div>
-                            </div>
+                            
                             <div class="card-body" style="text-align:center">
                             <?php if(isset($actualDate)){ echo $actualDate;} ?>
                               <div class="input-group no-border input-lg">
@@ -106,18 +102,4 @@
         </div>
       </div>
     </div>
-    <!--   Core JS Files   -->
-    <script src="V/_template/assets/js/core/jquery.min.js" type="text/javascript"></script>
-    <script src="V/_template/assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="V/_template/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-    <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-    <script src="V/_template/assets/js/plugins/bootstrap-switch.js"></script>
-    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    <script src="V/_template/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
-    <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
-    <script src="V/_template/assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-    <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
-    <script src="V/_template/assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
 </body>

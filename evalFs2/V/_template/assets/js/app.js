@@ -181,44 +181,40 @@ function showIt(val){
     if(val === 1)
     {
         document.getElementById('loulilol').style.display = "";
-        document.getElementById('prepit').style.marginTop = "11px";
+        document.getElementById('endDate').required = true;
+        document.getElementById('CSSit').style.height= "45px";
+        document.getElementById('CSSit').style.marginTop = "-1px";
+        for(i = 1; i < 4;i++)
+        {
+            document.getElementById('freq'+ i).required = true;
+        }
     }
     else
     {
         document.getElementById('loulilol').style.display = "none";
-        document.getElementById('prepit').style.marginTop = "10px";
+        document.getElementById('CSSit').style.height = "44px";
+        document.getElementById('CSSit').style.marginTop = "0px";
+        document.getElementById('endDate').required = false;
+        for(i = 1; i < 4;i++)
+        {
+            document.getElementById('freq'+ i).required = false;
+        }
     }
 }
 
 function newDate(item)
 {
+    
     query = $.post({
-        url : 'checkAjax.php',
+        url : 'indexAjax.php',
         data : 
         {
             'date': $('input[name=appDate]').val(), 
         }
     });
     query.done(function(response){
-        console.log(response);
         $('#endDate').attr({"min" :response});
     });
 }
 
-    $("#addAppForm").submit(function(event){
-        event.preventDefault();
-        query = $.post({
-            url : 'checkAjax.php',
-            data : 
-            {
-                'appName': $('input[name=appName]').val(), 
-                'appDate': $('input[name=appDate]').val(), 
-                'appCat' : $('select[name=appCat]').val(),
-                'appNotes' : $('textarea[name=appNotes]').val(),
-                'appPlace' : $('input[name=appPlace]').val(),
-            }
-        });
-        query.done(function(response){
-            $('#answer').html(response);
-        });
-    });
+    

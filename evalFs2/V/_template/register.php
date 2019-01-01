@@ -12,7 +12,7 @@
             <div>
                 <div class="content-center brand">
                   <div class="col-md-6 ml-auto mr-auto">
-                      <div class="card card-login card-plain">
+                      <div class="card-login">
                         <form class="form" method="POST" action="index.php?page=login" id="form"  autocomplete="off">
                             <div class="card-header text-center">
                               <div class="logo-container mb-3">

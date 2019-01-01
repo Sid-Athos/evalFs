@@ -129,4 +129,28 @@
         return $res; 
         
     }
+
+    function fetchFiveSets($db,$query,$set1,$set2,$set3,$set4,$set5)
+    {
+        
+        try 
+        {
+            $stmt = $db->prepare($query);
+            $stmt->execute(
+                array(
+                    ":set1" => $set1,
+                    ":set2" => $set2,
+                    ":set3" => $set3,
+                    ":set4" => $set4,
+                    ":set5" => $set5
+                )
+            );
+        }
+        catch(PDOException $ex)
+        {   
+        }
+        $res = $stmt -> fetchALL();
+        return $res; 
+        
+    }
 ?>

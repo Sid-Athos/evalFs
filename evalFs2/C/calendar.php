@@ -4,6 +4,7 @@
     include('M/getSql.php');
     include('M/otherSql.php');
     include('C/Functions/PHP/messages.php');
+    include('C/Functions/PHP/sessionCheck.php');
     $actualDate = actualDate($db);
     $query = 
     "SELECT *

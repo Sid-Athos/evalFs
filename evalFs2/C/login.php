@@ -60,8 +60,6 @@
                             include('V/_template/register.php');
                         break;
                 case"S'inscrire":
-                        // Insert functions, only useful here
-                        include('M/insertData.php');
                         // Pseudo pattern
                         $pattern = "/^[a-zA-Z0-9\_\.\'\-]{4,29}$/";
                         // Check password, nickname and mail integrity
@@ -102,16 +100,22 @@
                             if($flagMail === true && $flagPassword === true && 
                             $flagPseudo === true)
                             {
-                                $check = twoSets($db,$pseudo,$mail,$pass,$phone);
+                                $query =
+                                "INSERT INTO USERS(pseudo,mail,password,phone)
+                                VALUES(:set1,:set2,:set3,:set4);";
+                                $check = fourSets($db,$query,$pseudo,$mail,$pass,$phone);
                                 if($check === true)
                                 {
                                     $_SESSION['ID'] = $db -> lastInsertId();
-                                    $res = getBackup($db);
+                                    $query = 
+                                    "SELECT *
+                                    FROM USERS;";
+                                    $res = fetchNoSets($db,$query);
                                     include('C/Functions/PHP/backupUsers.php');
                                     backupUsers($res);
                                     $message = success("Compte créé, vous allez être redirigé vers 
-                                    l'accueil membre! Bienvenue $pseudo. Votre mdp est $pw");
-                                    header("refresh:3;url=index.php?page=lobby");
+                                    l'accueil membre! Bienvenue $pseudo!");
+                                    header("refresh:3;url=index.php?page=calendar");
                                 }
                                 else 
                                 {

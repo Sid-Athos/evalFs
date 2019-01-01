@@ -37,30 +37,14 @@
     <link href="V/_template/rotate/css/rotating-card.css" rel="stylesheet" />
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
    
-    <link rel="stylesheet" href="V/_template/assets/css/checkmystyle.css"  type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Armata" rel="stylesheet"> 
     <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
     <script src="V/_template/assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js" integrity="sha384-EIHISlAOj4zgYieurP0SdoiBYfGJKkgWedPHH4jCzpCXLmzVsw1ouK59MuUtP4a1" crossorigin="anonymous"></script>  <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <script src="V/_template/assets/js/app.js"></script>
-    <script>
-    $("#addAppForm").submit(function(event){
-    event.preventDefault();
-    query = $.post({
-        url : 'checkAjax.php',
-        data : 
-        {
-            'addName': $('input[name=appName]').val(), 
-            'addDate': $('input[name=appDate]').val(), 
-            'addCat' : $('select[name=appCat]').val(),
-            'addNotes' : $('textarea[name=appNotes]').val(),
-            'addPlace' : $('input[name=appPlace]').val(),
-        }
-    });
-    query.done(function(response){
-        $('#answer').html(response);
-    });
-});
-</script>
+    
+    <link rel="stylesheet" href="V/_template/assets/css/checkmystyle.css"  type="text/css"/>
+    
 </head>
+<body>
