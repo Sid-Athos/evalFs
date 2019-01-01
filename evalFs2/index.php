@@ -1,6 +1,11 @@
 <?php
     session_start();
-    
+    var_dump($_SESSION);
+    var_dump($_REQUEST);
+    setlocale(LC_ALL, 'fra');
+
+    date_default_timezone_set ("Europe/Paris");
+
     switch(isset($_GET)):
         case(isset($_GET['page'])):
             switch($_GET['page']):
@@ -10,7 +15,7 @@
                 case($_GET['page'] === 'lobby'):
                         //include('C/Functions/PHP/sessionCheck.php');
                         //include('C/lobby.php');
-                        header('Location:index.php?page=messages');
+                        header('Location:index.php?page=calendar');
                         echo "duijsqgdijkqgduigqsuidgqsiu";
                     break;
                 case($_GET['page'] === 'account'):
