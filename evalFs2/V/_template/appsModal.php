@@ -262,7 +262,28 @@
     </div>
     </div>
     <script>
-
+    function killApp(id)
+    {
+        console.log(id);
+        date = document.getElementById('dateApps').textContent;
+        date = date.split("-");
+        (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
+        date = date[0] +"-"+date[1]+"-"+  date[2];
+        /** 
+        query = $.post({
+            url : 'indexAjax.php',
+            data : 
+            {
+                'eraseDate': date, 
+                'usrID': String(<?php echo $_SESSION['ID']; ?>), 
+            }
+        });
+        check = query.done(function(response){
+            //$("#apps"+)
+            $('#answer1').html(response);
+           
+        });*/
+    }
         
     function eraseDates(date)
     {

@@ -1,9 +1,9 @@
-    <body style="background-color:rgba(0,5,5,0.8);margin-top:0px" onload="tableCss();">
+    <body style="background-image:url('V/_template/assets/img/header.jpg');margin-top:0px" onload="tableCss();">
         <div class="wrapper">
             <div class="page-header clear-filter">
                 <div class="page-header-image" data-parallax="true" style="background-image:url('V/_template/assets/img/header.jpg');"></div>
                 
-                    <div class="row" style="margin-top:65px">
+                    <div class="row" style="margin-top:125px">
                         <div class="col-lg-12">
                             <div class="container">
                                 <ul class="list-inline" style="height:45px">
@@ -24,17 +24,17 @@
                     </div>
             
                     <div class="content-center-brand" >
-                        
-                        <table class="table table-bordered table-dark animated" id="calTable" style="margin:auto;display:none">
+                        <div class="bd-example">
+                        <table class="table table-dark table-striped animated" id="calTable" style="margin:auto;display:none;max-width:1200px">
                             <thead>
-                                <tr style="width:900px">
-                                    <th style="width:250px;min-width: 250px;">Lundi</th>
-                                    <th style="width:250px;min-width: 250px;">Mardi</th>
-                                    <th style="width:250px;min-width: 250px;">Mercredi</th>
-                                    <th style="width:250px;min-width: 250px;">Jeudi</th>
-                                    <th style="width: 250px;min-width: 250px;">Vendredi</th>
-                                    <th style="width:250px;min-width: 250px;" data-toggle="tooltip" data-placement="top" title="CI LI">Samedi</th>
-                                    <th style="width:250px;min-width: 250px;" data-toggle="tooltip" data-placement="top" title="WIK AND">Dimanche</th>
+                                <tr style="">
+                                    <th scope="col" style="">Lundi</th>
+                                    <th scope="col" style="">Mardi</th>
+                                    <th scope="col" style="">Mercredi</th>
+                                    <th scope="col" style="">Jeudi</th>
+                                    <th scope="col" style="">Vendredi</th>
+                                    <th scope="col" style="" data-toggle="tooltip" data-placement="top" title="CI LI">Samedi</th>
+                                    <th scope="col" style="" data-toggle="tooltip" data-placement="top" title="WIK AND">Dimanche</th>
                                 </tr>
                             </thead>
                             <tbody style="width:900px">
@@ -45,7 +45,7 @@
                                 ?>
                             </tbody>
                         </table>
-                        
+                        </div>
                     </div>
             </div>
         </div> 

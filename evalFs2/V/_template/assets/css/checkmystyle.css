@@ -157,23 +157,7 @@ tr{
     height:38px;
 }
 
-table{
-    display:block;
-    width:900px;
-}
-table tr{
-    display:block;
-    width:900px;
-}
-td, th{
-    
-    width:900px;
-}
-.table.table-bordered.table-dark{
-    display:block;
-    width:1750px;
-    max-width:1750px;
-}
+
 .card-container{
     width:250px;
 }

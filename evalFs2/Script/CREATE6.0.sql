@@ -20,10 +20,7 @@ SET time_zone = "+00:00";
 
 --
 -- Base de données :  `GLANCE`
---
-DROP DATABASE IF EXISTS `appsEval`;
-CREATE DATABASE IF NOT EXISTS `appsEval` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `appsEval`;
+
 
 
 -- --------------------------------------------------------

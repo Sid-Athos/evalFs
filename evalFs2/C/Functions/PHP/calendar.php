@@ -17,7 +17,7 @@
     $str = date('N', $timestamp);
     $week = '';
     // Add empty cell(s)
-    $week = $week.str_repeat('<td style="min-width:250px;width:250px;min-width: 250px;"></td>', $str - 1);
+    $week = $week.str_repeat('<td style=""></td>', $str - 1);
     $color = "none";
     for ($day = 1; $day <= $daysCount; $day++, $str++) {
         ($day < 10) ? $days = "0$day" : $days = $day;
@@ -25,9 +25,9 @@
         $dates = "$ym-$days";
 
         if ($today == $date) {
-            $week .= '<td class="today" data-toggle="tooltip" data-placement="left" title="Ajd" style="background-color:rgba(78,239,56,0.4);width: 250px;min-width: 250px;max-width:250px">';
+            $week .= '<td class="today" data-toggle="tooltip" data-placement="left" title="Ajd" style="background-color:rgba(78,239,56,0.4);">';
         } else {
-            $week .= '<td style="width: 250px;min-width: 250px;max-width:250px">';
+            $week .= '<td style="">';
         }
         $found = false;
         for($i = 0; $i <count($apps);$i++)
@@ -41,9 +41,9 @@
                         <form method='post' class='form-check-inline'>
                             <button type='submit' class='btn btn-secondary form-check form-check-inline'  name='fetchApps' value='$date'
                             data-toggle='tooltip' data-placement='top' title='Afficher les évènements de la journée'
-                            style='text-align:center;left:10px;font-size:14px'>$day</button>
+                            style='text-align:center;left:10px;font-size:14px' onclick='getMyApps($day,event);'>$day</button>
                             <button type='submit' class='btn btn-secondary form-check form-check-inline' name='addApps' value='$date' 
-                            data-toggle='tooltip' data-placement='top' title='Ajouter un évènement' style='text-align:center;left:20px;font-size:14px;width:180px'
+                            data-toggle='tooltip' data-placement='top' title='Ajouter un évènement' style='text-align:center;left:20px;font-size:14px;width:auto'
                             onclick='select($day,event);'>Ajouter un évènement <i class='now-ui-icons ui-1_simple-add form-check-inline' style='color:#4ca1af'></i></button>
                         </form>
                     </div>
@@ -54,7 +54,7 @@
                         text-align:center;height:85px;color:#FFFFFF;margin-bottom:-12px;vertical-align:bottom;width:102%;left:-2px;right:0px'>
                             <div class='alert-icon'>
                             </div>
-                            <form method='post' action='index.php?page=apps' id='fetchAllApps' class='form-check-inline'>
+                            <form method='post' id='fetchAllApps$day' class='form-check-inline'>
                                 <i class='fa fa-circle' aria-hidden='true' id='past$date' style='display:$color;margin-top:10px;color:#FDC830'></i>
                                 <button type='submit' class='btn btn-secondary form-check form-check-inline bg-transparent ml-auto mr-auto' 
                                 style='position:relative;box-sizing:unset;outline:inherit;color:#FFFFFF;vertical-align:bottom;top:25px;text-align:center;left:15px;'  
@@ -86,9 +86,9 @@
                 <form method='post' class='form-check-inline'>
                     <button type='submit' class='btn btn-secondary form-check form-check-inline'  name='fetchApps' value='$date'
                     data-toggle='tooltip' data-placement='top' title='Afficher les évènements de la journée'
-                    style='text-align:center;left:10px;font-size:14px'>$day</button>
+                    style='text-align:center;left:10px;font-size:14px' onclick='getMyApps($day,event);'>$day</button>
                     <button type='submit' class='btn btn-secondary form-check form-check-inline' name='addApps' value='$date' 
-                    data-toggle='tooltip' data-placement='top' title='Ajouter un évènement' style='text-align:center;left:20px;font-size:14px;width:180px'
+                    data-toggle='tooltip' data-placement='top' title='Ajouter un évènement' style='text-align:center;left:20px;font-size:14px;width:auto'
                     onclick='select($day,event);'>Ajouter un évènement <i class='now-ui-icons ui-1_simple-add form-check-inline' style='color:#4ca1af'></i></button>
                 </form>
             </div>
@@ -99,11 +99,11 @@
                 text-align:center;height:85px;color:#FFFFFF;margin-bottom:-12px;vertical-align:bottom;width:102%;left:-2px;right:0px'>
                     <div class='alert-icon'>
                     </div>
-                    <form method='post' class='form-check-inline'>
+                    <form method='post'  class='form-check-inline'>
                         <i class='fa fa-circle' aria-hidden='true' id='past$dates' style='display:$color;margin-top:10px;color:#decba4'></i>
                         <button type='submit' class='btn btn-secondary form-check form-check-inline bg-transparent ml-auto mr-auto' 
                         style='position:relative;box-sizing:unset;outline:inherit;color:#FFFFFF;vertical-align:bottom;top:25px;text-align:center;left:15px;'  name='fetchApps'  value='$date'
-                        data-toggle='tooltip' data-placement='left' title='Afficher les évènements de la journée' id='date$day' onclick='getMyApps('$dates',event);'>
+                        data-toggle='tooltip' data-placement='left' title='Afficher les évènements de la journée' id='date$day' onclick='getMyApps($day,event);'>
                         <span id='apps$dates'>0</span> évènement(s) prévu(s) 
                         </button>
                         <button type='button' class='close' id='kill$day'  style='position:relative;right:-15px;color:#FFFFFF'
@@ -121,7 +121,7 @@
         
         if ($str % 7 == 0 || $day == $daysCount) {
             if ($day == $daysCount && $str % 7 != 0) {
-                $week = $week.str_repeat('<td style="min-width:250px;width:250px;min-width: 250px;"></td>', 7 - $str % 7);
+                $week = $week.str_repeat('<td style=""></td>', 7 - $str % 7);
             }
             $weeks[] = "<tr>$week</tr>";
             $week = '';
