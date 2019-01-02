@@ -7,6 +7,38 @@
     include('M/otherSql.php');
 
     switch(isset($_POST)):
+        case(isset($_POST['eraseApp'])):
+                if(preg_match("/^[0-9]+$/",$_POST['eraseApp'])){
+                    $query[0] = 
+                    "DELETE 
+                    FROM BELONGS 
+                    WHERE BELONGS.appointmentID = :set1;";
+
+                    $query[1] =
+                    "DELETE 
+                    FROM APPOINTMENTS 
+                    WHERE APPOINTMENTS.ID =:set1;";
+
+                    for($i = 0; $i < count($query);$i++)
+                    {
+                        if(oneSet($db,$query[$i],$_POST['eraseApp']) === true){
+                            if($i === 1){
+                                $messages[] = success("Suppression confirmée");
+                            }
+                        } else {
+                            $messages[] = alert("Erreur lors du traitement de la requête, veuillez réessayer plus tard.");
+                        }
+                    }
+                    if(count($messages) > 0)
+                    {
+                        for($i = 0; $i < count($messages); $i++)
+                        {
+                            echo $messages[$i];
+                        }
+                        unset($messages);
+                    }
+                }
+            break;
         case(isset($_POST['fetchApps'])):
                 (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['fetchApps']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
                 if(count($messages === 0))
@@ -30,12 +62,12 @@
                 {
                     $query[0] = 
                     "DELETE 
-                    FROM belongs 
-                    WHERE belongs.appointmentID = ANY (SELECT ID FROM appointments WHERE userID = :set1 and appDay = :set2);";
+                    FROM BELONGS 
+                    WHERE BELONGS.appointmentID = ANY (SELECT ID FROM APPOINTMENTS WHERE userID = :set1 and appDay = :set2);";
 
                     $query[1] =
                     "DELETE 
-                    FROM appointments 
+                    FROM APPOINTMENTS 
                     WHERE userID = :set1 
                     and appDay = :set2;";
 

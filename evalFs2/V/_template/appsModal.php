@@ -228,7 +228,7 @@
     <!-- Modal -->
 <div class="modal fade" id="appsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" style="box-shadow:none;background-color:transparent;margin-top:180px;margin-left:120px">
+    <div class="modal-content" style="box-shadow:none;background-color:transparent;margin-top:180px;margin-left:120px;max-width:250px">
       <div class="modal-header" id="answer2" style="background-color:transparent">
         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -264,48 +264,52 @@
     <script>
     function killApp(id)
     {
-        console.log(id);
-        date = document.getElementById('dateApps').textContent;
+        $('#tooltip'+id).tooltip('hide');
+        document.getElementById('rdv'+ id).remove();
+        date = document.getElementById('dateApp'+ id).textContent;
         date = date.split("-");
         (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
-        date = date[0] +"-"+date[1]+"-"+  date[2];
-        /** 
+        date = date[0] +"-"+date[1]+"-"+  date[2];        
         query = $.post({
             url : 'indexAjax.php',
             data : 
             {
-                'eraseDate': date, 
-                'usrID': String(<?php echo $_SESSION['ID']; ?>), 
+                'eraseApp': id, 
             }
         });
         check = query.done(function(response){
-            //$("#apps"+)
-            $('#answer1').html(response);
-           
-        });*/
+            $('#eraseAppAnswer').html(response);
+            if((Number(document.getElementById('apps'+ date).innerHTML)>0)){
+                document.getElementById('apps'+ date).innerHTML = (Number(document.getElementById('apps'+ date).innerHTML) -1);
+
+            }
+        });
     }
         
     function eraseDates(date)
     {
-        date = date.split("-");
-        (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
-        date = date[0] +"-"+date[1]+"-"+  date[2];
-        console.log(date);
-        query = $.post({
-            url : 'indexAjax.php',
-            data : 
-            {
-                'eraseDate': date, 
-                'usrID': String(<?php echo $_SESSION['ID']; ?>), 
-            }
-        });
-        check = query.done(function(response){
-            //$("#apps"+)
-            $('#answer1').html(response);
-           
-        });
-        document.getElementById('past'+ date).style.display = "none";
-        document.getElementById('apps'+ date).innerHTML = "0";
+        if(Number(document.getElementById('apps'+ date).innerHTML) > 0)
+        {
+            date = date.split("-");
+            (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
+            date = date[0] +"-"+date[1]+"-"+  date[2];
+            console.log(date);
+            query = $.post({
+                url : 'indexAjax.php',
+                data : 
+                {
+                    'eraseDate': date, 
+                    'usrID': String(<?php echo $_SESSION['ID']; ?>), 
+                }
+            });
+            check = query.done(function(response){
+                //$("#apps"+)
+                $('#answer1').html(response);
+               
+            });
+            document.getElementById('past'+ date).style.display = "none";
+            document.getElementById('apps'+ date).innerHTML = "0";
+        }
     }
     
     var form;
@@ -412,10 +416,13 @@ $("#addAppForm").submit(function(event){
 
     function deleteApps(date,event)
     {
-        event.preventDefault();
-        console.log(date);
-        $('#confModal').modal('show');
-        document.getElementById("eraseDate").value = date;
+        if(Number(document.getElementById('apps'+ date).innerHTML) > 0)
+        {
+            event.preventDefault();
+            console.log(date);
+            $('#confModal').modal('show');
+            document.getElementById("eraseDate").value = date;
+        }
     }
     function getMyApps(date,event){
             event.preventDefault();

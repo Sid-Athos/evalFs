@@ -8,7 +8,7 @@
     include('V/_template/htmlTop.php');
     include('V/_template/navbar.php');
     $messages = array();
-
+    var_dump($_POST);
     switch(isset($_POST)):
         case(isset($_POST['fetchApps'])):
                 (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['fetchApps']))? $messages = $messages : $messages[] = alert("Date incorrecte !");

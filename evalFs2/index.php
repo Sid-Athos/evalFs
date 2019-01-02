@@ -15,12 +15,11 @@
                         include('C/Functions/PHP/sessionCheck.php');
                         include('C/apps.php');
                     break;
-                case($_GET['page'] === 'lobby'):
+                /**case($_GET['page'] === 'lobby'):
                         include('C/Functions/PHP/sessionCheck.php');
                         //include('C/lobby.php');
                         header('Location:index.php?page=calendar');
-                        echo "duijsqgdijkqgduigqsuidgqsiu";
-                    break;
+                    break;*/
                 case($_GET['page'] === 'account'):
                         include('C/Functions/PHP/sessionCheck.php');
                         include('C/account.php');
@@ -35,7 +34,6 @@
                 case($_GET['page'] === 'messages'):
                         include('C/Functions/PHP/sessionCheck.php');
                         include('C/messages.php');
-                        echo 'Messagerie';
                     break;
                 case($_GET['page'] === 'calendar'):
                         include('C/calendar.php');

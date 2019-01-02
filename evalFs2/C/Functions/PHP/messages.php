@@ -8,7 +8,7 @@
         </div>'.$string.'
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">
-          <i class="now-ui-icons ui-1_simple-remove" style="position:relative;top:-10px"></i>
+          <i class="now-ui-icons ui-1_simple-remove" style="position:relative;top:-10px;color:#fff"></i>
           </span>
         </button>
       </div>
@@ -21,7 +21,7 @@
           <div class="alert-icon">
           </div>'.$string.'<button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">
-            <i class="now-ui-icons ui-1_simple-remove" style="position:relative;top:-10px"></i>
+            <i class="now-ui-icons ui-1_simple-remove" style="position:relative;top:-10px;color:#fff"></i>
           </span>
         </button>
       </div>

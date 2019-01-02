@@ -2,7 +2,8 @@
     <script src="V/_template/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
     <script src="V/_template/assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
     <script src="V/_template/assets/js/app.js"></script>
-    
+    <div id="eraseAppAnswer" style="position:absolute;top:-50px;left:-150px">
+    </div>
         <?php
             if(!empty($res)){
                 $compteur = 0;
@@ -23,8 +24,7 @@
                                 </div>
                                 <div class="content">
                                     <div class="main" style="background-color:#212529;color:rgba(255,255,255,0.7)">
-                                    <h5 class="motto" style="display:none" id="dateApps"><?php echo $_POST['fetchApps']; ?></h5>
-
+                                        <h5 class="motto" id="dateApp<?php echo $res[0]['appId'];?>"style="display:none"><?php echo $_POST['fetchApps']; ?></h5>
                                         <p class="profession">Au menu aujourd'hui</p>
                                         <p class="text-center">"I'm the new Sinatra, and since I made it here I can make it anywhere, yeah, they love me everywhere"</p>
                                     </div>
@@ -50,7 +50,6 @@
                                 </div>
                                 <div class="content">
                                     <div class="main" style="background-color:#212529;color:rgba(255,255,255,0.7)">
-                                    <h5 class="motto" style="display:none" id="date<?php echo $res[$i]['appId'];?>"><?php echo $_POST['fetchApps']; ?></h5>
                                         <h3 class="name">Au menu aujourd'hui</h3>
                                         <p class="text-center">"I'm the new Sinatra, and since I made it here I can make it anywhere, yeah, they love me everywhere"</p>
                                     </div>
@@ -61,9 +60,9 @@
                             <?php
                         } else {
                         ?>
-                    
+                                
                                 <div class="content" id="rdv<?php echo $res[$i]['appId'];?>" style="border-top-left-radius:5px;border-top-right-radius:5px">
-                                    <h5 class="motto" data-toggle="tooltip" data-placement="top" title="Rendez-vous de <?php $hour = explode(":",$res[$i]['startTime']); $hour = $hour[0].":".$hour[1];  echo $hour; ?>" 
+                                    <h5 class="motto" id="tooltip<?php echo $res[$i]['appId'];?>" data-toggle="tooltip" data-placement="top" title="Rendez-vous de <?php $hour = explode(":",$res[$i]['startTime']); $hour = $hour[0].":".$hour[1];  echo $hour; ?>" 
                                     style="z-index:99;color:rgba(255,255,255,1);font-size:20px"><?php echo $res[$i]['appName']; ?>
                                     <i class="now-ui-icons ui-1_simple-remove" onclick="killApp(<?php echo $res[$i]['appId'];?>);" style="cursor:pointer;font-size:10px"></i>
                                     </h5>
@@ -82,6 +81,7 @@
                                                     <h6 class="motto">Situé à : <br><?php echo $res[$i]['place']; ?><br></h6>
                                                     <h6 class="motto">Catégorie : <br><?php if($res[$i]['name'] === 'Amoureux'){ echo '<i class="now-ui-icons ui-2_favourite-28" style="margin-right:10px;font-size:15px;color:#ee9ca7"></i>';} echo $res[$i]['name']; ?></h6>
                                                     <h6 class="motto">Pense intelligent : <br><?php echo $res[$i]['notes']; ?><br></h6>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -102,10 +102,18 @@
                                                     <h6 class="motto">Pense intelligent : <br><?php echo $res[$i]['notes']; ?><br></h6>
                                                 </div>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <div class="main" style="background-color:transparent;color:#FFFFFF;max-height:50px;min-height:50px;height:50px;margin-top:-40px;left:15px" >
+                                    <form method="post" action="index.php?page=apps">
+                                        <button type="submit" name="editApp" value="<?php echo $res[$i]['appId']; ?>" class="btn sid form-check-inline"
+                                        style="left:25px">
+                                        Modifier l'évènement
+                                        </button>
+                                    </form>
+                                </div>
                     <?php
                     }
                 }
@@ -135,4 +143,15 @@
                 echo alert("Aucun rendez-vous disponible");
             }
         ?>
-       
+       <style>
+        .btn.sid:hover{
+            background-color:transparent;
+        }
+        .btn.sid:focus{
+            background-color:transparent;
+        }
+        .btn.sid:active{
+            background-color:transparent;
+        }
+
+       </style>

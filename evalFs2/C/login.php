@@ -176,7 +176,7 @@
                                         //sessionKeyller($_SESSION);
                                         $_SESSION['ID'] = $res[0]['ID'];
                                         $_SESSION['greetings'] = "Bonjour ".$res[0]['pseudo']." <br>. Nous sommes le $actualDate !";
-                                        header("Location:index.php?page=lobby");
+                                        header("Location:index.php?page=calendar");
                                     }
                                 }
                                 unset($check,$res);
