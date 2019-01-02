@@ -1,22 +1,74 @@
 <?php
 
     include('C/Functions/PHP/messages.php');
+    $messages = array();
+    include('M/dbConnect.php');
+    include('M/getSql.php');
+    include('M/otherSql.php');
 
     switch(isset($_POST)):
+        case(isset($_POST['fetchApps'])):
+                (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['fetchApps']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
+                if(count($messages === 0))
+                {
+                    $query =
+                        "SELECT APPOINTMENTS.ID, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
+                        year(appDay) as years, dayname(appDay) as dayName, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, APPOINTMENTS.duration
+                        ,CATEGORYS.name
+                        FROM APPOINTMENTS JOIN CATEGORYS ON APPOINTMENTS.appCat = CATEGORYS.ID
+                        WHERE APPOINTMENTS.appDay = :set1
+                        AND APPOINTMENTS.userID = :set2
+                        ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
+
+                    $res = fetchTwoSets($db,$query,$_POST['fetchApps'],$_POST['usrID']);
+                    include('V/_template/appDetailsCards.php');
+                }
+            break;
+        case(isset($_POST['eraseDate'])):
+                (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['eraseDate']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
+                if(count($messages) === 0)
+                {
+                    $query[0] = 
+                    "DELETE 
+                    FROM belongs 
+                    WHERE belongs.appointmentID = ANY (SELECT ID FROM appointments WHERE userID = :set1 and appDay = :set2);";
+
+                    $query[1] =
+                    "DELETE 
+                    FROM appointments 
+                    WHERE userID = :set1 
+                    and appDay = :set2;";
+
+                    for($i = 0; $i < count($query);$i++)
+                    {
+                        if(twoSets($db,$query[$i],$_POST['usrID'],$_POST['eraseDate']) === true){
+                            if($i === 1){
+                                $messages[] = success("Suppression confirmée");
+                            }
+                        } else {
+                            $messages[] = alert("Erreur lors du traitement de la requête, veuillez réessayer plus tard.");
+                        }
+                    }
+                }
+                if(count($messages) > 0)
+                {
+                    for($i = 0; $i < count($messages); $i++)
+                    {
+                        echo $messages[$i];
+                    }
+                    unset($messages);
+                } 
+            break;
         case(isset($_POST['appRecc'])):
-                $messages = array();
+
                 if($_POST['appRecc'] === "1")
                 {
-                    $_SESSION['ID'] = 6;
-                    (empty($_POST['appHour'])) ? $_POST['appHour'] = "0" : $_POST['appHour'];
 
                     (preg_match("/^[0-9]{1}$/",$_POST['appCat'])) ? $messages = $messages : $messages[] = alert("Catégorie invalide !") ;
 
-                    (intval($_POST['appHour']) <= 23 && intval($_POST['appHour']) >= 0) ? $messages = $messages: $messages[] = alert("L'heure n'est pas au format adéquat!");
+                    (!empty($_POST['appHour']) && (strtotime($_POST['appHour']) < strtotime("23:59:15")) && (strtotime($_POST['appHour']) >= strtotime("00:00:00"))) ? $messages = $messages: $messages[] = alert("L'heure n'est pas au format adéquat!");
 
                     (intval($_POST['timeH']) <= 23 && intval($_POST['timeH']) >= 0) ? $messages = $messages : $messages[] = alert("La duréen'est pas au format adéquat!");
-
-                    (intval($_POST['appMins']) <= 59 && intval($_POST['appMins']) >= 0) ? $messages = $messages : $messages[] = alert("Les minutes ne sont pas au format adéquat!");
 
                     (intval($_POST['timeM']) <= 59 && intval($_POST['timeM']) >= 0) ? $messages = $messages : $messages[] = alert("Les minutes ne sont pas au format adéquat!");
 
@@ -31,24 +83,22 @@
                     if(count($messages) === 0){
 
                     }
-                        include('M/dbConnect.php');
-                        include('M/getSql.php');
                         $query =
                         "SELECT *
                         FROM APPOINTMENTS
                         WHERE userID = :set1
                         AND appDay = :set2
-                        AND (:set3 BETWEEN startTime AND addtime(:set4,:set5)
+                        AND (:set3 BETWEEN startTime AND addtime(startTime,duration)
                         OR startTime Between :set3 AND addtime(:set4,:set5))
                         ORDER BY startTime;";
 
                         if(!empty($res = fetchFiveSets(
                             $db,
                             $query,
-                            $_SESSION['ID'],
+                            $_POST['usrID'],
                             $_POST['appDate'],
-                            ($_POST['appHour'].":".$_POST['appMins'].":00"),
-                            ($_POST['appHour'].":".$_POST['appMins'].":00"),
+                            ($_POST['appHour'].":00"),
+                            ($_POST['appHour'].":00"),
                             ($_POST['timeH'].":".$_POST['timeM'].":00")
                             )))
                         {
@@ -62,7 +112,7 @@
                             }
                             else 
                             {
-                                $_POST['appPlace'] = 'DEFAULT';
+                                $_POST['appPlace'] = "Aucun endroit défini";
                             }
 
                             if(!empty($_POST['appNotes']) && preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/",$_POST['appNotes'])) {
@@ -70,47 +120,45 @@
                             } 
                             else 
                             {
-                                $_POST['appNotes'] = 'DEFAULT';
+                                $_POST['appNotes'] = "Aucune note disponible";
                             }
 
                             if(($acDate - $today) >= 86400){
-                                    include('M/otherSql.php');
-                                    $query =
-                                    "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime, duration, appCat, userID) 
-                                    VALUES(:set1,:set2, :set3, (
-                                    CASE appDay 
-                                    WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
-                                    THEN :set5 ELSE NULL
-                                    END),:set6,:set7,:set8,:set9);";
-                    
-                                    (intval($_POST['appHour']) <10)? $_POST['appHour'] = "0".$_POST['appHour'] : $_POST['appHour'] = $_POST['appHour'];
-                                    (intval($_POST['appMins']) <10)? $_POST['appMins'] = "0".$_POST['appMins'] : $_POST['appMins'] = $_POST['appMins'];
-                                    (intval($_POST['timeH']) <10)? $_POST['timeH'] = "0".$_POST['timeH'] : $_POST['timeH'] = $_POST['timeH'];
-                                    (intval($_POST['timeM']) <10)? $_POST['timeM'] = "0".$_POST['timeM'] : $_POST['timeM'] = $_POST['timeM'];
-                                    
-                                    if(nineSets(
-                                        $db,$query,$_POST['appName'],$_POST['appPlace'],$_POST['appNotes'],
-                                        $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":".$_POST['appMins'].":00"),($_POST['timeH'].":".$_POST['timeM'].":00"),
-                                        $_POST['appCat'],$_SESSION['ID']
-                                    ) == true){
-
-                                        $messages[] = success("Rdv ajouté!");
-                                        unset($query,$res);
-                                        $id = $db -> lastInsertId();
-                                        
-                                        $query =
-                                        "INSERT INTO BELONGS(categoryID,appointmentID)
-                                        VALUES(:set1,:set2);";
-
-                                        
-                                    } else{
-                                        $messages[] = alert("Erreur dans l'ajout du rdv!");
-                                    }
+                                $query =
+                                "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime, duration, appCat, userID) 
+                                VALUES(:set1,:set2, :set3, (
+                                CASE appDay 
+                                WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
+                                THEN :set5 ELSE NULL
+                                END),:set6,:set7,:set8,:set9);";
+                
+                                (intval($_POST['timeH']) <10)? $_POST['timeH'] = "0".$_POST['timeH'] : $_POST['timeH'] = $_POST['timeH'];
+                                (intval($_POST['timeM']) <10)? $_POST['timeM'] = "0".$_POST['timeM'] : $_POST['timeM'] = $_POST['timeM'];
                                 
+                                if(nineSets(
+                                    $db,$query,$_POST['appName'],$_POST['appPlace'],$_POST['appNotes'],
+                                    $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":00"),($_POST['timeH'].":".$_POST['timeM'].":00"),
+                                    $_POST['appCat'], $_POST['usrID']
+                                ) == true){
+
+                                    $messages[] = success("Rdv ajouté!");
+                                    unset($query,$res);
+                                    $id = $db -> lastInsertId();
+                                    
+                                    $query =
+                                    "INSERT INTO BELONGS(categoryID,appointmentID)
+                                    VALUES(:set1,:set2);";
+
+                                    twoSets($db,$query,$_POST['appCat'],$id);
+                                    unset($id);
+                                } else{
+                                    $messages[] = alert("Erreur dans l'ajout du rdv!");
+                                }
+                                
+                            } else {
+                                $messages[] = alert("La date de rendez-vous ne peut être prise dans le passé!");
                             }
                         }
-
-                    
                 } 
                 else if($_POST['appRecc'] === "0")
                 {
@@ -129,7 +177,6 @@
                     }
                     unset($messages);
                 } 
-
             break;
         case(isset($_POST['date'])):
 

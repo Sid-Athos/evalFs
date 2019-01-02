@@ -79,6 +79,7 @@
         }
         catch(PDOException $ex)
         {   
+            echo $ex;
         }
         $res = $stmt -> fetchALL();
         return $res; 

@@ -1,7 +1,6 @@
 <?php
     session_start();
-    var_dump($_SESSION);
-    var_dump($_REQUEST);
+    
     setlocale(LC_ALL, 'fra');
 
     date_default_timezone_set ("Europe/Paris");
@@ -11,6 +10,9 @@
             switch($_GET['page']):
                 case($_GET['page'] === 'login'):
                         include('C/login.php');
+                    break;
+                case($_GET['page'] === 'apps'):
+                        include('C/apps.php');
                     break;
                 case($_GET['page'] === 'lobby'):
                         //include('C/Functions/PHP/sessionCheck.php');

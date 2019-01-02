@@ -3,7 +3,7 @@
     function alert($string) {
         return $string = '<div class="alert alert-danger ml-auto mr-auto" role="alert" style="text-align:center;width:500px;display:inline-block;
         margin:auto;z-index:4;" >
-        <div class="container" id="alert">
+        <div class="container" id="success">
         <div class="alert-icon">
         </div>'.$string.'
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
