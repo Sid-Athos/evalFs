@@ -106,10 +106,10 @@
                                             
                                         </div>
                                     </div>
-                                <div class="main " style="background-color:transparent;color:#FFFFFF;max-height:10px;min-height:10px;height:10px;" >
+                                <div class="main " style="background-color:transparent;color:#FFFFFF;max-height:10px;min-height:10px;height:10px;left:25px" >
                                     <form method="post" action="index.php?page=apps">
                                         <button type="submit" name="editApp" value="<?php echo $res[$i]['appId']; ?>" class="btn sid form-check-inline"
-                                        style="left:35px;margin-top:-35px">
+                                        style="left:45px;margin-top:-5px">
                                         Modifier l'évènement
                                         </button>
                                     </form>
