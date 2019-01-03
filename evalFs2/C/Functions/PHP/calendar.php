@@ -1,4 +1,5 @@
 <?php 
+
     // Déjà on vacommencer par un copyright
     $timestamp = strtotime($ym);  
     if ($timestamp === false) {
@@ -50,7 +51,7 @@
                 </div>
                 <div class='row'>
                     <div class='col-lg-12'>
-                        <div class='alert alert-info ml-auto mr-auto' role='alert' style='z-index:4;
+                        <div class='alert alert-info ml-auto mr-auto' id='alert($day)' role='alert' style='z-index:4;background-color:#833ab4;
                         text-align:center;height:85px;color:#FFFFFF;margin-bottom:-12px;vertical-align:bottom;width:102%;left:-2px;right:0px'>
                             <div class='alert-icon'>
                             </div>
@@ -95,12 +96,12 @@
         </div>
         <div class='row'>
             <div class='col-lg-12'>
-                <div class='alert alert-info ml-auto mr-auto' role='alert' style='z-index:4;
+                <div class='alert alert-info ml-auto mr-auto' id='alert($day)' role='alert' style='z-index:4;
                 text-align:center;height:85px;color:#FFFFFF;margin-bottom:-12px;vertical-align:bottom;width:102%;left:-2px;right:0px'>
                     <div class='alert-icon'>
                     </div>
                     <form method='post'  class='form-check-inline'>
-                        <i class='fa fa-circle' aria-hidden='true' id='past$dates' style='display:$color;margin-top:10px;color:#decba4'></i>
+                        <i class='fa fa-circle' aria-hidden='true' id='past$dates' style='display:$color;margin-top:10px;;color:#FDC830'></i>
                         <button type='submit' class='btn btn-secondary form-check form-check-inline bg-transparent ml-auto mr-auto' 
                         style='position:relative;box-sizing:unset;outline:inherit;color:#FFFFFF;vertical-align:bottom;top:25px;text-align:center;left:15px;'  name='fetchApps'  value='$date'
                         data-toggle='tooltip' data-placement='left' title='Afficher les évènements de la journée' id='date$day' onclick='getMyApps($day,event);'>
@@ -127,8 +128,5 @@
             $week = '';
         }
     }
-    for($i = 0; $i < 8;$i++)
-    {
-        $_POST[$i] = $i;
-    }
+        
 ?>

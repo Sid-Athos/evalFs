@@ -1,9 +1,8 @@
 <?php
     include('M/dbConnect.php');
 
-
-
-    try 
+    echo(strtotime("15 dec 2018") . "<br>");
+    /**try 
     {
         $stmt = $db->prepare($query);
         $stmt->execute(
@@ -38,5 +37,5 @@
     {   
         echo $ex;
         $res = false;
-    }
+    }*/
 ?>

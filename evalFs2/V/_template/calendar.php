@@ -1,3 +1,8 @@
+<?php
+  if(!isset($_GET['page'])){
+    header("Location: http://localhost/evalFs/evalFs2/index.php");
+  }
+?>
     <body style="background-image:url('V/_template/assets/img/header.jpg');margin-top:0px" onload="tableCss();">
         <div class="wrapper">
             <div class="page-header clear-filter">

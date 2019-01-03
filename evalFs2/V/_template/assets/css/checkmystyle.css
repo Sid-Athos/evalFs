@@ -344,7 +344,7 @@ body{
 border-top-left-radius:5px;
 border-bottom-left-radius:5px;
 }
-@charset "UTF-8";
+/*@charset "UTF-8";
 
 /*!
  * animate.css -http://daneden.me/animate
@@ -3966,8 +3966,4 @@ border-bottom-left-radius:5px;
     -webkit-transition: none !important;
     transition: 2s;
   }
-}
-
-.btn.btn-secondary:hover{
-  
 }

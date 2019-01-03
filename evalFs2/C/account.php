@@ -1,5 +1,9 @@
 
 <?php
+
+    if(!isset($_GET['page'])){
+        header("Location: http://localhost/evalFs/evalFs2/index.php");
+    }
     $page = "Gestion de compte";
     include('V/_template/htmlTop.php');
     include('M/dbConnect.php');

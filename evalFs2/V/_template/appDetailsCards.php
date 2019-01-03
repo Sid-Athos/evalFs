@@ -11,8 +11,8 @@
                 $where = intval($res[0]['dayNum']);
                 $day = intval($res[0]['dayNum']);
                 ?>
-                <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-                        <div class="card" style="border:none;width:250px;position:relative;top:-200px">
+                <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning" style="width:290px">
+                        <div class="card" style="border:none;width:290px;position:relative;top:-200px">
                             <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                                 
                                 <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
@@ -38,10 +38,10 @@
                         if($day !== (intval($res[($i)]['dayNum']))){
                             $day = intval($res[($i)]['dayNum']);
                             ?>
-                <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning">
-                        <div class="card" style="border:none;width:250px;position:relative;top:-200px">
+                <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning" style="width:315px;min-width:300px">
+                        <div class="card" style="border:none;width:350px;position:relative;top:-200px">
                             <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
-                                <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
+                                <div class="header" style="background-color:rgba(44, 95, 255,0.2);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                                     <h2 class="text-center" style="z-index:99;color:rgba(255,255,255,1);font-size:20px">
                                         <?php echo ucfirst($res[$i]['dayName']);?>, <?php echo $res[$i]['dayNum'];?> <?php echo ucfirst($res[$i]['monthName']);?> <?php echo $res[$i]['years'];?>
                                 </div>
@@ -61,14 +61,15 @@
                         } else {
                         ?>
                                 
-                                <div class="content" id="rdv<?php echo $res[$i]['appId'];?>" style="border-top-left-radius:5px;border-top-right-radius:5px">
-                                    <h5 class="motto" id="tooltip<?php echo $res[$i]['appId'];?>" data-toggle="tooltip" data-placement="top" title="Rendez-vous de <?php $hour = explode(":",$res[$i]['startTime']); $hour = $hour[0].":".$hour[1];  echo $hour; ?>" 
+                                <div class="content" id="rdv<?php echo $res[$i]['appId'];?>" style="border-top-left-radius:5px;border-top-right-radius:5px;font-size:16px">
+                                    <h5 class="motto" id="tooltip<?php echo $res[$i]['appId'];?>" data-toggle="tooltip" data-placement="top" 
+                                    title="Rendez-vous de <?php $hour = explode(":",$res[$i]['startTime']); $hour = $hour[0].":".$hour[1];  echo $hour; ?>, cliquez sur la croix pour supprimer" 
                                     style="z-index:99;color:rgba(255,255,255,1);font-size:20px"><?php echo $res[$i]['appName']; ?>
-                                    <i class="now-ui-icons ui-1_simple-remove" onclick="killApp(<?php echo $res[$i]['appId'];?>);" style="cursor:pointer;font-size:10px"></i>
+                                    <i class="now-ui-icons ui-1_simple-remove" onclick="killApp(<?php echo $res[$i]['appId'];?>);" style="cursor:pointer;font-size:18px"></i>
                                     </h5>
                                     <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse" >
                                         <div class="card-plain" style="background:transparent">
-                                            <div class="card-header" role="tab" id="heading<?php echo $compteur; ?>" style="text-align:center">
+                                            <div class="card-header" role="tab" id="heading<?php echo $compteur; ?>" style="text-align:center;font-size:16px">
                                                 <i class="now-ui-icons travel_info" style="color:#3d72b4"></i>
                                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $compteur; ?>" aria-expanded="false" aria-controls="collapse<?php echo $compteur; ?>">
                                                 Infos pratiques
@@ -76,8 +77,8 @@
                                                 </a>
                                             </div>
                                             <div id="collapse<?php echo $compteur; ?>" class="collapse hide" role="tabpanel" aria-labelledby="heading<?php echo $compteur; $compteur++?>">
-                                                <div class="card-body" style="background:transparent;color:rgb(255,255,255,0.7);max-width:240px;width:230px;margin-left:-15px">
-                                                    <h6 class="motto">Heure de début : <br><?php echo $hour; ?><br></h6>
+                                                <div class="card-body" style="background:transparent;color:rgb(255,255,255,0.7);">
+                                                    <h6 class="motto">Heure de début : <br><?= $hour; ?><br></h6>
                                                     <h6 class="motto">Situé à : <br><?php echo $res[$i]['place']; ?><br></h6>
                                                     <h6 class="motto">Catégorie : <br><?php if($res[$i]['name'] === 'Amoureux'){ echo '<i class="now-ui-icons ui-2_favourite-28" style="margin-right:10px;font-size:15px;color:#ee9ca7"></i>';} echo $res[$i]['name']; ?></h6>
                                                     <h6 class="motto">Pense intelligent : <br><?php echo $res[$i]['notes']; ?><br></h6>
@@ -96,7 +97,7 @@
                                             </div>
                                             <div id="collapse<?php echo $compteur; ?>" class="collapse hide" role="tabpanel" aria-labelledby="heading<?php echo $compteur; $compteur++?>">
                                                 <div class="card-body" style="background:transparent;color:rgb(255,255,255,0.7)">
-                                                    <h6 class="motto">Heure de début : <br><?php echo $res[$i]['startTime']; ?><br></h6>
+                                                    <h6 class="motto">Heure de début : <br><?= $hour; ?><br></h6>
                                                     <h6 class="motto">Situé à :<br> <?php echo $res[$i]['place']; ?><br></h6>
                                                     <h6 class="motto">Catégorie : <br><?php echo $res[$i]['name']; ?></h6>
                                                     <h6 class="motto">Pense intelligent : <br><?php echo $res[$i]['notes']; ?><br></h6>
@@ -105,14 +106,14 @@
                                             
                                         </div>
                                     </div>
-                                </div>
-                                <div class="main" style="background-color:transparent;color:#FFFFFF;max-height:50px;min-height:50px;height:50px;margin-top:-40px;left:15px" >
+                                <div class="main " style="background-color:transparent;color:#FFFFFF;max-height:10px;min-height:10px;height:10px;" >
                                     <form method="post" action="index.php?page=apps">
                                         <button type="submit" name="editApp" value="<?php echo $res[$i]['appId']; ?>" class="btn sid form-check-inline"
-                                        style="left:25px">
+                                        style="left:35px;margin-top:-35px">
                                         Modifier l'évènement
                                         </button>
                                     </form>
+                                </div>
                                 </div>
                     <?php
                     }

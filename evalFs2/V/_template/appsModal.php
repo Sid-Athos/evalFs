@@ -1,3 +1,4 @@
+
         <style>
         . {
 
@@ -290,10 +291,7 @@
     {
         if(Number(document.getElementById('apps'+ date).innerHTML) > 0)
         {
-            date = date.split("-");
-            (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
-            date = date[0] +"-"+date[1]+"-"+  date[2];
-            console.log(date);
+            
             query = $.post({
                 url : 'indexAjax.php',
                 data : 
@@ -415,7 +413,10 @@ $("#addAppForm").submit(function(event){
     }
 
     function deleteApps(date,event)
-    {
+    {   
+        date = date.split("-");
+        (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
+        date = date[0] +"-"+date[1]+"-"+  date[2];
         if(Number(document.getElementById('apps'+ date).innerHTML) > 0)
         {
             event.preventDefault();

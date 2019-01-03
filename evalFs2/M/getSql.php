@@ -1,4 +1,5 @@
 <?php
+    
 	function actualDate($db)
 	{
 		$query = 

@@ -1,3 +1,8 @@
+<?php
+  if(!isset($_GET['page'])){
+    header("Location: http://localhost/evalFs/evalFs2/index.php");
+  }
+?>
   <style>
 	.bg-primary{
 		background-color:#333333;

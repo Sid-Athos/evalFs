@@ -57,6 +57,7 @@
                 }
             break;
         case(isset($_POST['eraseDate'])):
+                var_dump($_POST);
                 (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['eraseDate']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
                 if(count($messages) === 0)
                 {
@@ -218,5 +219,6 @@
                 
             break;
         default:
+                echo alert("Try again.");
     endswitch;
 ?>

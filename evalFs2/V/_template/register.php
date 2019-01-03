@@ -1,7 +1,11 @@
+  <?php
+  if(!isset($_GET['page'])){
+    header("Location: http://localhost/evalFs/evalFs2/index.php");
+  }
+?>
 <body class="index-page sidebar-collapse" style="color:#FFFFFF;font-size:15px">
     <!-- Navbar -->
     <!-- End Navbar -->
-    
     <div class="wrapper">
       <div class="page-header clear-filter">
         
