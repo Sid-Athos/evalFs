@@ -270,6 +270,7 @@
         date = document.getElementById('dateApp'+ id).textContent;
         date = date.split("-");
         (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
+        day = Number(date[2]);
         date = date[0] +"-"+date[1]+"-"+  date[2];        
         query = $.post({
             url : 'indexAjax.php',
@@ -282,7 +283,8 @@
             $('#eraseAppAnswer').html(response);
             if((Number(document.getElementById('apps'+ date).innerHTML)>0)){
                 document.getElementById('apps'+ date).innerHTML = (Number(document.getElementById('apps'+ date).innerHTML) -1);
-
+                day = Number(date[2]);
+                document.getElementById("alert"+ day).style.backgroundColor = "";      
             }
         });
     }
@@ -345,7 +347,6 @@
 $("#addAppForm").submit(function(event){
         event.preventDefault();
         date = document.getElementById('0').value;
-        console.log(date);
         if(document.getElementById('rec1').checked === true)
         {
             query = $.post({
@@ -402,11 +403,13 @@ $("#addAppForm").submit(function(event){
             if(found != null)
             {
                 date = document.getElementById('0').value;
-                console.log(date);
+                day = date.split("-");
+                day = Number(day[2]);
                 lol = document.getElementById('alert');
                 document.getElementById('apps'+ date).innerHTML = (Number(document.getElementById('apps'+ date).innerHTML) +1);
                 if(Number(document.getElementById('apps'+ date).innerHTML) > 0){
                     document.getElementById('past'+ date).style.display = "";
+                    document.getElementById("alert"+ day).style.backgroundColor = "#833ab4";      
                 }
             }
         }
@@ -416,14 +419,17 @@ $("#addAppForm").submit(function(event){
     {   
         date = date.split("-");
         (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
+        day = Number(date[2]);
         date = date[0] +"-"+date[1]+"-"+  date[2];
         if(Number(document.getElementById('apps'+ date).innerHTML) > 0)
         {
             event.preventDefault();
-            console.log(date);
             $('#confModal').modal('show');
             document.getElementById("eraseDate").value = date;
+
         }
+        document.getElementById("alert"+ day).style.backgroundColor = "rgba(44, 168, 255, 0.8)";
+        document.getElementById("past"+ date).style.display = "";
     }
     function getMyApps(date,event){
             event.preventDefault();

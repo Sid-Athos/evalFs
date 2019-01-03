@@ -62,7 +62,7 @@
                                         data-toggle="tooltip" date-placement="left" title="Date de rdv"
                                         value="<?php if(isset($res[0]['appDay'])){ echo $res[0]['appDay']; } ?>" style="color:#FFFFFF" required autocomplete="off">
                                     </div></div>
-                                <h3 class="motto">Sélectionez une catégorie de référencement :</h3>
+                                <h3 class="motto">Sélectionnez une catégorie de référencement :</h3>
                                 <div class="input-group no-border input-xs" data-toggle="tooltip" 
                                             data-placement="top" 
                                             title="Catégorie de l'évènement" style="left:-2px">

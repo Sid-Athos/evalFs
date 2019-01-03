@@ -51,7 +51,7 @@
                 </div>
                 <div class='row'>
                     <div class='col-lg-12'>
-                        <div class='alert alert-info ml-auto mr-auto' id='alert($day)' role='alert' style='z-index:4;background-color:#833ab4;
+                        <div class='alert alert-info ml-auto mr-auto' id='alert$day' role='alert' style='z-index:4;background-color:#833ab4;
                         text-align:center;height:85px;color:#FFFFFF;margin-bottom:-12px;vertical-align:bottom;width:102%;left:-2px;right:0px'>
                             <div class='alert-icon'>
                             </div>
@@ -96,7 +96,7 @@
         </div>
         <div class='row'>
             <div class='col-lg-12'>
-                <div class='alert alert-info ml-auto mr-auto' id='alert($day)' role='alert' style='z-index:4;
+                <div class='alert alert-info ml-auto mr-auto' id='alert$day' role='alert' style='z-index:4;
                 text-align:center;height:85px;color:#FFFFFF;margin-bottom:-12px;vertical-align:bottom;width:102%;left:-2px;right:0px'>
                     <div class='alert-icon'>
                     </div>

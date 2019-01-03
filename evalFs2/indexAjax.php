@@ -17,7 +17,8 @@
                     $query[1] =
                     "DELETE 
                     FROM APPOINTMENTS 
-                    WHERE APPOINTMENTS.ID =:set1;";
+                    WHERE APPOINTMENTS.ID =:set1
+                    AND appDay > CURRENT_TIMESTAMP();";
 
                     for($i = 0; $i < count($query);$i++)
                     {
@@ -57,20 +58,20 @@
                 }
             break;
         case(isset($_POST['eraseDate'])):
-                var_dump($_POST);
                 (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['eraseDate']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
                 if(count($messages) === 0)
                 {
                     $query[0] = 
                     "DELETE 
                     FROM BELONGS 
-                    WHERE BELONGS.appointmentID = ANY (SELECT ID FROM APPOINTMENTS WHERE userID = :set1 and appDay = :set2);";
+                    WHERE BELONGS.appointmentID = ANY (SELECT ID FROM APPOINTMENTS WHERE userID = :set1 and appDay = :set2 AND appDay > CURRENT_TIMESTAMP());";
 
                     $query[1] =
                     "DELETE 
                     FROM APPOINTMENTS 
                     WHERE userID = :set1 
-                    and appDay = :set2;";
+                    and appDay = :set2
+                    AND appDay > CURRENT_TIMESTAMP();";
 
                     for($i = 0; $i < count($query);$i++)
                     {
@@ -107,7 +108,7 @@
 
                     (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['appDate']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
                     
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]$/", $_POST['appName'])) ?  $messages = $messages : $messages[] = alert("Nom incorrecte !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appName'])) ?  $messages = $messages : $messages[] = alert("Nom incorrecte !");
                                 
                     $today = date('Y-m-j');
                     $today = strtotime($today);
