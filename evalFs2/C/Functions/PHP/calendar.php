@@ -101,7 +101,7 @@
                     <div class='alert-icon'>
                     </div>
                     <form method='post'  class='form-check-inline'>
-                        <i class='fa fa-circle' aria-hidden='true' id='past$dates' style='display:$color;margin-top:10px;;color:#FDC830'></i>
+                        <i class='fa fa-circle' aria-hidden='true' id='past$dates' style='display:$color;margin-top:10px;color:#FDC830'></i>
                         <button type='submit' class='btn btn-secondary form-check form-check-inline bg-transparent ml-auto mr-auto' 
                         style='position:relative;box-sizing:unset;outline:inherit;color:#FFFFFF;vertical-align:bottom;top:25px;text-align:center;left:15px;'  name='fetchApps'  value='$date'
                         data-toggle='tooltip' data-placement='left' title='Afficher les évènements de la journée' id='date$day' onclick='getMyApps($day,event);'>

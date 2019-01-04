@@ -48,7 +48,13 @@
                         "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
                         year(appDay) as years, dayname(appDay) as dayName, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, APPOINTMENTS.duration
                         ,CATEGORYS.name
-                        FROM APPOINTMENTS JOIN CATEGORYS ON APPOINTMENTS.appCat = CATEGORYS.ID
+                        FROM APPOINTMENTS 
+                        JOIN BELONGS ON BELONGS.ID = APPOINTMENTS.ID 
+                        JOIN CATEGORYS ON APPOINTMENTS.appCat = CATEGORYS.ID
+                        JOIN PATIENTS_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
+                        JOIN PATIENTS ON PHA. patientID = PATIENTS.ID
+                        JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.patientID = PATIENTS.ID
+                        JOIN OWNERS ON OWNERS.ID = CHP.ownerID
                         WHERE APPOINTMENTS.appDay = :set1
                         AND APPOINTMENTS.userID = :set2
                         ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
@@ -119,9 +125,10 @@
                     }
                         $query =
                         "SELECT *
-                        FROM APPOINTMENTS
-                        WHERE userID = :set1
-                        AND appDay = :set2
+                        FROM APPOINTMENTS AS APPS
+                        JOIN USER_HAS_APPOINTMENTS AS USAP ON APPS.ID = USAP.appointmentID
+                        WHERE USAP.userID = :set1
+                        AND APPOINTMENTS.appDay = :set2
                         AND (:set3 BETWEEN startTime AND addtime(startTime,duration)
                         OR startTime Between :set3 AND addtime(:set4,:set5))
                         ORDER BY startTime;";
@@ -159,12 +166,12 @@
 
                             if(($acDate - $today) >= 86400){
                                 $query =
-                                "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime, duration, appCat, userID) 
+                                "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime, duration) 
                                 VALUES(:set1,:set2, :set3, (
                                 CASE appDay 
                                 WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
                                 THEN :set5 ELSE NULL
-                                END),:set6,:set7,:set8,:set9);";
+                                END),:set6,:set7);";
                 
                                 (intval($_POST['timeH']) <10)? $_POST['timeH'] = "0".$_POST['timeH'] : $_POST['timeH'] = $_POST['timeH'];
                                 (intval($_POST['timeM']) <10)? $_POST['timeM'] = "0".$_POST['timeM'] : $_POST['timeM'] = $_POST['timeM'];

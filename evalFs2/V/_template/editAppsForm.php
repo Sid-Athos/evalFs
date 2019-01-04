@@ -14,11 +14,11 @@
                             }
                         }
                     ?>                            
-                <div class="content-center brand">
+                <div class="content-center brand" style="margin-top:95px">
                 <h4 class="motto">Modification d'un évènement : </h4>
                   <div class="col-md-6 ml-auto mr-auto">
                       <div class=" card-login ">
-                            <form class="form" method="POST" action="index.php?page=platoons" autocomplete="false">
+                            <form class="form" method="POST" action="index.php?page=apps" autocomplete="false">
                                 <div class="card-body">
                                     <div id="check">
                                     </div>
@@ -38,30 +38,52 @@
                                         <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
                                         </span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Lieu"  name="newPlace" id="0"
+                                        <input type="text" class="form-control" placeholder="Lieu"  name="newPlace" id="1"
                                         data-toggle="tooltip" date-placement="left" title="Lieu du rendez-vous"
                                         value="<?php if(isset($res[0]['appPlace'])){ echo $res[0]['appPlace']; } ?>" style="color:#FFFFFF" required autocomplete="off">
                                     </div>
                                     <div class="form-row">
-                                    <div class="input-group no-border input-lg" style="max-width:170;left:5px">
-                                        <div class="input-group-prepend" id="prep">
-                                        <span class="input-group-text">
-                                        <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
-                                        </span>
+                                        <div class="input-group no-border input-lg" style="max-width:170;left:5px">
+                                            <div class="input-group-prepend" id="prep">
+                                            <span class="input-group-text">
+                                            <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
+                                            </span>
+                                            </div>
+                                            <input type="time" class="form-control" placeholder="Heure de commencement"  name="newTime" id="2"
+                                            data-toggle="tooltip" date-placement="left" title="Débute à..."
+                                            value="<?php if(isset($res[0]['startTime'])){ echo $hour; } ?>" style="color:#FFFFFF;width:100px;max-width:130px" required autocomplete="off">
                                         </div>
-                                        <input type="time" class="form-control" placeholder="Heure de commencement"  name="newTime" id="0"
-                                        value="<?php if(isset($res[0]['startTime'])){ echo $hour; } ?>" style="color:#FFFFFF" required autocomplete="off">
+                                        <div class="input-group no-border input-lg" style="max-width: 180px;float:right;position: absolute;left: 50%;">
+                                            <div class="input-group-prepend" id="prep">
+                                            <span class="input-group-text">
+                                            <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
+                                            </span>
+                                            </div>
+                                            <input type="date" class="form-control" placeholder="Date du Rendez-vous"  name="newDate" id="3"
+                                            data-toggle="tooltip" date-placement="left" title="Date de rdv"
+                                            value="<?php if(isset($res[0]['appDay'])){ echo $res[0]['appDay']; } ?>" style="color:#FFFFFF" required autocomplete="off">
+                                        </div>
                                     </div>
-                                    <div class="input-group no-border input-lg" style="max-width: 180px;float:right;position: absolute;left: 50%;">
-                                        <div class="input-group-prepend" id="prep">
-                                        <span class="input-group-text">
-                                        <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
-                                        </span>
+                                    <div class="form-row" data-toggle="tooltip" date-placement="left" title="Durée">
+                                        <div class="input-group no-border input-lg" style="max-width:170;left:5px">
+                                            <div class="input-group-prepend" id="prep">
+                                            <span class="input-group-text">
+                                            <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
+                                            </span>
+                                            </div>
+                                            <input type="number" class="form-control" placeholder="Heures"  name="newDurH" id="durationH"
+                                            value="<?php if(isset($res[0]['startTime'])){ echo $hour; } ?>" style="color:#FFFFFF;width:100px;max-width:130px" required autocomplete="off">
                                         </div>
-                                        <input type="date" class="form-control" placeholder="Date du Rendez-vous"  name="newDate" id="0"
-                                        data-toggle="tooltip" date-placement="left" title="Date de rdv"
-                                        value="<?php if(isset($res[0]['appDay'])){ echo $res[0]['appDay']; } ?>" style="color:#FFFFFF" required autocomplete="off">
-                                    </div></div>
+                                        <div class="input-group no-border input-lg" style="max-width: 180px;float:right;position: absolute;left: 50%;">
+                                            <div class="input-group-prepend" id="prep">
+                                            <span class="input-group-text">
+                                            <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
+                                            </span>
+                                            </div>
+                                            <input type="number" class="form-control" placeholder="Minutes"  name="newDurM" id="3"
+                                            value="<?php if(isset($res[0]['appDay'])){ echo $res[0]['appDay']; } ?>" style="color:#FFFFFF" required autocomplete="off">
+                                        </div>
+                                    </div>
                                 <h3 class="motto">Sélectionnez une catégorie de référencement :</h3>
                                 <div class="input-group no-border input-xs" data-toggle="tooltip" 
                                             data-placement="top" 
@@ -91,20 +113,21 @@
                                         <?php
                                     }
                                 ?>
-                                </select></div>
+                                </select>
+                            </div>
                                 <div class="input-group no-border input-lg">
                                         <div class="input-group-prepend" id="prep">
                                         <span class="input-group-text">
                                         <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
                                         </span>
                                         </div>
-                                        <textarea type="time" class="form-control" placeholder="Notes"  name="newNotes" id="0"
+                                        <textarea type="time" class="form-control" placeholder="Notes"  name="newNotes" id="5"
                                         value="" style="color:#FFFFFF" required autocomplete="off"><?php if(isset($res[0]['appNotes'])){ echo $res[0]['appNotes']; } ?>
                                         </textarea>
                                 </div>
                                 <div class="-footer text-center">
-                                    <button type="submit" class="btn btn-primary btn-round btn-lg btn-block" onclick="subPlatoon(event)"
-                                    name="choice" value="addPlat">Créer mon salon</button>
+                                    <button type="submit" class="btn btn-primary btn-round btn-lg btn-block"
+                                    name="modApp" value="<?php echo $res[0]['appId'];?>"> Modifier le Rendez-Vous</button>
                                 </form>
                                 <div class="pull-right">
                                     <button type="button" class="sid"

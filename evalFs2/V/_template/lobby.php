@@ -6,7 +6,7 @@
 	<div class="wrapper" >
 		<!-- Img -->
 		<div class="page-header clear-filter" filter-color="orange">
-		    <div class="page-header-image" data-parallax="true" style="background-image: url('V/_template/assets/img/header.jpg')"; transform: translate3d(0px, 33.666666666666664px, 0px);">
+		    <div class="page-header-image" data-parallax="true" style="background-image: url('V/_template/assets/img/header.jpg'); transform: translate3d(0px, 33.666666666666664px, 0px);">
 		    </div>
 	    	<div class="container">
 	    		<?php if(isset($message)){ echo $message; }?>

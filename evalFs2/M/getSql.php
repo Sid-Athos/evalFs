@@ -89,10 +89,9 @@
     
     function fetchThreeSets($db,$query,$set1,$set2,$set3)
     {
-        
         try 
         {
-            $stmt = $db->prepare($db,$query);
+            $stmt = $db->prepare($query);
             $stmt->execute(
                 array(
                     ":set1" => $set1,
@@ -104,9 +103,10 @@
         catch(PDOException $ex)
         {   
         }
-        $res = $stmt -> fetchALL();
-        return $res; 
         
+        $res = $stmt -> fetchALL();
+        
+        return $res; 
     }
 
     function fetchFourSets($db,$query,$set1,$set2,$set3,$set4)
@@ -145,6 +145,31 @@
                     ":set3" => $set3,
                     ":set4" => $set4,
                     ":set5" => $set5
+                )
+            );
+        }
+        catch(PDOException $ex)
+        {   
+        }
+        $res = $stmt -> fetchALL();
+        return $res; 
+        
+    }
+
+    function fetchSixSets($db,$query,$set1,$set2,$set3,$set4,$set5,$set6)
+    {
+        
+        try 
+        {
+            $stmt = $db->prepare($query);
+            $stmt->execute(
+                array(
+                    ":set1" => $set1,
+                    ":set2" => $set2,
+                    ":set3" => $set3,
+                    ":set4" => $set4,
+                    ":set5" => $set5,
+                    ":set6" => $set6
                 )
             );
         }

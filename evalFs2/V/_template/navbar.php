@@ -40,13 +40,13 @@
 						</a>
 						  
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink1">
-							<form action="index.php?page=calendar" method="POST">
-								<button type="submit" class="dropdown-item" name="choice" value="dayApps">
+							<form action="index.php?page=apps" method="POST">
+								<button type="submit" class="dropdown-item" name="choice" value="todayApps">
 									Aujourdh'ui
 								</button>
 							</form>
 							<div class="dropdown-divider"></div>
-							<form action="index.php?page=calendar" method="POST">
+							<form action="index.php?page=apps" method="POST">
 								<button type="submit" class="dropdown-item" name="choice" value="weekApps">
 									Évènements de la semaine
 								</button>
@@ -60,29 +60,6 @@
 					</div>
 					</li>
 	        		<li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
-							<i class="now-ui-icons design_app"></i>
-							<p>Salons</p>
-						</a>
-	          			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink1" style="overflow:hidden">
-							<form action="index.php?page=lobby" method="POST" style="margin-top:-13px;margin-bottom:-9px">
-								<button type="submit" class="dropdown-item" name="choice" value="listPlat">
-								<i class="now-ui-icons files_paper" style="margin-left:-13px;margin-bottom:4px"></i>Liste des salons
-								</button>
-							</form>
-							<div class="dropdown-divider"></div>
-							<form action="index.php?page=platoons" method="POST"style="margin-top:-9px;margin-bottom:-9px">
-								<button type="submit" class="dropdown-item" name="choice" value="handlePlats">
-								<i class="now-ui-icons ui-1_settings-gear-63" style="margin-left:-13px;margin-bottom:4px"></i>Gérer mes salons
-								</button>
-							</form>
-							<div class="dropdown-divider"></div>
-							<form action="index.php?page=platoons" method="POST" style="margin-top:-9px;margin-bottom:-9px">
-								<button type="submit" class="dropdown-item" name="choice" value="createPlat">
-								<i class="now-ui-icons ui-1_simple-add" style="margin-left:-13px;margin-bottom:4px;font-weight:950"></i>Créer un salon
-								</button>
-							</form>
-						</div>
 					</li>
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">

@@ -25,7 +25,7 @@
                               <div class="logo-container mb-3">
                               </div>
                             </div>
-                            <div class="-body ml-auto mr-auto" style="width:500px">
+                            <div class="-body ml-auto mr-auto" style="width:350px">
                               <div class="col-md-6 ml-auto mr-auto" style="width:500px">
                                 <img id="blah"  style="width:250px;height:250px;border-radius:50%;opacity: 0.75;filter: alpha(opacity=50);z-index:99;position:fixed;left:-230px;top:70px;font-size:30px" alt="Preview">
                                 <input type="file"  placeholder="Avatar"

@@ -20,15 +20,16 @@
     <!--     Fonts and icons     -->
     <!-- CSS Files -->
     <link href="V/_template/assets/css/bootstrap.min.css" rel="stylesheet" />
+    
     <link href="V/_template/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="V/_template/assets/demo/demo.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
     <!--   Core JS Files   -->
     <script src="V/_template/assets/js/core/jquery.min.js" type="text/javascript"></script>
     <script src="V/_template/assets/js/core/popper.min.js" type="text/javascript"></script>
     <script src="V/_template/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
 
     <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+    <script src="V/_template/assets/js/plugins/bootstrap-switch.js"></script>
     <script src="V/_template/assets/js/plugins/bootstrap-switch.js"></script>
 
     <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
@@ -51,6 +52,8 @@
     <script src="V/_template/assets/js/app.js"></script>
     
     <link rel="stylesheet" href="V/_template/assets/css/checkmystyle.css"  type="text/css"/>
+    <script>
     
+    </script>
 </head>
 <body>

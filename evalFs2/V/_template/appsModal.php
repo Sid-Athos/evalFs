@@ -137,7 +137,7 @@
                                         </div>
                                     </div>
                                     <div class="content-center-brand" style="margin:auto">
-                                        <h5 class="motto" style="width:200px;margin:auto">Récurrence</h5>
+                                        <h5 class="motto" style="width:200px;margin:auto">Choix du patient</h5>
                                         <div class="form-check form-check-radio form-check-inline">
                                             <label class="form-check-label">
                                                 <input class="form-check form-check-input" type="radio" name="appRecc" id="rec1" value="1" 

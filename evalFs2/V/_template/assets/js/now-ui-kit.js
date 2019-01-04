@@ -84,26 +84,6 @@ $(document).ready(function() {
   $('.carousel').carousel({
     interval: 4000
   });
-
-  $('.date-picker').each(function() {
-    $(this).datepicker({
-      templates: {
-        leftArrow: '<i class="now-ui-icons arrows-1_minimal-left"></i>',
-        rightArrow: '<i class="now-ui-icons arrows-1_minimal-right"></i>'
-      }
-    }).on('show', function() {
-      $('.datepicker').addClass('open');
-
-      datepicker_color = $(this).data('datepicker-color');
-      if (datepicker_color.length != 0) {
-        $('.datepicker').addClass('datepicker-' + datepicker_color + '');
-      }
-    }).on('hide', function() {
-      $('.datepicker').removeClass('open');
-    });
-  });
-
-
 });
 
 // Javascript just for Demo purpose, remove it from your project
