@@ -13,10 +13,155 @@
     include('V/_template/navbar.php');
     include('C/Functions/PHP/messages.php');
     include('C/Functions/PHP/killAvatar.php');
+    include('C/Functions/PHP/daysAvailable.php');
+    $messages= array();
 
     switch(isset($_POST)):
+        case(isset($_POST['handleWork'])):
+                $todays = date('Y-m-d',strtotime('+1 day'));
+                $twoDays = date('Y-m-d',strtotime('+2 days'));
+
+                $daysWorked = 
+                "SELECT S.fromTime as De, S.toTime as A, S.workingDay as days,S.ID as ID
+                FROM SCHEDULES AS S
+                JOIN USER_HAS_SCHEDULE as USC ON USC.scheduleID = S.ID
+                JOIN USERS AS U ON U.ID = USC.userID
+                WHERE U.ID = :set1;";
+
+                $workDays = fetchOneSet($db,$daysWorked,$_SESSION['ID']);
+
+                $daysAvailable = daysAvailable($workDays);
+                
+                $query =
+                "SELECT SPECS.name, SPECS.ID
+                FROM SPECS 
+                WHERE ID != ALL(SELECT specID FROM SPECCED_IN AS SI WHERE SI.userID = :set1);";
+
+                $specs = fetchOneSet($db,$query,$_SESSION['ID']);
+
+                $query =
+                "SELECT SPECS.name, SPECS.ID
+                FROM SPECS 
+                WHERE ID = ANY(SELECT specID FROM SPECCED_IN AS SI WHERE SI.userID = :set1);";
+
+                $mySpecs = fetchOneSet($db,$query,$_SESSION['ID']);
+
+                include('V/_template/handleWork.php');
+            break;
         case(isset($_POST['choice'])):
             switch($_POST['choice']):
+                case($_POST['choice'] === 'modWork'):
+                        $array = array("Lundi" => 1, "Mardi" => 2, "Mercredi" => 3,"Jeudi" => 4, "Vendredi" => 5,"Samedi" => 5,"Dimanche" => 7);
+                        if(array_key_exists($_POST['addDayWork'],$array)){
+                            $query=
+                            "INSERT INTO SCHEDULES (fromTime, toTime,workingDay) VALUES(:set1,:set2,:set3)";
+                            (!empty($_POST['startDay']) && (strtotime($_POST['startDay']) < strtotime("23:59:15")) && (strtotime($_POST['startDay']) >= strtotime("00:00:00"))) ?$messages: $messages[] = alert("L'heure n'est pas au format adéquat!");
+                            (!empty($_POST['endDay']) && (strtotime($_POST['endDay']) < strtotime("23:59:15")) && (strtotime($_POST['endDay']) >= strtotime("00:00:00"))) ? $messages: $messages[] = alert("L'heure n'est pas au format adéquat!");
+
+                            if(threeSets($db,$query,$_POST['startDay'],$_POST['endDay'],$_POST['addDayWork']) === true){
+                                $id = $db -> lastInsertId();
+                                $query =
+                                "INSERT INTO USER_HAS_SCHEDULE(userID,scheduleID) VALUES(:set1,:set2);";
+                                twoSets($db,$query,$_SESSION['ID'],$id);
+                            } else {
+                                $messages[] = alert("Erreur dans le traitement de la requête veuillez réessayer et vérifier les champs.");
+                            }
+                        }
+
+                        if(preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/",$_POST['startDate']) 
+                        && preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/",$_POST['endDate']))
+                        {
+                            if(strtotime($_POST['startDate']) < strtotime($_POST['endDate'])){
+                                $query =
+                                "SELECT *
+                                FROM HOLIDAYS
+                                WHERE :set1 BETWEEN startsAt AND endsAt
+                                AND :set2 BETWEEN startsAt AND endsAt
+                                WHERE userID = :set3";
+
+                                if(empty($check = fetchThreeSets($db,$query,$_POST['startDate'],$_POST['endDate'],$_SESSION['ID'])))
+                                {
+                                   $query = "INSERT INTO HOLIDAYS(startsAt,endsAt,userID) VALUES(:set1,:set2,:set3)";
+                                    if(threeSets($db,$query,$_POST['startDate'],$_POST['endDate'],$_SESSION['ID']))
+                                    {
+                                        $messages[] = success("Vacances enregistrées");
+                                    } else {
+                                        $messages[] = alert("une erreur est survenue lors de l'enregistrement de vos vacances");
+                                    }
+                                } 
+                                else {
+                                    $messages[] = alert("Vous avez déjà des vacances prévues du ".$check[0]['startsDate']." au ".$check[0]['endsDate']);
+                                }
+                            }
+                        }
+
+
+                        if(isset($_POST['speccedIn'])){
+                            for($i = 0;$i < count($_POST['speccedIn']);$i++)
+                            {
+                                if(preg_match("/^[0-9]+$/",$_POST['speccedIn'][$i])){
+                                    $query =
+                                    "INSERT INTO SPECCED_IN(userID,specID) VALUES(:set1,:set2);";
+                                    if(twoSets($db,$query,$_SESSION['ID'],$_POST['speccedIn'][$i])){
+                                        $messages[] = success("Spécialisation ajoutée!");
+                                    }else{
+                                        $messages[] = alert("Erreur dans l'ajout d'une spécialité");
+                                    }
+                                }
+                            }
+                        }
+
+                        if(isset($_POST['workDays'])){
+                            for($i = 0;$i < count($_POST['workDays']);$i++)
+                            {
+                                if(preg_match("/^[0-9]+$/",$_POST['workDays'][$i])){
+                                    $query =
+                                    "DELETE FROM USER_HAS_SCHEDULE
+                                    WHERE userID = :set1
+                                    AND scheduleID = :set2;";
+
+                                    if(twoSets($db,$query,$_SESSION['ID'],$_POST['workDays'][$i])){
+                                        unset($query);
+
+                                        $query =
+                                        "DELETE FROM SCHEDULES WHERE ID = :set1;";
+                                        oneSet($db,$query,$_POST['workDays'][$i]);
+                                        $messages[] = success("Journée Supprimée!");
+                                    }else{
+                                        $messages[] = alert("Erreur dans la suppression");
+                                    }
+                                }
+                            }
+                        }
+
+                        $todays = date('Y-m-d',strtotime('+1 day'));
+                        $twoDays = date('Y-m-d',strtotime('+2 days'));
+
+                        $daysWorked = 
+                        "SELECT S.fromTime as De, S.toTime as A, S.workingDay as days,S.ID as ID
+                        FROM SCHEDULES AS S
+                        JOIN USER_HAS_SCHEDULE as USC ON USC.scheduleID = S.ID
+                        JOIN USERS AS U ON U.ID = USC.userID
+                        WHERE U.ID = :set1;";
+
+                        $workDays = fetchOneSet($db,$daysWorked,$_SESSION['ID']);
+
+                        $daysAvailable = daysAvailable($workDays);
+                        
+                        $query =
+                        "SELECT SPECS.name, SPECS.ID
+                        FROM SPECS 
+                        WHERE ID != ALL(SELECT specID FROM SPECCED_IN AS SI WHERE SI.userID = :set1);";
+
+                        $specs = fetchOneSet($db,$query,$_SESSION['ID']);
+                        $query =
+                        "SELECT SPECS.name, SPECS.ID
+                        FROM SPECS 
+                        WHERE ID = ANY(SELECT specID FROM SPECCED_IN AS SI WHERE SI.userID = :set1);";
+        
+                        $mySpecs = fetchOneSet($db,$query,$_SESSION['ID']);
+                        include('V/_template/handleWork.php');
+                    break;
                 case($_POST['choice'] === 'changeBackground'):
                         if(isset($_POST['cBack']) && isset($_POST['bg']))
                         {
@@ -35,7 +180,6 @@
                         }
                         $res = selectBackgrounds($db);
                         include('V/_template/backgroundForm.php');
-                        unset($message);
                     break;
                 case($_POST['choice'] === 'mod'):
                         $pattern = "/^[a-zA-Z0-9\_\.\'\-]{4,29}$/";
@@ -237,6 +381,8 @@
             WHERE ID = :set1;";
 
             $res = fetchOneSet($db,$query,$_SESSION['ID']);
+
+            
             include('V/_template/account.php');
     endswitch;
     include('V/_template/footer.html');

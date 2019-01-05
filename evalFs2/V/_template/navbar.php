@@ -73,6 +73,12 @@
 								</button>
 							</form>
 							<div class="dropdown-divider"></div>
+							<form action="index.php?page=account" method="POST"style="margin-top:-9px;margin-bottom:-9px">
+								<button type="submit" class="dropdown-item" name="handleWork" value="1">
+								<i class="now-ui-icons education_agenda-bookmark" style="margin-top:-13px;margin-bottom:-9px;margin-left:-13px;font-size:16px"></i>Gestion pro
+								</button>
+							</form>
+							<div class="dropdown-divider"></div>
 							<form action="index.php?page=logout" method="POST"style="margin-top:-9px;margin-bottom:-9px">
 								<button type="submit" class="dropdown-item" name="choice" value="handlePlats">
 								<i class="now-ui-icons media-1_button-power" style="margin-top:-13px;margin-bottom:-9px;margin-left:-13px;font-size:16px"></i>Déconnexion

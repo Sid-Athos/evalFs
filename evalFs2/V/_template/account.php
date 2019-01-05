@@ -90,6 +90,7 @@
                                   <input type="password" class="form-control password" id="2" placeholder="Confirmation du mot de passe" autocomplete="off" style="color:#FFFFFF" name="cNewPassword" 
                                   value="">
                               </div>
+                              
                             </div>
                             <div class="form-check form-check-inline" style="margin-bottom:30px;margin-right:20px;cursor:pointer">
                             <label class="form-check-label">

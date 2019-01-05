@@ -26,7 +26,7 @@
                         <div id="answer" class="modal-header justify-content-center answer">
                         </div>
                         <div class="modal-body" data-background-color >
-                            <form class="form" method="POST" action="index.php?page=apps" id="addAppsForm" autocomplete="false">
+                            <form class="form" method="POST" action="index.php?page=apps" id="addApps" autocomplete="false">
                                 <div class="modal-header justify-content-center" style="margin-top:-30px;" >
                                     <h5 class="motto" style="padding:10px">Seuls les champs de date/nom/heure/durée sont obligatoires</h5>
                                 </div>
@@ -218,7 +218,7 @@
                                                 </span>
                                             </div>
                                             <input type="mail" class="form-control" placeholder="Adresse email" style="color:#FFFFFF" 
-                                            name="newCliMail" id="cliMail" id="11" data-toggle="tooltip" data-placement="top" title="Mail propriétaire"
+                                            name="newCliMail" id="cliMail" data-toggle="tooltip" data-placement="top" title="Mail propriétaire"
                                             value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
                                         </div>
                                     </div>
@@ -487,7 +487,8 @@
             localStorage.setItem('cssClass',"slideOutRight");            
         }
     }
-$("#addAppsForm").submit(function(event){
+$("#addApps").submit(function(event){
+    console.log('dsqdqs');
         event.preventDefault();
         type = $('#appRec').val();
         console.log(type);
@@ -543,30 +544,36 @@ $("#addAppsForm").submit(function(event){
         else
         {
             console.log("pat");
-            /**
             query = $.post({
                 url : 'indexAjax.php',
                 data : 
                 {
+                    'usrID': String(<?php echo $_SESSION['ID']; ?>),
+                    'appRecc': type, 
                     'appName': $('input[name=appName]').val(), 
-                    'usrID': String(<?php echo $_SESSION['ID']; ?>), 
                     'appDate': $('input[name=appDate]').val(), 
                     'appCat' : $('select[name=appCat]').val(),
+                    'appOwner' : $('select[name=newPatOwner]').val(),
                     'appNotes' : $('textarea[name=appNotes]').val(),
                     'appPlace' : $('input[name=appPlace]').val(),
                     'appHour' : $('input[name=appHour]').val(),
-                    'appRecc' : $('input[name=appRecc]').val(),
-                    'timeH' : $('input[name=durationHour]').val(),
-                    'timeM' : $('input[name=durationMins]').val(),    
+                    'patName' : $('input[name=newPatName]').val(),
+                    'patFi' : $('input[name=newPatFi]').val(),
+                    'patBirth' : $('input[name=newPatBirth]').val(),
+                    'patSex' : $('#16').val(),
+                    'patLstyle' : $('input[name=newPatLs]').val(),
+                    'patFood' : $('input[name=newPatFood]').val(),
+                    'patOr' : $('input[name=newPatOrs]').val(),   
                 }
             });
-            */
-           console.log("Non");
         }
         check = query.done(function(response){
             $('#answer').html(response);
            
         });
+
+        
+
         setTimeout(function () {countIt(check);},1500);
     });
 
@@ -574,17 +581,27 @@ $("#addAppsForm").submit(function(event){
     {
         if(typeof  check === "object"){
             var regex = /Rdv/;
-            var found = document.getElementById('alert').innerText.match(regex);
-            if(found != null)
-            {
-                date = document.getElementById('0').value;
-                day = date.split("-");
-                day = Number(day[2]);
-                lol = document.getElementById('alert');
-                document.getElementById('apps'+ date).innerHTML = (Number(document.getElementById('apps'+ date).innerHTML) +1);
-                if(Number(document.getElementById('apps'+ date).innerHTML) > 0){
-                    document.getElementById('past'+ date).style.display = "";
-                    document.getElementById("alert"+ day).style.backgroundColor = "#833ab4";      
+            if(document.getElementById('alert')){
+
+                var found = document.getElementById('alert').innerText.match(regex);
+                if(found != null)
+                {
+                    
+                    date = document.getElementById('0').value;
+                    day = date.split("-");
+                    day = Number(day[2]);
+                    lol = document.getElementById('alert');
+                    document.getElementById('apps'+ date).innerHTML = (Number(document.getElementById('apps'+ date).innerHTML) +1);
+                    if(Number(document.getElementById('apps'+ date).innerHTML) > 0){
+                        document.getElementById('past'+ date).style.display = "";
+                        document.getElementById("alert"+ day).style.backgroundColor = "#833ab4";      
+                    }
+                    liste = document.getElementsByTagName('input');
+
+                        for(let i = 0;i < liste.length;i++)
+                        {
+                        liste[i].value = "";
+                        }
                 }
             }
         }

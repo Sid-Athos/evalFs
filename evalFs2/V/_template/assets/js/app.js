@@ -186,15 +186,8 @@ function showIt(val){
         document.getElementById('patientsSelect').style.display= "none";
         document.getElementById('cliMail').setAttribute('required','true');
         document.getElementById('4').removeAttribute('required');
-
-        for(let i = 5;i < 12;i++)
-        {
-            document.getElementById(i).setAttribute('required','true');
-        }
-        for(let i = 12;i < 21;i++)
-        {
-            document.getElementById(i).setAttribute('required','true');
-        }
+        document.getElementById('10').type= "phone";
+        document.getElementById('cliMail').type= "mail";
     }
     else if(val === 35)
     {
@@ -203,29 +196,19 @@ function showIt(val){
         document.getElementById('4').removeAttribute('required');
         document.getElementById('ownersSelect').style.display= "";
         document.getElementById('patientsSelect').style.display= "none";
-        document.getElementById('cliMail').setAttribute('required','false');
+        document.getElementById('cliMail').removeAttribute('required');
 
-        for(let i = 5;i < 12;i++)
-        {
-            document.getElementById(i).removeAttribute('required');
-        }
-        for(let i = 12;i < 21;i++)
-        {
-            document.getElementById(i).setAttribute('required','true');
-        }
-
+        document.getElementById('10').type= "text";
+        document.getElementById('cliMail').type= "text";
     } else {
 
         document.getElementById('loulilol').style.display = "none";
         document.getElementById('lolilol').style.display = "none";
-        //document.getElementById('4').setAttribute('required','true');
-        document.getElementById('cliMail').setAttribute('required','false');
+        document.getElementById('4').setAttribute('required','true');
+        document.getElementById('cliMail').removeAttribute('required');
         document.getElementById('patientsSelect').style.display= "";
-
-        for(let i = 5;i < 21;i++)
-        {
-            document.getElementById(i).removeAttribute('required');
-        }
+        document.getElementById('10').type= "text";
+        document.getElementById('cliMail').type= "text";
     }
 }
 
