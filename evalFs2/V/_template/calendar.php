@@ -30,7 +30,7 @@
             
                     <div class="content-center-brand" >
                         <div class="bd-example">
-                        <table class="table table-dark table-striped animated" id="calTable" style="margin:auto;display:none;max-width:1200px">
+                        <table class="table table-dark table-striped animated" id="calTable" style="margin:auto;max-width:1200px">
                             <thead>
                                 <tr style="">
                                     <th scope="col" style="">Lundi</th>

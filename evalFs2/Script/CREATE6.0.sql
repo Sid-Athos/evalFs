@@ -57,6 +57,8 @@ CREATE TABLE IF NOT EXISTS `USERS` (
   `alive` TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`ID`) 
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+ALTER TABLE `USERS` ADD CONSTRAINT UNIQUE(`mail`);
+ALTER TABLE `USERS` ADD CONSTRAINT UNIQUE(`phone`);
 
 ALTER TABLE `users`
 ADD CONSTRAINT FOREIGN KEY (`backgroundID`)
@@ -67,13 +69,13 @@ ADD CONSTRAINT FOREIGN KEY (`backgroundID`)
 DROP TABLE IF EXISTS `OWNERS`;
 CREATE TABLE IF NOT EXISTS `OWNERS` (
   `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(255) UNIQUE NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `firstName` varchar(50) NOT NULL,
   `address` varchar(150) NOT NULL,
   `postCode` varchar(150) NOT NULL,
   `city` varchar(45) NOT NULL,
-  `phone` varchar(13) NOT NULL,
+  `phone` varchar(13) UNIQUE NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -85,18 +87,22 @@ CREATE TABLE IF NOT EXISTS `SEX` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE `SEX` ADD CONSTRAINT UNIQUE(`name`);
 
+INSERT INTO `SEX` (`ID`, `name`) VALUES
+(1, 'Non-Binaire'),
+(2, 'Hermaphrodite'),
+(3, 'Vanille');
 DROP TABLE IF EXISTS `PATIENTS`;
 CREATE TABLE IF NOT EXISTS `PATIENTS` (
   `ID` INT(11) NOT NULL AUTO_INCREMENT,
   `patientName` varchar(20) NOT NULL DEFAULT 'Unknown',
   `breed` varchar(25) DEFAULT 'human',
-  `colour` varchar(20) DEFAULT 'Unknown',
   `sexID` INT(11) NOT NULL,
   `birthDate` date DEFAULT NULL,
-  `microchip` varchar(15) DEFAULT NULL,
   `comment` longtext,
   `history` longtext,
+  `avpath` varchar(155),
   PRIMARY KEY (`ID`),
   CONSTRAINT FK_patients_sex FOREIGN KEY (`sexID`)
   REFERENCES SEX(`ID`)
@@ -113,7 +119,6 @@ CREATE TABLE IF NOT EXISTS `APPOINTMENTS` (
   `notes` varchar(1500) NOT NULL,
   `appDay` DATE NOT NULL,
   `startTime` TIME NOT NULL,
-  `duration` TIME NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   /** `totalActivity` TIME NOT NULL DEFAULT CURRENT_TIMESTAMP(), */
   PRIMARY KEY (`ID`)
@@ -180,7 +185,6 @@ CREATE TABLE IF NOT EXISTS `SCHEDULES` (
   `fromTime` time  NOT NULL,
   `toTime` time NOT NULL,
   `workingDay` SET('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche') NOT NULL,
-  `userID` INT(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -246,7 +250,7 @@ DROP TABLE IF EXISTS `HOLIDAYS`;
 CREATE TABLE IF NOT EXISTS `HOLIDAYS` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `startsAt` DATETIME NOT NULL,
-  `endsAt` time  NULL,
+  `endsAt` datetime  NULL,
   `userID` INT(11) NOT NULL,
   PRIMARY KEY (`ID`),
   CONSTRAINT FK_holin_ownerID FOREIGN KEY (`userID`)
@@ -319,3 +323,4 @@ CREATE TABLE IF NOT EXISTS `MESSAGES` (
   `receiverID` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

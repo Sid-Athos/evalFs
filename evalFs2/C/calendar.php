@@ -47,15 +47,12 @@
     unset($query);
 
     $query =
-    "SELECT PATIENTS.patientName as pName, PATIENTS.ID as ID
-    FROM APPOINTMENTS
-    JOIN USER_HAS_APPOINTMENTS AS UHA ON UHA.appointmentID = APPOINTMENTS.ID
-    JOIN USERS ON USERS.ID = UHA.userID
-    JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
-    JOIN PATIENTS ON PATIENTS.ID = PHA.patientID
-    WHERE USERS.ID = :set1;";
+    "SELECT PATIENTS.patientName as name, PATIENTS.ID as ID,OWNERS.lastName as owName, OWNERS.firstName as owFirst, OWNERS.phone as owPhone
+    FROM PATIENTS
+    JOIN CLIENTS_HAS_PATIENTS AS CHP ON PATIENTS.ID = CHP.patientID
+    JOIN OWNERS ON CHP.ownerID = OWNERS.ID;";
 
-    $patients = fetchOneSet($db,$query,$_SESSION['ID']);
+    $patients = fetchNoSets($db,$query);
     
     unset($query);
 
@@ -64,6 +61,15 @@
     FROM SEX";
 
     $sex = fetchNoSets($db,$query);
+
+    unset($query);
+
+    $query =
+    "SELECT ID, CONCAT(lastName,' ',firstName) as name
+    FROM OWNERS";
+
+    $owners = fetchNoSets($db,$query);
+
     include('V/_template/htmlTop.php');
     include('V/_template/navbar.php');
     include('C/Functions/PHP/calendar.php');

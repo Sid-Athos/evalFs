@@ -24,12 +24,9 @@
                             </div>
                         </div>
                         <div id="answer" class="modal-header justify-content-center answer">
-                            <div class="progress">
-                                <div class="indeterminate"></div>
-                            </div>
                         </div>
                         <div class="modal-body" data-background-color >
-                            <form class="form" method="POST" action="index.php?page=apps" id="addAppForm" autocomplete="false">
+                            <form class="form" method="POST" action="index.php?page=apps" id="addAppsForm" autocomplete="false">
                                 <div class="modal-header justify-content-center" style="margin-top:-30px;" >
                                     <h5 class="motto" style="padding:10px">Seuls les champs de date/nom/heure/durée sont obligatoires</h5>
                                 </div>
@@ -91,7 +88,7 @@
                                                     </span>
                                                 </div>
                                                 <select class=" form-check-inline form-control" 
-                                                style="height:45px;widtih:200px" name="appCat" id="3">
+                                                style="height:45px;widtih:200px" name="appCat" required id="3">
                                                     <?php
                                                         for($i = 0; $i < count($res); $i++)
                                                         {
@@ -105,118 +102,106 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <?php
-                                            if(!empty($patients))
-                                            {
-                                                ?>
-                                        <div class=" form-check-inline" id="patientsSelect" style="position: relative;left:45px;width:480px;left:49px">
+                                    </div>
+                                    <div class=" form-check-inline" id="patientsSelect" style="position: relative;left:45px;width:480px;left:15px">
                                         <div class="input-group no-border input-xs" data-toggle="tooltip" 
                                             data-placement="top" 
-                                            title="Catégorie de l'évènement" style="left:-2px">
-                                                <div class="input-group-prepend " id="prep" >
-                                                    <span class="input-group-text" style="height:45px">
-                                                    <i class="now-ui-icons files_box" style="color:#FFFFFF"></i>
-                                                    </span>
-                                                </div>
-                                                <select class=" form-check-inline form-control" id="4"
-                                                style="height:45px;widtih:200px" name="appPat">
-                                                    <?php
-                                                        for($i = 0; $i < count($patients); $i++)
-                                                        {
-                                                            ?>
-                                                                <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
-                                                                value="<?php echo $patients[$i]['ID']; ?>">
-                                                                <?php echo $patients[$i]['name']; ?></option>
-                                                            <?php
-                                                        }
-                                                    ?>
-                                                </select>
+                                            title="Patient/Responsable" style="left:-2px">
+                                            <div class="input-group-prepend " id="prep" >
+                                                <span class="input-group-text" style="height:45px">
+                                                <i class="now-ui-icons files_box" style="color:#FFFFFF"></i>
+                                                </span>
                                             </div>
+                                            <select class=" form-check-inline form-control" id="4"
+                                            style="height:45px;widtih:200px"  name="appPat">
+                                                <?php
+                                                    for($i = 0; $i < count($patients); $i++)
+                                                    {
+                                                        ?>
+                                                            <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
+                                                            value="<?php echo $patients[$i]['ID']; ?>">
+                                                            <?php echo $patients[$i]['name']; ?> 
+                                                            <?php echo $patients[$i]['owName']; ?>
+                                                            <?php echo $patients[$i]['owFirst']; ?>
+                                                            <?php echo $patients[$i]['owPhone']; ?></option>
+                                                        <?php
+                                                    }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
-                                            <?php
-                                            }
-                                        ?>
                                     <div class="content-center-brand" style="margin:auto">
                                         <h5 class="motto" style="width:200px;margin:auto">Choix du patient</h5>
                                         <div class="form-check form-check-radio form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check form-check-input" type="radio" name="appRecc" id="rec1" value="1" 
-                                                onchange="showIt(this.value);"> 
-                                                Nouveau client
-                                                <span class="form-check-sign"></span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-radio form-check-inline">
-                                            <label class="form-check form-check-label">
-                                                <input class="form-check form-check-input" type="radio" name="appRecc" id="rec2" value="0" 
-                                                onchange="showIt(this.value);"> 
-                                                Nouveau patient
-                                                <span class="form-check-sign"></span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-radio form-check-inline">
-                                            <label class="form-check form-check-label">
-                                                <input class="form-check form-check-input" type="radio" name="appRecc" id="rec3" value="2" checked
-                                                onchange="showIt(this.value);"> 
+                                            <select onchange="showIt(this.value);" class="form-check form-control" id="appRec" name="appRecc">
+                                                <option class="form-check form-check-input" type="radio" name="appRec" id="37" value="37"
+                                                > 
                                                 Patient existant
-                                                <span class="form-check-sign"></span>
-                                            </label>
+                                                </option>
+                                                <option class="form-check form-check-input" type="radio" name="appRec" id="35" value="35" 
+                                                > 
+                                                Nouveau patient
+                                                </option>
+                                                <option class="form-check form-check-input" type="radio" name="appRec" id="36" value="36"> 
+                                                Nouveau client
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-row" id="loulilol" style="display:none;max-width:450px;margin:auto; ">                                        
                                         <div class="input-group no-border input-xs">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
-                                                <i class="now-ui-icons ui-1_email-85" style="color:#FFFFFF"></i>
+                                                <i class="now-ui-icons users_single-02" style="color:#FFFFFF"></i>
                                                 </span>
                                             </div>
                                             <input type="text" class="form-control" style="color:#FFFFFF" autocomplete="off" id="5"
-                                            placeholder="Nom" name="newCliName" 
+                                            placeholder="Nom du client" name="newCliName"  data-toggle="tooltip" data-placement="top" title="Nom propriétaire"
                                             value="<?php if(isset($res[0]['mail'])){ echo $res[0]['mail']; }?>">
                                         </div>
                                         <div class="input-group no-border input-xs">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
-                                                <i class="now-ui-icons ui-1_email-85" style="color:#FFFFFF"></i>
+                                                <i class="now-ui-icons users_single-02" style="color:#FFFFFF"></i>
                                                 </span>
                                             </div>
                                             <input type="text" class="form-control" style="color:#FFFFFF" autocomplete="off" id="6"
-                                            placeholder="Prénom" name="newCliFiName" 
+                                            placeholder="Prénom du client" name="newCliFiName" 
+                                            data-toggle="tooltip" data-placement="top" title="Prénom propriétaire"
                                             value="<?php if(isset($res[0]['mail'])){ echo $res[0]['mail']; }?>">
                                         </div>
                                         <div class="input-group no-border input-xs">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
-                                                <i class="now-ui-icons ui-1_email-85" style="color:#FFFFFF"></i>
+                                                <i class="now-ui-icons location_pin" style="color:#FFFFFF"></i>
                                                 </span>
                                             </div>
                                             <input type="text" class="form-control" style="color:#FFFFFF" autocomplete="off" id="7"
-                                            placeholder="Adresse" name="newCliAdress" 
+                                            placeholder="Adresse" name="newCliAdress"  data-toggle="tooltip" data-placement="top" title="Addresse propriétaire"
                                             value="<?php if(isset($res[0]['mail'])){ echo $res[0]['mail']; }?>">
                                         </div>
                                         <div class="input-group no-border input-xs">
                                             <div class="input-group-prepend">
                                             <span class="input-group-text">
-                                            <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
+                                            <i class="now-ui-icons location_pin" style="color:#FFFFFF"></i>
                                             </span>
                                             </div>
                                             <input type="text" class="form-control" placeholder="Code Postal" style="color:#FFFFFF" autocomplete="off" 
-                                            title="Alphanumériques, point, underscore, tirets et apostrophe uniquement, minimum 4 caractères" 
-                                            name="newCliPost"  pattern="/^[0-9]{5}$/" id="8"
+                                            title="Code postal, 5 chiffres maximum" 
+                                            name="newCliPost"  id="8" data-toggle="tooltip" data-placement="top" title="Code postal propriétaire"
                                             value="<?php if(isset($res[0]['pseudo'])){ echo $res[0]['pseudo']; }?>">
                                         </div>
                                         <div class="input-group no-border input-lg">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
-                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                <i class="now-ui-icons location_pin" style="color:#FFFFFF"></i>
                                                 </span>
                                             </div>
                                             <input type="text" class="form-control" placeholder="Ville" style="color:#FFFFFF" 
-                                             name="newCliTows" id="9"
+                                             name="newCliTown" id="9" data-toggle="tooltip" data-placement="top" title="Ville de résidence propriétaire"
                                             value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
                                         </div>
-                                        <div class="input-group no-border input-lg">
+                                        <div class="input-group no-border input-lg" data-toggle="tooltip" data-placement="top" title="Téléphone propriétaire">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                 <i class="fas fa-phone" style="color:#FFFFFF"></i>
@@ -226,78 +211,126 @@
                                             pattern="^[0-9]{10,12}$" name="newCliPhone" id="10"
                                             value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
                                         </div>
+                                        <div class="input-group no-border input-lg">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="now-ui-icons ui-1_email-85" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                            <input type="mail" class="form-control" placeholder="Adresse email" style="color:#FFFFFF" 
+                                            name="newCliMail" id="cliMail" id="11" data-toggle="tooltip" data-placement="top" title="Mail propriétaire"
+                                            value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="form-row" id="ownersSelect" style="display:none;max-width:450px;margin:auto; ">
+                                        <div class=" form-check-inline"  style="position: relative;width:490px">
+                                            <div class="input-group no-border input-xs" data-toggle="tooltip" 
+                                            data-placement="top" 
+                                            title="Propriétaire" style="left:-2px">
+                                                <div class="input-group-prepend ">
+                                                    <span class="input-group-text" style="height:45px">
+                                                    <i class="now-ui-icons files_box" style="color:#FFFFFF"></i>
+                                                    </span>
+                                                </div>
+                                                <select class=" form-check-inline form-control" id="12"
+                                                style="height:45px;widtih:200px" name="newPatOwner">
+                                                    <?php
+                                                        for($i = 0; $i < count($owners); $i++)
+                                                        {
+                                                            ?>
+                                                                <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
+                                                                value="<?php echo $owners[$i]['ID']; ?>">
+                                                                <?php echo $owners[$i]['name']; ?></option>
+                                                            <?php
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-row" id="lolilol" style="display:none;max-width:450px;margin:auto; ">
                                         <div class="input-group no-border input-xs">
                                             <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                            <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
-                                            </span>
+                                                <span class="input-group-text">
+                                                <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
+                                                </span>
                                             </div>
                                             <input type="text" class="form-control" placeholder="Nom du patient" style="color:#FFFFFF" autocomplete="off" 
                                             title="Alphanumériques, point, underscore, tirets et apostrophe uniquement, minimum 4 caractères" 
-                                            name="newPatName"  pattern="/^[a-zA-Z0-9\_\'\.\-]{4,45]$/" id="4"
-                                            value="<?php if(isset($res[0]['pseudo'])){ echo $res[0]['pseudo']; }?>">
+                                            data-toggle="tooltip" data-placement="top"
+                                            name="newPatName" id="13"
+                                            value="">
                                         </div>
                                         <div class="input-group no-border input-lg">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
-                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
                                                 </span>
                                             </div>
                                             <input type="text" class="form-control" placeholder="Prénom du patient" style="color:#FFFFFF" 
-                                            pattern="^[0-9]{10,12}$" name="newPatFi" id="5"
-                                            value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
-                                        </div>
-                                        <div class="input-group no-border input-lg">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
-                                                </span>
-                                            </div>
-                                            <input type="date" class="form-control" placeholder="Date de naissance" style="color:#FFFFFF" 
-                                             name="newPatBirth" id="5" max="<?php echo $todays; ?>" id="birthDate"
+                                            name="newPatFi" id="14" data-toggle="tooltip" data-placement="top" title="Prénom du patient"
                                             value="" autocomplete="off">
                                         </div>
                                         <div class="input-group no-border input-lg">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
-                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                <i class="now-ui-icons ui-1_calendar-60" style="color:#FFFFFF"></i>
                                                 </span>
                                             </div>
-                                            <select class=" form-check-inline form-control" id="4"
-                                                style="height:45px;widtih:200px" name="NewPatSex">
-                                                    <?php
-                                                        for($i = 0; $i < count($sex); $i++)
-                                                        {
-                                                            ?>
-                                                                <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
-                                                                value="<?php echo $sex[$i]['ID']; ?>">
-                                                                <?php echo $sex[$i]['name']; ?></option>
-                                                            <?php
-                                                        }
-                                                    ?>
-                                                </select>
+                                            <input type="date" class="form-control" placeholder="Date de naissance" style="color:#FFFFFF" 
+                                             name="newPatBirth" id="15" max="<?php echo $todays; ?>" 
+                                             data-toggle="tooltip" data-placement="top" title="Date de naissance du patient"
+                                            value="" autocomplete="off">
                                         </div>
                                         <div class="input-group no-border input-lg">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
-                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                <i class="now-ui-icons business_badge" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                        <select class="form-check-inline form-control" id="16"
+                                            style="height:45px;widtih:200px" name="patSex" data-toggle="tooltip" data-placement="top" title="Sexedu patient">
+                                                <?php
+                                                    for($i = 0; $i < count($sex); $i++)
+                                                    {
+                                                        ?>
+                                                            <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
+                                                            value="<?php echo $sex[$i]['ID']; ?>">
+                                                            <?php echo $sex[$i]['name']; ?></option>
+                                                        <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="input-group no-border input-lg">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="now-ui-icons clothes_tie-bow" style="color:#FFFFFF"></i>
                                                 </span>
                                             </div>
                                             <input type="text" class="form-control" placeholder="Mode de vie" style="color:#FFFFFF" 
-                                            pattern="^[0-9]{10,12}$" name="newPatLs" id="5"
-                                            value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
+                                             name="newPatLs" id="17" data-toggle="tooltip" data-placement="top" title="Lifestyle"
+                                            value="" autocomplete="off">
                                         </div>
                                         <div class="input-group no-border input-lg">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
-                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                <i class="now-ui-icons clothes_tie-bow" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Origine" style="color:#FFFFFF" 
+                                             name="newPatOrs" id="17" data-toggle="tooltip" data-placement="top" title="Origine et éventuelle race (si animal) du patient"
+                                            value="" autocomplete="off">
+                                        </div>
+                                        <div class="input-group no-border input-lg">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="now-ui-icons ui-2_settings-90" style="color:#FFFFFF"></i>
                                                 </span>
                                             </div>
                                             <input type="text" class="form-control" placeholder="Alimentation" style="color:#FFFFFF" 
-                                             name="newPatFood" id="5"
-                                            value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
+                                             name="newPatFood" id="87"
+                                            value="" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-row" style="margin-top:5px">
@@ -308,8 +341,8 @@
                                                 <i class="now-ui-icons location_pin" style="color:#FFFFFF"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class=" form-check-inline form-control" placeholder="Mail"  
-                                            name="appPlace" min="<?= $todays; ?>"
+                                            <input type="text" class=" form-check-inline form-control" placeholder="Lieu"  
+                                            name="appPlace" min="<?= $todays; ?>" id="19" required
                                             value="<?php if(isset($flagName)){ echo $flagName; } ?>" style="height:45px;border-top-right-radius:0px;border-bottom-right-radius:0px" 
                                             autocomplete="off">
                                         </div>
@@ -320,7 +353,7 @@
                                                 <div class="input-group-prepend" >
                                                     <span class="input-group-text" style="height:80px"><i class="now-ui-icons files_paper" style="color: #FFFFFF"></i></span>
                                                 </div>
-                                            <textarea placeholder="Pense-bête" name="appNotes" id="1" class="form-control mod-input" 
+                                            <textarea placeholder="Pense-bête" name="appNotes" id="20" class="form-control mod-input" 
                                             rows="10" lines="50" 
                                             value="<?php if(isset($flagPassword)){ echo $flagPassword; } ?>" style="color:#FFFFFF"></textarea>
                                         </div>
@@ -330,12 +363,11 @@
                                     <button type="submit" class="btn btn-default btn-round ml-auto mr-auto" style="">Enregistrer le rendez-vous</button>
                                 </div>
                             </div>
-                        </form>
                     </div>
+                        </form>
                 </div>
             </div>
         </div>
-    </div>
     <!-- Modal -->
 <div class="modal fade" id="appsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -373,6 +405,7 @@
     </div>
     </div>
     <script>
+      
     function killApp(id)
     {
         $('#tooltip'+id).tooltip('hide');
@@ -454,32 +487,63 @@
             localStorage.setItem('cssClass',"slideOutRight");            
         }
     }
-$("#addAppForm").submit(function(event){
+$("#addAppsForm").submit(function(event){
         event.preventDefault();
-        date = document.getElementById('0').value;
-        if(document.getElementById('rec1').checked === true)
+        type = $('#appRec').val();
+        console.log(type);
+        if(type === "36")
         {
             query = $.post({
                 url : 'indexAjax.php',
                 data : 
                 {
+                    'usrID': String(<?php echo $_SESSION['ID']; ?>),
+                    'appRecc': type, 
                     'appName': $('input[name=appName]').val(), 
-                    'usrID': String(<?php echo $_SESSION['ID']; ?>), 
                     'appDate': $('input[name=appDate]').val(), 
                     'appCat' : $('select[name=appCat]').val(),
                     'appNotes' : $('textarea[name=appNotes]').val(),
                     'appPlace' : $('input[name=appPlace]').val(),
                     'appHour' : $('input[name=appHour]').val(),
-                    'appEnd' : $('input[name=endDate]').val(),
-                    'appFreq' : $('input[name=appFreq]').val(),
-                    'appRecc' : $('input[name=appRecc]').val(),
-                    'timeH' : $('input[name=durationHour]').val(),
-                    'timeM' : $('input[name=durationMins]').val(),
+                    'cliName' : $('input[name=newCliName]').val(),
+                    'cliFiName' : $('input[name=newCliFiName]').val(),
+                    'cliAdress' : $('input[name=newCliAdress').val(),
+                    'cliPost' : $('input[name=newCliPost]').val(),
+                    'cliTown' : $('input[name=newCliTown]').val(),
+                    'cliPhone' : $('input[name=newCliPhone]').val(),
+                    'cliMail' : $('input[name=newCliMail]').val(),
+                    'patName' : $('input[name=newPatName]').val(),
+                    'patFi' : $('input[name=newPatFi]').val(),
+                    'patBirth' : $('input[name=newPatBirth]').val(),
+                    'patSex' : $('#16').val(),
+                    'patLstyle' : $('input[name=newPatLs]').val(),
+                    'patFood' : $('input[name=newPatFood]').val(),
+                    'patOr' : $('input[name=newPatOrs]').val(),
+
+                }
+            });
+            console.log("client + pat");
+        } else if(type==="37"){
+            query = $.post({
+                url : 'indexAjax.php',
+                data : 
+                {
+                    'usrID': String(<?php echo $_SESSION['ID']; ?>),
+                    'appRecc': type, 
+                    'appName': $('input[name=appName]').val(), 
+                    'appDate': $('input[name=appDate]').val(), 
+                    'appCat' : $('select[name=appCat]').val(),
+                    'appPat' : $('select[name=appPat]').val(),
+                    'appNotes' : $('textarea[name=appNotes]').val(),
+                    'appPlace' : $('input[name=appPlace]').val(),
+                    'appHour' : $('input[name=appHour]').val(),
                 }
             });
         }
         else
         {
+            console.log("pat");
+            /**
             query = $.post({
                 url : 'indexAjax.php',
                 data : 
@@ -496,9 +560,10 @@ $("#addAppForm").submit(function(event){
                     'timeM' : $('input[name=durationMins]').val(),    
                 }
             });
+            */
+           console.log("Non");
         }
         check = query.done(function(response){
-            //$("#apps"+)
             $('#answer').html(response);
            
         });

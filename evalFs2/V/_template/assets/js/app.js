@@ -178,33 +178,54 @@ function searchSelect()
 
 function showIt(val){
     val = Number(val);
-    if(val === 1)
+    if(val === 36)
     {
         document.getElementById('lolilol').style.display = "";
         document.getElementById('loulilol').style.display = "";
-        document.getElementById('CSSit').style.height= "45px";
-        document.getElementById('CSSit').style.marginTop = "-1px";
-        document.getElementById('birthDate').required = true;
-        for(i = 1; i < 4;i++)
+        document.getElementById('ownersSelect').style.display="none";
+        document.getElementById('patientsSelect').style.display= "none";
+        document.getElementById('cliMail').setAttribute('required','true');
+        document.getElementById('4').removeAttribute('required');
+
+        for(let i = 5;i < 12;i++)
         {
-            document.getElementById('freq'+ i).required = true;
+            document.getElementById(i).setAttribute('required','true');
+        }
+        for(let i = 12;i < 21;i++)
+        {
+            document.getElementById(i).setAttribute('required','true');
         }
     }
-    else if(val === 0)
+    else if(val === 35)
     {
         document.getElementById('loulilol').style.display = "none";
         document.getElementById('lolilol').style.display = "";
-        document.getElementById('CSSit').style.height = "44px";
-        document.getElementById('CSSit').style.marginTop = "0px";
-        document.getElementById('birthDate').required = true;
-        for(i = 1; i < 4;i++)
+        document.getElementById('4').removeAttribute('required');
+        document.getElementById('ownersSelect').style.display= "";
+        document.getElementById('patientsSelect').style.display= "none";
+        document.getElementById('cliMail').setAttribute('required','false');
+
+        for(let i = 5;i < 12;i++)
         {
-            document.getElementById('freq'+ i).required = false;
+            document.getElementById(i).removeAttribute('required');
         }
+        for(let i = 12;i < 21;i++)
+        {
+            document.getElementById(i).setAttribute('required','true');
+        }
+
     } else {
+
         document.getElementById('loulilol').style.display = "none";
         document.getElementById('lolilol').style.display = "none";
-        document.getElementById('birthDate').required = false;
+        //document.getElementById('4').setAttribute('required','true');
+        document.getElementById('cliMail').setAttribute('required','false');
+        document.getElementById('patientsSelect').style.display= "";
+
+        for(let i = 5;i < 21;i++)
+        {
+            document.getElementById(i).removeAttribute('required');
+        }
     }
 }
 
