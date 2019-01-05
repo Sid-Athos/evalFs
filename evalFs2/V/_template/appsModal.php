@@ -12,7 +12,7 @@
                     <div class="card card-login card-plain" style="background-color:#333333;width:600px;top:0px;transform:none">
                         <div class="modal-header justify-content-center" style="height:70px">
                             <h5 class="motto" style="font-size:24px;margin-left:25px">
-                            Ajouter un évènement
+                            Ajouter un rendez-vous
                             </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                 <i class="now-ui-icons ui-1_simple-remove" style="color:#decba4"></i>
@@ -74,7 +74,7 @@
                                                 </div>
                                                 <input type="time" class=" form-check-inline form-control" 
                                                 placeholder="Heure de début"  
-                                                name="appHour" id="1" min="0" max="23"
+                                                name="appHour" id="2" min="0" max="23"
                                                 value="<?php if(isset($flagName)){ echo $flagName; } ?>" 
                                                 data-toggle="tooltip" data-placement="top" 
                                                 title="Horaire de début"
@@ -85,109 +85,219 @@
                                             <div class="input-group no-border input-xs" data-toggle="tooltip" 
                                             data-placement="top" 
                                             title="Catégorie de l'évènement" style="left:-2px">
-                                            <div class="input-group-prepend " id="prep" >
-                                                <span class="input-group-text" style="height:45px">
-                                                <i class="now-ui-icons files_box" style="color:#FFFFFF"></i>
-                                                </span>
-                                            </div>
-                                            <select class=" form-check-inline form-control" 
-                                            style="height:45px;widtih:200px" name="appCat">
-                                                <?php
-                                                    for($i = 0; $i < count($res); $i++)
-                                                    {
-                                                        ?>
-                                                            <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
-                                                            value="<?php echo $res[$i]['ID']; ?>">
-                                                            <?php echo $res[$i]['name']; ?></option>
-                                                        <?php
-                                                    }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class=" form-check-inline" style="position: relative;left:45px;width:480px;left:49px">
-                                                <div class="input-group no-border input-xs " data-toggle="tooltip" data-placement="right" 
-                                                title="Durée">
-                                                    <div class="input-group-prepend " id="prep" style=" ">
-                                                        <span class="input-group-text" style="height:46px">
-                                                        <i class="now-ui-icons text_align-left" style="color:#FFFFFF"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="number" class=" form-check-inline form-control" 
-                                                    placeholder="Durée"  
-                                                    name="durationHour" id="1" min="0" max="23"
-                                                    value="<?php if(isset($flagName)){ echo $flagName; } ?>" 
-                                                    style="height:46px;border-top-right-radius:0px;border-bottom-right-radius:0px" 
-                                                    required autocomplete="off"> 
-                                                    <span style="position:relative;top:20px;margin-right:10px">H</span>
-                                                    <div class="input-group-prepend " id="prep" style=" ">
-                                                        <span class="input-group-text" style="height:46px">
-                                                        <i class="now-ui-icons text_align-left" style="color:#FFFFFF"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="number" class=" form-check-inline form-control" placeholder="Minutes"  
-                                                    name="durationMins" id="1" min="0" max="55" step="5"
-                                                    value="<?php if(isset($flagName)){ echo $flagName; } ?>" 
-                                                    style="height:46px;border-top-right-radius:0px;border-bottom-right-radius:0px" 
-                                                    required autocomplete="off"> 
-                                                    <span style="position:relative;top:20px">M</span>
+                                                <div class="input-group-prepend " id="prep" >
+                                                    <span class="input-group-text" style="height:45px">
+                                                    <i class="now-ui-icons files_box" style="color:#FFFFFF"></i>
+                                                    </span>
                                                 </div>
+                                                <select class=" form-check-inline form-control" 
+                                                style="height:45px;widtih:200px" name="appCat" id="3">
+                                                    <?php
+                                                        for($i = 0; $i < count($res); $i++)
+                                                        {
+                                                            ?>
+                                                                <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
+                                                                value="<?php echo $res[$i]['ID']; ?>">
+                                                                <?php echo $res[$i]['name']; ?></option>
+                                                            <?php
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <?php
+                                            if(!empty($patients))
+                                            {
+                                                ?>
+                                        <div class=" form-check-inline" id="patientsSelect" style="position: relative;left:45px;width:480px;left:49px">
+                                        <div class="input-group no-border input-xs" data-toggle="tooltip" 
+                                            data-placement="top" 
+                                            title="Catégorie de l'évènement" style="left:-2px">
+                                                <div class="input-group-prepend " id="prep" >
+                                                    <span class="input-group-text" style="height:45px">
+                                                    <i class="now-ui-icons files_box" style="color:#FFFFFF"></i>
+                                                    </span>
+                                                </div>
+                                                <select class=" form-check-inline form-control" id="4"
+                                                style="height:45px;widtih:200px" name="appPat">
+                                                    <?php
+                                                        for($i = 0; $i < count($patients); $i++)
+                                                        {
+                                                            ?>
+                                                                <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
+                                                                value="<?php echo $patients[$i]['ID']; ?>">
+                                                                <?php echo $patients[$i]['name']; ?></option>
+                                                            <?php
+                                                        }
+                                                    ?>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
+                                            <?php
+                                            }
+                                        ?>
                                     <div class="content-center-brand" style="margin:auto">
                                         <h5 class="motto" style="width:200px;margin:auto">Choix du patient</h5>
                                         <div class="form-check form-check-radio form-check-inline">
                                             <label class="form-check-label">
                                                 <input class="form-check form-check-input" type="radio" name="appRecc" id="rec1" value="1" 
                                                 onchange="showIt(this.value);"> 
-                                                Évènement récurrent
+                                                Nouveau client
                                                 <span class="form-check-sign"></span>
                                             </label>
                                         </div>
                                         <div class="form-check form-check-radio form-check-inline">
                                             <label class="form-check form-check-label">
-                                                <input class="form-check form-check-input" type="radio" name="appRecc" checked id="rec2" value="0" 
+                                                <input class="form-check form-check-input" type="radio" name="appRecc" id="rec2" value="0" 
                                                 onchange="showIt(this.value);"> 
-                                                Évènement ponctuel
+                                                Nouveau patient
+                                                <span class="form-check-sign"></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-radio form-check-inline">
+                                            <label class="form-check form-check-label">
+                                                <input class="form-check form-check-input" type="radio" name="appRecc" id="rec3" value="2" checked
+                                                onchange="showIt(this.value);"> 
+                                                Patient existant
                                                 <span class="form-check-sign"></span>
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="form-row" id="loulilol" style="display:none; ">
-                                        <div class="input-group no-border input-xs" style="width:485px;left:45px" data-toggle="tooltip" data-placement="top" 
-                                        title="Date de fin de réccurence">
-                                            <div class="input-group-prepend " id="prep" style=" ">
-                                                <span class="input-group-text" style="height:46px">
-                                                <i class="now-ui-icons location_pin" style="color:#FFFFFF"></i>
+                                    <div class="form-row" id="loulilol" style="display:none;max-width:450px;margin:auto; ">                                        
+                                        <div class="input-group no-border input-xs">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="now-ui-icons ui-1_email-85" style="color:#FFFFFF"></i>
                                                 </span>
                                             </div>
-                                            <input type="date" class=" form-check-inline form-control" name="endDate" min="<?= $todays; ?>" id="endDate"
-                                            value="<?php if(isset($flagName)){ echo $flagName; } ?>" style="height:45px;border-top-right-radius:0px;border-bottom-right-radius:0px" 
-                                            autocomplete="off">
+                                            <input type="text" class="form-control" style="color:#FFFFFF" autocomplete="off" id="5"
+                                            placeholder="Nom" name="newCliName" 
+                                            value="<?php if(isset($res[0]['mail'])){ echo $res[0]['mail']; }?>">
                                         </div>
-                                        <div class="content-center-brand" style="margin:auto;margin-top:-25px">
-                                        <br>
-                                        <h5 class="motto" style="width:200px;margin:auto">Fréquence</h5>
-                                        <div class="form-check form-check-radio form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="radio" name="appFreq" id="freq1" value="1">Chaques jours
-                                                <span class="form-check-sign"></span>
-                                            </label>
+                                        <div class="input-group no-border input-xs">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="now-ui-icons ui-1_email-85" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" style="color:#FFFFFF" autocomplete="off" id="6"
+                                            placeholder="Prénom" name="newCliFiName" 
+                                            value="<?php if(isset($res[0]['mail'])){ echo $res[0]['mail']; }?>">
                                         </div>
-                                        <div class="form-check form-check-radio form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="radio" name="appFreq" id="freq2" value="7">Chaques semaine
-                                                <span class="form-check-sign"></span>
-                                            </label>
+                                        <div class="input-group no-border input-xs">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="now-ui-icons ui-1_email-85" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" style="color:#FFFFFF" autocomplete="off" id="7"
+                                            placeholder="Adresse" name="newCliAdress" 
+                                            value="<?php if(isset($res[0]['mail'])){ echo $res[0]['mail']; }?>">
                                         </div>
-                                        <div class="form-check form-check-radio form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="radio" name="appFreq" id="freq3" value="month">Chaques mois
-                                                <span class="form-check-sign"></span>
-                                            </label>
+                                        <div class="input-group no-border input-xs">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                            <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Code Postal" style="color:#FFFFFF" autocomplete="off" 
+                                            title="Alphanumériques, point, underscore, tirets et apostrophe uniquement, minimum 4 caractères" 
+                                            name="newCliPost"  pattern="/^[0-9]{5}$/" id="8"
+                                            value="<?php if(isset($res[0]['pseudo'])){ echo $res[0]['pseudo']; }?>">
                                         </div>
+                                        <div class="input-group no-border input-lg">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Ville" style="color:#FFFFFF" 
+                                             name="newCliTows" id="9"
+                                            value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
+                                        </div>
+                                        <div class="input-group no-border input-lg">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                            <input type="phone" class="form-control" placeholder="Téléphone" style="color:#FFFFFF" 
+                                            pattern="^[0-9]{10,12}$" name="newCliPhone" id="10"
+                                            value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="form-row" id="lolilol" style="display:none;max-width:450px;margin:auto; ">
+                                        <div class="input-group no-border input-xs">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                            <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Nom du patient" style="color:#FFFFFF" autocomplete="off" 
+                                            title="Alphanumériques, point, underscore, tirets et apostrophe uniquement, minimum 4 caractères" 
+                                            name="newPatName"  pattern="/^[a-zA-Z0-9\_\'\.\-]{4,45]$/" id="4"
+                                            value="<?php if(isset($res[0]['pseudo'])){ echo $res[0]['pseudo']; }?>">
+                                        </div>
+                                        <div class="input-group no-border input-lg">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Prénom du patient" style="color:#FFFFFF" 
+                                            pattern="^[0-9]{10,12}$" name="newPatFi" id="5"
+                                            value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
+                                        </div>
+                                        <div class="input-group no-border input-lg">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                            <input type="date" class="form-control" placeholder="Date de naissance" style="color:#FFFFFF" 
+                                             name="newPatBirth" id="5" max="<?php echo $todays; ?>" id="birthDate"
+                                            value="" autocomplete="off">
+                                        </div>
+                                        <div class="input-group no-border input-lg">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                            <select class=" form-check-inline form-control" id="4"
+                                                style="height:45px;widtih:200px" name="NewPatSex">
+                                                    <?php
+                                                        for($i = 0; $i < count($sex); $i++)
+                                                        {
+                                                            ?>
+                                                                <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
+                                                                value="<?php echo $sex[$i]['ID']; ?>">
+                                                                <?php echo $sex[$i]['name']; ?></option>
+                                                            <?php
+                                                        }
+                                                    ?>
+                                                </select>
+                                        </div>
+                                        <div class="input-group no-border input-lg">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Mode de vie" style="color:#FFFFFF" 
+                                            pattern="^[0-9]{10,12}$" name="newPatLs" id="5"
+                                            value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
+                                        </div>
+                                        <div class="input-group no-border input-lg">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                <i class="fas fa-phone" style="color:#FFFFFF"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control" placeholder="Alimentation" style="color:#FFFFFF" 
+                                             name="newPatFood" id="5"
+                                            value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-row" style="margin-top:5px">
@@ -198,13 +308,13 @@
                                                 <i class="now-ui-icons location_pin" style="color:#FFFFFF"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class=" form-check-inline form-control" placeholder="Adresse"  
+                                            <input type="text" class=" form-check-inline form-control" placeholder="Mail"  
                                             name="appPlace" min="<?= $todays; ?>"
                                             value="<?php if(isset($flagName)){ echo $flagName; } ?>" style="height:45px;border-top-right-radius:0px;border-bottom-right-radius:0px" 
                                             autocomplete="off">
                                         </div>
                                     </div>
-                                    <div class="form-row" style="margin-top:12px">
+                                    <div class="form-row" style="max-width:470px;margin:auto; ">
                                         <div class="form-check" style="margin:auto;width:470px;left:5px" data-toggle="tooltip" data-placement="right" title="Notes (non obligatoires)">
                                             <div class="input-group no-border input-lg">
                                                 <div class="input-group-prepend" >

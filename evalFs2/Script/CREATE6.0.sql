@@ -1,36 +1,32 @@
--- phpMyAdmin SQL Dump
--- version 4.7.9
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 03 déc. 2018 à 18:23
--- Version du serveur :  5.7.21
--- Version de PHP :  5.6.35
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "+01:00";
+
+DROP DATABASE `appsEval`;
+CREATE DATABASE `appsEval`;
+USE `appsEval`;
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+DROP TABLE IF EXISTS `CATEGORYS`;
+CREATE TABLE IF NOT EXISTS `CATEGORYS` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+
+ALTER TABLE `CATEGORYS` ADD CONSTRAINT UNIQUE(`name`);
 --
--- Base de données :  `GLANCE`
-
-
-
--- --------------------------------------------------------
-
+-- Déchargement des données de la table `CATEGORYS`
+--
 --
 -- Structure de la table `USERS`
 --
+
 DROP TABLE IF EXISTS `BACKGROUNDS`;
 CREATE TABLE IF NOT EXISTS `BACKGROUNDS` (
-  `ID` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `ID` TINYINT(4) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `backPath` varchar(150) NOT NULL,
   PRIMARY KEY (`ID`)
@@ -41,30 +37,224 @@ INSERT INTO `BACKGROUNDS` (`ID`, `name`,`backPath`) VALUES
 (2,'Anime Wallpaper','V/_template/assets/img/anime.jpg');
 
 
+INSERT INTO `CATEGORYS` (`ID`, `name`) VALUES
+(1, 'Urgence'),
+(2, 'Consultation suivie'),
+(3, 'Première consultation');
+
 
 DROP TABLE IF EXISTS `USERS`;
 CREATE TABLE IF NOT EXISTS `USERS` (
-  `ID` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
+  `ID` INT(11) NOT NULL UNIQUE AUTO_INCREMENT,
   `pseudo` varchar(45) NOT NULL,
   `mail` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `phone` varchar(12) DEFAULT NULL,
   `avPath` varchar(255) DEFAULT "",
   `lastCo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `backgroundID` tinyint(4) NOT NULL DEFAULT 1,
-  `font` tinyint(1) NOT NULL DEFAULT 0,
-  `online` tinyint(1) NOT NULL DEFAULT 1,
-  `alive` tinyint(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`ID`),
-  CONSTRAINT FK_back FOREIGN KEY (`backgroundID`)
-  REFERENCES BACKGROUNDS(`ID`)
-  ON UPDATE CASCADE
-  ON DELETE RESTRICT
+  `backgroundID` TINYINT(4) NOT NULL DEFAULT 1,
+  `font` TINYINT(1) NOT NULL DEFAULT 0,
+  `alive` TINYINT(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`ID`) 
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-ALTER TABLE `USERS` ADD CONSTRAINT UNIQUE(`pseudo`);
-ALTER TABLE `USERS` ADD CONSTRAINT UNIQUE(`mail`);
-ALTER TABLE `USERS` ADD CONSTRAINT UNIQUE(`phone`);
+ALTER TABLE `users`
+ADD CONSTRAINT FOREIGN KEY (`backgroundID`)
+  REFERENCES BACKGROUNDS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT;
+
+DROP TABLE IF EXISTS `OWNERS`;
+CREATE TABLE IF NOT EXISTS `OWNERS` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `address` varchar(150) NOT NULL,
+  `postCode` varchar(150) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  `phone` varchar(13) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `SEX`;
+CREATE TABLE IF NOT EXISTS `SEX` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `PATIENTS`;
+CREATE TABLE IF NOT EXISTS `PATIENTS` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `patientName` varchar(20) NOT NULL DEFAULT 'Unknown',
+  `breed` varchar(25) DEFAULT 'human',
+  `colour` varchar(20) DEFAULT 'Unknown',
+  `sexID` INT(11) NOT NULL,
+  `birthDate` date DEFAULT NULL,
+  `microchip` varchar(15) DEFAULT NULL,
+  `comment` longtext,
+  `history` longtext,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT FK_patients_sex FOREIGN KEY (`sexID`)
+  REFERENCES SEX(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `APPOINTMENTS`;
+CREATE TABLE IF NOT EXISTS `APPOINTMENTS` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `place` varchar(250) NOT NULL DEFAULT 'Aucun endroit défini',
+  `notes` varchar(1500) NOT NULL,
+  `appDay` DATE NOT NULL,
+  `startTime` TIME NOT NULL,
+  `duration` TIME NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  /** `totalActivity` TIME NOT NULL DEFAULT CURRENT_TIMESTAMP(), */
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `CONSULTATIONS`;
+CREATE TABLE IF NOT EXISTS `CONSULTATIONS` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `reason` varchar(45) NOT NULL,
+  `food` varchar(45) NOT NULL DEFAULT "Non renseigné",
+  `mindState` varchar(45) NOT NULL DEFAULT "En forme wallah, c'est dans sa tête",
+  `phyState` varchar(45) NOT NULL DEFAULT "Bon là par contre...",
+  `temper` varchar(50) NOT NULL DEFAULT "Tempura",
+  `notes` varchar(1500) NOT NULL DEFAULT "Aucune note",
+  `weight` VARCHAR(50) NOT NULL, 
+  `recommandations` varchar(1500) NOT NULL,
+  `appointmentID` INT(11) NOT NULL DEFAULT 1,
+  /** `totalActivity` TIME NOT NULL DEFAULT CURRENT_TIMESTAMP(), */
+  PRIMARY KEY (`ID`),
+  CONSTRAINT FK_cons_appointmentID FOREIGN KEY (`appointmentID`)
+  REFERENCES APPOINTMENTS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `OWNER_HAS_PATIENTS`;
+CREATE TABLE IF NOT EXISTS `clients_has_patients` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `ownerID` INT(11) NOT NULL,
+  `patientID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT FK_ownhaspat_ownerID FOREIGN KEY (`ownerID`)
+  REFERENCES OWNERS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT,
+  CONSTRAINT FK_ownhaspat_patientID FOREIGN KEY (`patientID`)
+  REFERENCES PATIENTS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `USER_HAS_APPS`;
+CREATE TABLE IF NOT EXISTS `USER_HAS_APPS` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `userID` INT(11) NOT NULL,
+  `appointmentID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT FK_ushasapp_userID FOREIGN KEY (`userID`)
+  REFERENCES USERS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT,
+  CONSTRAINT FK_ushasapp_patientID FOREIGN KEY (`appointmentID`)
+  REFERENCES APPOINTMENTS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `SCHEDULES`;
+CREATE TABLE IF NOT EXISTS `SCHEDULES` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `fromTime` time  NOT NULL,
+  `toTime` time NOT NULL,
+  `workingDay` SET('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche') NOT NULL,
+  `userID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `USER_HAS_SCHEDULE`;
+CREATE TABLE IF NOT EXISTS `USER_HAS_SCHEDULE` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `userID` INT(11) NOT NULL,
+  `scheduleID` INT(11) NOT NULL,
+  PRIMARY KEY(`ID`),
+  CONSTRAINT FK_ushassche_ownerID FOREIGN KEY (`userID`)
+  REFERENCES USERS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT,
+  CONSTRAINT FK_ushassche_scheduleID FOREIGN KEY (`scheduleID`)
+  REFERENCES SCHEDULES(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `PATIENT_HAS_APPOINTMENTS`;
+CREATE TABLE IF NOT EXISTS `PATIENT_HAS_APPOINTMENTS` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `patientID` INT(11) NOT NULL,
+  `appointmentID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT FOREIGN KEY (`patientID`)
+  REFERENCES PATIENTS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT,
+  CONSTRAINT FOREIGN KEY (`appointmentID`)
+  REFERENCES APPOINTMENTS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+
+DROP TABLE IF EXISTS `SPECS`;
+CREATE TABLE IF NOT EXISTS `SPECS` (
+  `ID` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `SPECCED_IN`;
+CREATE TABLE IF NOT EXISTS `SPECCED_IN` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `specID` tinyint(4) NOT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT FOREIGN KEY (`userID`)
+  REFERENCES USERS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT,
+  CONSTRAINT FOREIGN KEY (`specID`)
+  REFERENCES SPECS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `HOLIDAYS`;
+CREATE TABLE IF NOT EXISTS `HOLIDAYS` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `startsAt` DATETIME NOT NULL,
+  `endsAt` time  NULL,
+  `userID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT FK_holin_ownerID FOREIGN KEY (`userID`)
+  REFERENCES USERS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
+
 
 --
 -- Déchargement des données de la table `USERS`
@@ -79,23 +269,6 @@ INSERT INTO `USERS` (`ID`, `pseudo`, `mail`, `password`, `phone`) VALUES
 -- Structure de la table `PLATOONS`
 --
 
-DROP TABLE IF EXISTS `APPOINTMENTS`;
-CREATE TABLE IF NOT EXISTS `APPOINTMENTS` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `place` varchar(250) NOT NULL DEFAULT 'Aucun endroit défini',
-  `notes` varchar(1500) NOT NULL,
-  `appDay` DATE NOT NULL,
-  `startTime` TIME NOT NULL,
-  `duration` TIME NOT NULL,
-  `appCat` tinyint(3) NOT NULL,
-  `allDay` tinyint(1) NOT NULL DEFAULT 0,
-  `userID` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
-  /** `totalActivity` TIME NOT NULL DEFAULT CURRENT_TIMESTAMP(), */
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
 --
 -- Déchargement des données de la table `PLATOONS`
 --
@@ -105,27 +278,7 @@ CREATE TABLE IF NOT EXISTS `APPOINTMENTS` (
 
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `CATEGORYS`;
-CREATE TABLE IF NOT EXISTS `CATEGORYS` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-
-ALTER TABLE `CATEGORYS` ADD CONSTRAINT UNIQUE(`name`);
---
--- Déchargement des données de la table `CATEGORYS`
---
-
-INSERT INTO `CATEGORYS` (`ID`, `name`) VALUES
-(1, 'Professionnel'),
-(2, 'Personnel'),
-(3, 'Amoureux'),
-(4, 'Culture'),
-(5, 'Santé'),
-(6, 'Administratif'),
-(7, 'Relax');
 
 -- --------------------------------------------------------
 
@@ -166,32 +319,3 @@ CREATE TABLE IF NOT EXISTS `MESSAGES` (
   `receiverID` int(11) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
-
---
--- Structure de la table `SUBSCRIBERS`
---
-
-DROP TABLE IF EXISTS `INVITED`;
-CREATE TABLE IF NOT EXISTS `INVITED` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `userID` int(11) NOT NULL,
-  `authorized` tinyint(2) NOT NULL DEFAULT 1,
-  `appointmentID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  CONSTRAINT FK_us FOREIGN KEY (`userID`)
-  REFERENCES USERS(`ID`)
-  ON UPDATE CASCADE
-  ON DELETE RESTRICT,
-  CONSTRAINT FK_pl FOREIGN KEY (`appointmentID`)
-  REFERENCES APPOINTMENTS(`ID`)
-  ON UPDATE CASCADE
-  ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

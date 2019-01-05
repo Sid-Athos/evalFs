@@ -102,6 +102,34 @@
         }
         return $res; 
     }
+
+    function sixSets($db,$query,$set1,$set2,$set3,$set4,$set5,$set6)
+    {
+        
+        try 
+        {
+            $stmt = $db->prepare($query);
+            $stmt->execute(
+                array(
+                    ":set1" => $set1,
+                    ":set2" => $set2,
+                    ":set3" => $set3,
+                    ":set4" => $set4,
+                    ":set5" => $set5,
+                    ":set6" => $set6
+                )
+            );
+            $res = true;
+        }
+        catch(PDOException $ex)
+        {   
+            $res = false;
+        }
+        return $res; 
+    }
+
+
+
     function heightSets($db,$query,$set1,$set2,$set3,$set4,$set5,$set6,$set7,$set8)
     {
         

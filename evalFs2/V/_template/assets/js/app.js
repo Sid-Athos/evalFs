@@ -180,25 +180,31 @@ function showIt(val){
     val = Number(val);
     if(val === 1)
     {
+        document.getElementById('lolilol').style.display = "";
         document.getElementById('loulilol').style.display = "";
-        document.getElementById('endDate').required = true;
         document.getElementById('CSSit').style.height= "45px";
         document.getElementById('CSSit').style.marginTop = "-1px";
+        document.getElementById('birthDate').required = true;
         for(i = 1; i < 4;i++)
         {
             document.getElementById('freq'+ i).required = true;
         }
     }
-    else
+    else if(val === 0)
     {
         document.getElementById('loulilol').style.display = "none";
+        document.getElementById('lolilol').style.display = "";
         document.getElementById('CSSit').style.height = "44px";
         document.getElementById('CSSit').style.marginTop = "0px";
-        document.getElementById('endDate').required = false;
+        document.getElementById('birthDate').required = true;
         for(i = 1; i < 4;i++)
         {
             document.getElementById('freq'+ i).required = false;
         }
+    } else {
+        document.getElementById('loulilol').style.display = "none";
+        document.getElementById('lolilol').style.display = "none";
+        document.getElementById('birthDate').required = false;
     }
 }
 

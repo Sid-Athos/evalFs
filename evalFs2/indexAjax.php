@@ -129,8 +129,8 @@
                         JOIN USER_HAS_APPOINTMENTS AS USAP ON APPS.ID = USAP.appointmentID
                         WHERE USAP.userID = :set1
                         AND APPOINTMENTS.appDay = :set2
-                        AND (:set3 BETWEEN startTime AND addtime(startTime,duration)
-                        OR startTime Between :set3 AND addtime(:set4,:set5))
+                        AND (:set3 BETWEEN startTime AND addtime(startTime,'00:30:00')
+                        OR startTime Between :set3 AND addtime(:set4,'00:30:00')
                         ORDER BY startTime;";
 
                         if(!empty($res = fetchFiveSets(
@@ -166,21 +166,16 @@
 
                             if(($acDate - $today) >= 86400){
                                 $query =
-                                "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime, duration) 
+                                "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime) 
                                 VALUES(:set1,:set2, :set3, (
                                 CASE appDay 
                                 WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
                                 THEN :set5 ELSE NULL
-                                END),:set6,:set7);";
-                
-                                (intval($_POST['timeH']) <10)? $_POST['timeH'] = "0".$_POST['timeH'] : $_POST['timeH'] = $_POST['timeH'];
-                                (intval($_POST['timeM']) <10)? $_POST['timeM'] = "0".$_POST['timeM'] : $_POST['timeM'] = $_POST['timeM'];
+                                END),:set6);";
                                 
-                                if(nineSets(
+                                if(sixSets(
                                     $db,$query,$_POST['appName'],$_POST['appPlace'],$_POST['appNotes'],
-                                    $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":00"),($_POST['timeH'].":".$_POST['timeM'].":00"),
-                                    $_POST['appCat'], $_POST['usrID']
-                                ) == true){
+                                    $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":00")) == true){
 
                                     $messages[] = success("Rdv ajouté!");
                                     unset($query,$res);

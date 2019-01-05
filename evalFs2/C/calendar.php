@@ -57,6 +57,13 @@
 
     $patients = fetchOneSet($db,$query,$_SESSION['ID']);
     
+    unset($query);
+
+    $query =
+    "SELECT *
+    FROM SEX";
+
+    $sex = fetchNoSets($db,$query);
     include('V/_template/htmlTop.php');
     include('V/_template/navbar.php');
     include('C/Functions/PHP/calendar.php');
