@@ -9,6 +9,7 @@
     include('C/Functions/PHP/messages.php');
     include('C/Functions/PHP/sessionCheck.php');
     $actualDate = actualDate($db);
+    include('C/Functions/PHP/daysAvailable.php');
     
     $query = 
     "SELECT *
@@ -27,22 +28,42 @@
     "SELECT dayOfmonth(APPOINTMENTS.appDay), COUNT(APPOINTMENTS.ID) as compteur, 
     HOLIDAYS.startsAt as startHolidays, HOLIDAYS.endsAt as endHolidays, SCHEDULES.workingDay
     FROM APPOINTMENTS
-    JOIN BELONGS ON BELONGS.ID = APPOINTMENTS.ID 
-    JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
     JOIN USER_HAS_APPOINTMENTS AS UHA ON UHA.appointmentID = APPOINTMENTS.ID
     JOIN USERS ON USERS.ID = UHA.userID
-    JOIN HOLIDAYS ON HOLIDAYS.userID = users.ID
-    JOIN USER_HAS_SCHEDULE AS UHS ON UHS.userID = USERS.ID
-    JOIN SCHEDULE ON SCHEDULE.ID = UHS.scheduleID
     WHERE USERS.ID = :set1
     AND APPOINTMENTS.appDay LIKE :set2
-    AND HOLIDAYS.startsAt LIKE :set3
     GROUP BY APPOINTMENTS.appDay
     ORDER BY APPOINTMENTS.appDay, startTime;";
 
     $apps = fetchThreeSets($db,$query,$_SESSION['ID'],$date,$date);
-    
+
     $days = array("Lundi" => 1, "Mardi" => 2, "Mercredi" => 3, "Jeudi" => 4, "Vendredi" => 5, "Samedi" => 6, "Dimanche" => 7);
+
+    $query =
+    "SELECT SCHEDULES.workingDay
+    FROM SCHEDULES
+    JOIN USER_HAS_SCHEDULE AS UHS ON UHS.scheduleID = SCHEDULES.ID
+    WHERE UHS.userID = :set1;";
+
+    $noApps = array();
+
+    $works = fetchOneSet($db,$query,$_SESSION['ID']);
+    for($i = 0;$i < count($works);$i++){
+        if(array_key_exists($works[$i]['workingDay'],$days)){
+            $noApps[] = $days[$works[$i]['workingDay']];
+        } 
+    }
+    
+
+    $query =
+    "SELECT DATE(startsAt) as starts, DATE(endsAt) as ends
+    FROM HOLIDAYS
+    WHERE userID = :set1
+    AND startsAt LIKE :set2;";
+
+    $offs = fetchTwoSets($db,$query,$_SESSION['ID'],$date);
+    
+    
     
     unset($query);
 

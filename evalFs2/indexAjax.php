@@ -156,6 +156,22 @@
                         }
                         else 
                         {
+                            $query = 
+                            "SELECT *
+                            FROM SCHEDULES AS S
+                            JOIN USER_HAS_SCHEDULES AS UHS ON SCHEDULES.ID = UHS.scheduleID
+                            JOIN USERS ON USERS.ID =  UHS.userID
+                            WHERE USERS.ID = :set1
+                            AND workingDay Like DAYNAME(:set2);";
+
+                            if(!empty(fetchTwoSet($db,$query,$_POST['usrID'],$_POST['appDate']))){
+
+                                $query =
+                                "SELECT *
+                                FROM HOLIDAYS
+                                WHERE userID = :set1
+                                AND :set2 BETWEEN startsAt AND endsAt;";
+                                if(!empty(fetechTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
                             unset($res);
                             $query0 =
                             "INSERT INTO OWNERS(email,lastName,firstName,address,postCode,city,phone)
@@ -241,6 +257,8 @@
                             }
                         }
                     }
+                }
+                
                             
                 }
                 else if($_POST['appRecc'] === "35")
@@ -317,64 +335,83 @@
 
                                 (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appPlace'])) ?  $_POST['appPlace'] : $_POST['appPlace'] = "Aucun endroit défini!";
                                 (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appNotes']) || empty($_POST)) ?  $_POST['appNotes'] : $_POST['appPlace'] = "Aucune note défini!";
-        
-                                if(($acDate - $today) >= 86400){
+
+                                $query = 
+                                "SELECT *
+                                FROM SCHEDULES AS S
+                                JOIN USER_HAS_SCHEDULES AS UHS ON SCHEDULES.ID = UHS.scheduleID
+                                JOIN USERS ON USERS.ID =  UHS.userID
+                                WHERE USERS.ID = :set1
+                                AND workingDay Like DAYNAME(:set2);";
+    
+                                if(!empty(fetchTwoSet($db,$query,$_POST['usrID'],$_POST['appDate']))){
+    
                                     $query =
-                                    "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime) 
-                                    VALUES(:set1,:set2, :set3, (
-                                    CASE appDay 
-                                    WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
-                                    THEN :set5 ELSE NULL
-                                    END),:set6);";
-                                            
-                                    if(sixSets(
-                                        $db,$query,$_POST['appName'],$_POST['appPlace'],$_POST['appNotes'],
-                                        $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":00")) == true){
-
-                                        $messages[] = success("Rdv ajouté!");
-                                        unset($query,$res);
-                                        $id = $db -> lastInsertId();
-                                        
-                                        $query =
-                                        "INSERT INTO BELONGS(categoryID,appointmentID)
-                                        VALUES(:set1,:set2);";
-
-                                        twoSets($db,$query,$_POST['appCat'],$id);
-                                        unset($query);
-
-                                        $query = 
-                                        "INSERT INTO USER_HAS_APPS(userID, appointmentID)
-                                        VALUES(:set1,:set2);";
-
-                                        twoSets($db,$query,$_POST['usrID'],$id);
-
-                                        
-
-                                        $query =
-                                        "INSERT INTO PATIENT_HAS_APPOINTMENTS(patientID,appointmentID) 
-                                        VALUES (:set1,:set2);";
-
-                                        twoSets($db,$query,$patID,$id);
-
-                                        $query =
-                                        "INSERT INTO CLIENTS_HAS_PATIENTS(ownerID,patientID) 
-                                        VALUES (:set1,:set2);";
+                                    "SELECT *
+                                    FROM HOLIDAYS
+                                    WHERE userID = :set1
+                                    AND :set2 BETWEEN startsAt AND endsAt;";
+                                    if(!empty(fetechTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
         
-                                        twoSets($db,$query,$_POST['appOwner'],$patID);
-        
-                                    } else{
-                                        $messages[] = alert("Erreur dans l'ajout du rdv!");
+                                        if(($acDate - $today) >= 86400){
+                                            $query =
+                                            "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime) 
+                                            VALUES(:set1,:set2, :set3, (
+                                            CASE appDay 
+                                            WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
+                                            THEN :set5 ELSE NULL
+                                            END),:set6);";
+                                                    
+                                            if(sixSets(
+                                                $db,$query,$_POST['appName'],$_POST['appPlace'],$_POST['appNotes'],
+                                                $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":00")) == true){
+
+                                                $messages[] = success("Rdv ajouté!");
+                                                unset($query,$res);
+                                                $id = $db -> lastInsertId();
+                                                
+                                                $query =
+                                                "INSERT INTO BELONGS(categoryID,appointmentID)
+                                                VALUES(:set1,:set2);";
+
+                                                twoSets($db,$query,$_POST['appCat'],$id);
+                                                unset($query);
+
+                                                $query = 
+                                                "INSERT INTO USER_HAS_APPS(userID, appointmentID)
+                                                VALUES(:set1,:set2);";
+
+                                                twoSets($db,$query,$_POST['usrID'],$id);
+
+                                                
+
+                                                $query =
+                                                "INSERT INTO PATIENT_HAS_APPOINTMENTS(patientID,appointmentID) 
+                                                VALUES (:set1,:set2);";
+
+                                                twoSets($db,$query,$patID,$id);
+
+                                                $query =
+                                                "INSERT INTO CLIENTS_HAS_PATIENTS(ownerID,patientID) 
+                                                VALUES (:set1,:set2);";
+                
+                                                twoSets($db,$query,$_POST['appOwner'],$patID);
+                
+                                            } else{
+                                                $messages[] = alert("Erreur dans l'ajout du rdv!");
+                                            }
+                                        } else {
+                                            $messages[] = alert("La date de rendez-vous ne peut être prise dans le passé!");
+                                        }
                                     }
-                                } else {
-                                    $messages[] = alert("La date de rendez-vous ne peut être prise dans le passé!");
                                 }
-                            }
                             
                             } else {
                                 $messages[] = alert("Le patient est déjà enregistré");
                             }
                         }
                     }
+                }
                 }
                 else
                 {
@@ -425,46 +462,70 @@
                         {
 
                             (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appPlace'])) ?  $_POST['appPlace'] : $_POST['appPlace'] = "Aucun endroit défini!";
-                            (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appNotes'])) ?  $_POST['appNotes'] : $_POST['appPlace'] = "Aucune note défini!";
+                            (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appNotes'])) ?  $_POST['appNotes'] : $_POST['appNotes'] = "Aucune note défini!";
         
-        
-                            if(($acDate - $today) >= 86400){
+                            $query = 
+                            "SELECT *
+                            FROM SCHEDULES AS S
+                            JOIN USER_HAS_SCHEDULES AS UHS ON SCHEDULES.ID = UHS.scheduleID
+                            JOIN USERS ON USERS.ID =  UHS.userID
+                            WHERE USERS.ID = :set1
+                            AND workingDay Like DAYNAME(:set2);";
+
+                            if(!empty(fetchTwoSet($db,$query,$_POST['usrID'],$_POST['appDate']))){
+
                                 $query =
-                                "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime) 
-                                VALUES(:set1,:set2, :set3, (
-                                CASE appDay 
-                                WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
-                                THEN :set5 ELSE NULL
-                                END),:set6);";
-                                        
-                                if(sixSets(
-                                    $db,$query,$_POST['appName'],$_POST['appPlace'],$_POST['appNotes'],
-                                    $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":00")) == true){
+                                "SELECT *
+                                FROM HOLIDAYS
+                                WHERE userID = :set1
+                                AND :set2 BETWEEN startsAt AND endsAt;";
+                                if(!empty(fetechTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
 
-                                    $messages[] = success("Rdv ajouté!");
-                                    unset($query,$res);
-                                    $id = $db -> lastInsertId();
-                                    
-                                    $query =
-                                    "INSERT INTO BELONGS(categoryID,appointmentID)
-                                    VALUES(:set1,:set2);";
+                                    if(($acDate - $today) >= 86400){
+                                        $query =
+                                        "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime) 
+                                        VALUES(:set1,:set2, :set3, (
+                                        CASE appDay 
+                                        WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
+                                        THEN :set5 ELSE NULL
+                                        END),:set6);";
+                                                
+                                        if(sixSets(
+                                            $db,$query,$_POST['appName'],$_POST['appPlace'],$_POST['appNotes'],
+                                            $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":00")) == true){
+        
+                                            $messages[] = success("Rdv ajouté!");
+                                            unset($query,$res);
+                                            $id = $db -> lastInsertId();
+                                            
+                                            $query =
+                                            "INSERT INTO BELONGS(categoryID,appointmentID)
+                                            VALUES(:set1,:set2);";
+        
+                                            twoSets($db,$query,$_POST['appCat'],$id);
+                                            unset($query);
+        
+                                            $query =
+                                            "INSERT INTO PATIENT_HAS_APPOINTMENTS(patientID,appointmentID) 
+                                            VALUES (:set1,:set2);";
+        
+                                            twoSets($db,$query,$_POST['appPat'],$id);
+        
+                                            unset($query);
+                                            $query = 
+                                            "INSERT INTO USER_HAS_APPS(userID, appointmentID)
+                                            VALUES(:set1,:set2);";
+        
+                                            twoSets($db,$query,$_POST['usrID'],$id);
+                                        }
+                                    }
+                                } else {
+                                    $messages[] = alert("Vous êtes en congé");
 
-                                    twoSets($db,$query,$_POST['appCat'],$id);
-                                    unset($query);
-
-                                    $query =
-                                    "INSERT INTO PATIENT_HAS_APPOINTMENTS(patientID,appointmentID) 
-                                    VALUES (:set1,:set2);";
-
-                                    twoSets($db,$query,$_POST['appPat'],$id);
-
-                                    unset($query);
-                                    $query = 
-                                    "INSERT INTO USER_HAS_APPS(userID, appointmentID)
-                                    VALUES(:set1,:set2);";
-
-                                    twoSets($db,$query,$_POST['usrID'],$id);
                                 }
+
+                            } else {
+                                $messages[] = alert("Horaire non admis dans le planning");
                             }
                         }
                     }
