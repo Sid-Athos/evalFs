@@ -2,6 +2,16 @@
     <script src="V/_template/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
     <script src="V/_template/assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
     <script src="V/_template/assets/js/app.js"></script>
+    <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="background-color:rgba(0,0,0,.4)">
+    <script>
+    $('#exampleModal').show('modal');
+    $(window).click(function(event){
+        $('#exampleModal').hide('modal');
+
+    });
+    </script>
+  <div class="modal-dialog" role="document"  style="top:300px;margin;background-color:transparent;position:absolute;height:100%;width:100%;left:35%">
+    <div class="modal-content" style="background-color:transparent;border:none;box-shadow:none" >
     <div id="eraseAppAnswer" style="position:absolute;top:-50px;left:-150px">
     </div>
         <?php
@@ -11,7 +21,7 @@
                 $where = intval($res[0]['dayNum']);
                 $day = intval($res[0]['dayNum']);
                 ?>
-                <div class="card-container form-check-inline"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning" style="width:290px">
+                <div class="card-container form-check-inline animated slideInDown" id="cardApps"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning" style="width:290px;margin:auto;background-color:transparent">
                         <div class="card" style="border:none;width:290px;position:relative;top:-200px">
                             <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                                 
@@ -32,6 +42,9 @@
                                 </div>
                             </div> <!-- end front panel -->
                             <div class="back" style="overflow-y:scroll;overflow-x:hidden;background-color:#212529;border-top-left-radius:5px;border-top-right-radius:5px">
+                            <div class="form-check-inline" style="color:#FFFFFF;max-height:10px;margin-top:5px" >
+                            <button onclick="document.getElementById('cardApps').remove();" class="btn btn-neutral" style="background-color:transparent;position:relative;text-align:center;left:40%;font-size:15px;top:15px">Fermer la carte<i class="now-ui-icons ui-1_simple-remove"></i></button>
+                                </div>
                     <?php
                     for($i = 0; $i <  count($res); $i++)
                     {
@@ -57,11 +70,16 @@
                                 </div>
                             </div> <!-- end front panel -->
                             <div class="back" style="overflow-y:scroll;overflow-x:hidden;background-color:#212529;border-top-left-radius:5px;border-top-right-radius:5px">
+                            <div class="content" id="rdv<?php echo $res[$i]['appId'];?>" style="border-top-left-radius:5px;border-top-right-radius:5px;font-size:16px">
+
+                       <h5 onclick="document.getElementById('cardApps').remove();" class="btn btn-neutral motto" style="background-color:transparent;">Fermer la carte<i class="now-ui-icons ui-1_simple-remove"></i></h5>
+                            </div>
                             <?php
                         } else {
                         ?>
                                 
                                 <div class="content" id="rdv<?php echo $res[$i]['appId'];?>" style="border-top-left-radius:5px;border-top-right-radius:5px;font-size:16px">
+                                
                                     <h5 class="motto" id="tooltip<?php echo $res[$i]['appId'];?>" data-toggle="tooltip" data-placement="top" 
                                     title="Rendez-vous de <?php $hour = explode(":",$res[$i]['startTime']); $hour = $hour[0].":".$hour[1];  echo $hour; ?>, cliquez sur la croix pour supprimer" 
                                     style="z-index:99;color:rgba(255,255,255,1);font-size:20px"><?php echo $res[$i]['appName']; ?>
@@ -81,8 +99,8 @@
                                                     <h6 class="motto">Heure de début : <br><?= $hour; ?><br></h6>
                                                     <h6 class="motto">Situé à : <br><?php echo $res[$i]['place']; ?><br></h6>
                                                     <h6 class="motto">Catégorie : <br><?php if($res[$i]['name'] === 'Amoureux'){ echo '<i class="now-ui-icons ui-2_favourite-28" style="margin-right:10px;font-size:15px;color:#ee9ca7"></i>';} echo $res[$i]['name']; ?></h6>
-                                                    <h6 class="motto">Pense intelligent : <br><?php echo $res[$i]['notes']; ?><br></h6>
-                                                    
+                                                    <h6 class="motto">Notes : <br><?php echo $res[$i]['notes']; ?><br></h6>
+                                                    <h6 class="motto">Addresse du patient : <br><?php echo $res[$i]['address']; ?> <?php echo $res[$i]['postCode']; ?> <?php echo $res[$i]['city']; ?><br></h6>                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -97,20 +115,25 @@
                                             </div>
                                             <div id="collapse<?php echo $compteur; ?>" class="collapse hide" role="tabpanel" aria-labelledby="heading<?php echo $compteur; $compteur++?>">
                                                 <div class="card-body" style="background:transparent;color:rgb(255,255,255,0.7)">
-                                                    <h6 class="motto">Heure de début : <br><?= $hour; ?><br></h6>
-                                                    <h6 class="motto">Situé à :<br> <?php echo $res[$i]['place']; ?><br></h6>
-                                                    <h6 class="motto">Catégorie : <br><?php echo $res[$i]['name']; ?></h6>
-                                                    <h6 class="motto">Pense intelligent : <br><?php echo $res[$i]['notes']; ?><br></h6>
+                                                    <h6 class="motto">Patient : <br><?= $res[$i]['patientName']; ?><br></h6>
+                                                    <h6 class="motto">Né(e) le :<br> <?php echo $res[$i]['birthDate']; ?><br></h6>
+                                                    <h6 class="motto">Représentant légal : <br><?php echo $res[$i]['lastName']; ?> <?php echo $res[$i]['firstName']; ?></h6>
+                                                    <h6 class="motto">Téléphone : <br><?php echo $res[$i]['phone']; ?><br></h6>
+                                                    <h6 class="motto">@ : <br><?php echo $res[$i]['email']; ?><br></h6>
                                                 </div>
                                             </div>
                                             
                                         </div>
                                     </div>
-                                <div class="main " style="background-color:transparent;color:#FFFFFF;max-height:10px;min-height:10px;height:10px;" >
+                                <div class="form-check-inline" style="background-color:transparent;color:#FFFFFF;max-height:10px;min-height:10px;height:10px;margin-left:25px" >
                                     <form method="post" action="index.php?page=apps">
                                         <button type="submit" name="editApp" value="<?php echo $res[$i]['appId']; ?>" class="btn sid form-check-inline"
-                                        style="left:30px;margin-top:-25px">
+                                        style="left:50px;margin-top:-5px">
                                         Modifier l'évènement
+                                        </button>
+                                        <button type="submit" name="consult" value="<?php echo $res[$i]['appId']; ?>" class="btn sid form-check-inline"
+                                        style="left:50px;margin-top:-5px;margin-bottom:15px">
+                                        Gérer la consultation
                                         </button>
                                     </form>
                                 </div>
@@ -131,6 +154,7 @@
                                         <a href="#" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
                                         <a href="#" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
                                         <a href="#" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
+                                        <button onclick="document.getElementById('cardApps').remove();" class="btn btn-neutral" style="background-color:transparent;">Fermer la carte<i class="now-ui-icons ui-1_simple-remove"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -144,6 +168,13 @@
                 echo alert("Aucun rendez-vous disponible");
             }
         ?>
+        </div>
+        </div>
+
+        </div>
+
+        </div>
+
        <style>
         .btn.sid:hover{
             background-color:transparent;

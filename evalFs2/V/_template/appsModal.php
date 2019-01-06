@@ -371,14 +371,6 @@
     <!-- Modal -->
 <div class="modal fade" id="appsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" style="box-shadow:none;background-color:transparent;margin-top:180px;margin-left:120px;max-width:250px">
-      <div class="modal-header" id="answer2" style="background-color:transparent">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    </div>
   </div>
 </div>
     <div class="modal fade modal-primary" id="confModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -634,21 +626,25 @@ $("#addApps").submit(function(event){
     }
     function getMyApps(date,event){
             event.preventDefault();
+            console.log(date)
             date = document.getElementById('kill'+ date).value;
             date = date.split("-");
             (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
             date = date[0] +"-"+date[1]+"-"+  date[2];
-            query = $.post({
+            query = $.ajax({
             url : 'indexAjax.php',
+            type: 'POST',
             data : 
             {
                 'fetchApps': date, 
-                'usrID': String(<?php echo $_SESSION['ID']; ?>), 
+                'usrID': <?php echo $_SESSION['ID']; ?>, 
             }
             });
+            console.log(date);
+
             check = query.done(function(response){
                 //$("#apps"+)
-                $('#appsModal').modal("show");
+                //$('#appsModal').modal("show");
                 $('#answer2').html(response);
             
             });

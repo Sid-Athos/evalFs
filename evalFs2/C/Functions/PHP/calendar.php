@@ -55,7 +55,7 @@
                                     $week = "$week
                                             <div class='row'>
                                                 <div class='col-lg-12' style='margin:auto'>
-                                                    <form method='post' class='form-check-inline' style='position: relative;top: 15px;'>
+                                                    <form method='post' class='form-check-inline' style='position: relative;top: 10px;'>
                                                         <button type='submit' class='btn btn-secondary form-check form-check-inline'  name='fetchApps' value='$date'
                                                         data-toggle='tooltip' data-placement='top' title='Afficher les évènements de la journée'
                                                         style='text-align:center;left:10px;font-size:14px' onclick='getMyApps($day,event);'>$day</button>
@@ -100,7 +100,7 @@
                                     $week = "$week
                                         <div class='row'>
                                             <div class='col-lg-12' style='margin:auto'>
-                                                <form method='post' class='form-check-inline'  style='position: relative;top: 15px;'>
+                                                <form method='post' class='form-check-inline'  style='position: relative;top: 10px;'>
                                                     <button type='submit' class='btn btn-secondary form-check form-check-inline'  name='fetchApps' value='$date'
                                                     data-toggle='tooltip' data-placement='top' title='Afficher les évènements de la journée'
                                                     style='text-align:center;left:10px;font-size:14px' onclick='getMyApps($day,event);'>$day</button>

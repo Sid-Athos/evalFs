@@ -9,6 +9,7 @@
                 <div class="page-header-image" data-parallax="true" style="background-image:url('V/_template/assets/img/header.jpg');"></div>
                 
                     <div class="row" style="margin-top:125px">
+                    <div id="answer2" style="position:absolute;top:250px;z-index:5;left:40%"></div>
                         <div class="col-lg-12">
                             <div class="container">
                                 <ul class="list-inline" style="height:45px">

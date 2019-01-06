@@ -14,7 +14,7 @@
     include('C/Functions/PHP/messages.php');
     include('C/Functions/PHP/killAvatar.php');
     include('C/Functions/PHP/daysAvailable.php');
-    
+
     $query = 
     "SELECT *
     FROM CATEGORYS;";
@@ -47,7 +47,7 @@
     $today = date('Y-m-j');
     $todays = date('Y-m-d',strtotime('+1 day'));
     include('V/_template/appsModal.php');
-    $messages= array();
+    $messages = array();
 
     switch(isset($_POST)):
         case(isset($_POST['handleWork'])):
@@ -59,7 +59,8 @@
                 FROM SCHEDULES AS S
                 JOIN USER_HAS_SCHEDULE as USC ON USC.scheduleID = S.ID
                 JOIN USERS AS U ON U.ID = USC.userID
-                WHERE U.ID = :set1;";
+                WHERE U.ID = :set1
+                ORDER BY S.workingDay;";
 
                 $workDays = fetchOneSet($db,$daysWorked,$_SESSION['ID']);
 
@@ -96,6 +97,7 @@
                                 $query =
                                 "INSERT INTO USER_HAS_SCHEDULE(userID,scheduleID) VALUES(:set1,:set2);";
                                 twoSets($db,$query,$_SESSION['ID'],$id);
+                                $messages[] = success("Journée de travail ajoutée!");
                             } else {
                                 $messages[] = alert("Erreur dans le traitement de la requête veuillez réessayer et vérifier les champs.");
                             }
@@ -194,6 +196,11 @@
         
                         $mySpecs = fetchOneSet($db,$query,$_SESSION['ID']);
                         include('V/_template/handleWork.php');
+                            if(isset($messages)){ 
+                                for($i = count($messages)-1; $i > 0;$i--){
+                                    echo $messages[$i];
+                                }
+                            }
                     break;
                 case($_POST['choice'] === 'changeBackground'):
                         if(isset($_POST['cBack']) && isset($_POST['bg']))

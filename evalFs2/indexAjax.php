@@ -28,12 +28,28 @@
             break;
         case(isset($_POST['eraseApp'])):
                 if(preg_match("/^[0-9]+$/",$_POST['eraseApp'])){
+                    /***
                     $query[0] = 
                     "DELETE 
                     FROM BELONGS 
                     WHERE BELONGS.appointmentID = :set1;";
 
-                    $query[1] =
+                    $query[1] = 
+                    "DELETE 
+                    FROM USER_HAS_APPS 
+                    WHERE USER_HAS_APPS.appointmentID = :set1;";
+
+                    $query[2] = 
+                    "DELETE 
+                    FROM PATIENT_HAS_APPOINTMENTS 
+                    WHERE PATIENT_HAS_APPOINTMENTS .appointmentID = :set1;";
+
+                    $query[2] = 
+                    "DELETE 
+                    FROM PATIENT_HAS_APPOINTMENTS 
+                    WHERE PATIENT_HAS_APPOINTMENTS .appointmentID = :set1;";
+
+                    $query[2] =
                     "DELETE 
                     FROM APPOINTMENTS 
                     WHERE APPOINTMENTS.ID = :set1
@@ -57,6 +73,8 @@
                         }
                         unset($messages);
                     }
+                    */
+                    var_dump($_POST);
                 }
             break;
         case(isset($_POST['fetchApps'])):
@@ -65,17 +83,19 @@
                 {
                     $query =
                         "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
-                        year(appDay) as years, dayname(appDay) as dayName, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, APPOINTMENTS.duration
-                        ,CATEGORYS.name
+                        year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, 
+                        CATEGORYS.name, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName,
+                        OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone
                         FROM APPOINTMENTS 
-                        JOIN BELONGS ON BELONGS.ID = APPOINTMENTS.ID 
-                        JOIN CATEGORYS ON APPOINTMENTS.appCat = CATEGORYS.ID
-                        JOIN PATIENTS_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
-                        JOIN PATIENTS ON PHA. patientID = PATIENTS.ID
+                        JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
+                        JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
+                        JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
+                        JOIN PATIENTS ON PHA.patientID = PATIENTS.ID
                         JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.patientID = PATIENTS.ID
                         JOIN OWNERS ON OWNERS.ID = CHP.ownerID
+                        JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
                         WHERE APPOINTMENTS.appDay = :set1
-                        AND APPOINTMENTS.userID = :set2
+                        AND USER_HAS_APPS.userID = :set2
                         ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
 
                     $res = fetchTwoSets($db,$query,$_POST['fetchApps'],$_POST['usrID']);
@@ -83,10 +103,11 @@
                 }
             break;
         case(isset($_POST['eraseDate'])):
+                var_dump($_POST);
                 (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['eraseDate']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
                 if(count($messages) === 0)
                 {
-                    $query[0] = 
+                    /***$query[0] = 
                     "DELETE 
                     FROM BELONGS 
                     WHERE BELONGS.appointmentID = ANY (SELECT ID FROM APPOINTMENTS WHERE userID = :set1 and appDay = :set2 AND appDay > CURRENT_TIMESTAMP());";
@@ -107,7 +128,7 @@
                         } else {
                             $messages[] = alert("Erreur lors du traitement de la requête, veuillez réessayer plus tard.");
                         }
-                    }
+                    }*/
                 }
                 if(count($messages) > 0)
                 {
