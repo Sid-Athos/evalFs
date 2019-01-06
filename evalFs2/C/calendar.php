@@ -59,9 +59,10 @@
     "SELECT DATE(startsAt) as starts, DATE(endsAt) as ends
     FROM HOLIDAYS
     WHERE userID = :set1
-    AND startsAt LIKE :set2;";
+    AND (startsAt LIKE :set2
+    OR endsAt Like :set3);";
 
-    $offs = fetchTwoSets($db,$query,$_SESSION['ID'],$date);
+    $offs = fetchThreeSets($db,$query,$_SESSION['ID'],$date,$date);
     
     
     

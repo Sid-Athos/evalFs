@@ -71,7 +71,7 @@
                         if(preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/",$_POST['startDate']) 
                         && preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/",$_POST['endDate']))
                         {
-                            if(strtotime($_POST['startDate']) < strtotime($_POST['endDate'])){
+                            if((strtotime($_POST['startDate'])+ 86400) < strtotime($_POST['endDate'])){
                                 $query =
                                 "SELECT *
                                 FROM HOLIDAYS

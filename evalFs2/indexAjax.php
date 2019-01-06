@@ -162,16 +162,18 @@
                             JOIN USER_HAS_SCHEDULES AS UHS ON SCHEDULES.ID = UHS.scheduleID
                             JOIN USERS ON USERS.ID =  UHS.userID
                             WHERE USERS.ID = :set1
-                            AND workingDay Like DAYNAME(:set2);";
+                            AND workingDay Like DAYNAME(:set2)
+                            AND fromTime > :set3
+                            AND toTime < :set4;";
 
-                            if(!empty(fetchTwoSet($db,$query,$_POST['usrID'],$_POST['appDate']))){
+                            if(!empty(fetchFourSets($db,$query,$_POST['usrID'],$_POST['appDate'],($_POST['appHour'].":00"),($_POST['appHour'].":00")))){
 
                                 $query =
                                 "SELECT *
                                 FROM HOLIDAYS
                                 WHERE userID = :set1
                                 AND :set2 BETWEEN startsAt AND endsAt;";
-                                if(!empty(fetechTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
+                                if(!empty(fetchTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
                             unset($res);
                             $query0 =
                             "INSERT INTO OWNERS(email,lastName,firstName,address,postCode,city,phone)
@@ -342,16 +344,18 @@
                                 JOIN USER_HAS_SCHEDULES AS UHS ON SCHEDULES.ID = UHS.scheduleID
                                 JOIN USERS ON USERS.ID =  UHS.userID
                                 WHERE USERS.ID = :set1
-                                AND workingDay Like DAYNAME(:set2);";
+                                AND workingDay Like DAYNAME(:set2)
+                                AND fromTime > :set3
+                                AND toTime < :set4;";
     
-                                if(!empty(fetchTwoSet($db,$query,$_POST['usrID'],$_POST['appDate']))){
+                                if(!empty(fetchFourSets($db,$query,$_POST['usrID'],$_POST['appDate'],($_POST['appHour'].":00"),($_POST['appHour'].":00")))){
     
                                     $query =
                                     "SELECT *
                                     FROM HOLIDAYS
                                     WHERE userID = :set1
                                     AND :set2 BETWEEN startsAt AND endsAt;";
-                                    if(!empty(fetechTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
+                                    if(!empty(fetchTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
         
                                         if(($acDate - $today) >= 86400){
                                             $query =
@@ -470,16 +474,18 @@
                             JOIN USER_HAS_SCHEDULES AS UHS ON SCHEDULES.ID = UHS.scheduleID
                             JOIN USERS ON USERS.ID =  UHS.userID
                             WHERE USERS.ID = :set1
-                            AND workingDay Like DAYNAME(:set2);";
+                            AND workingDay Like DAYNAME(:set2)
+                            AND fromTime > :set3
+                            AND toTime < :set4;";
 
-                            if(!empty(fetchTwoSet($db,$query,$_POST['usrID'],$_POST['appDate']))){
+                            if(!empty(fetchFourSets($db,$query,$_POST['usrID'],$_POST['appDate'],($_POST['appHour'].":00"),($_POST['appHour'].":00")))){
 
                                 $query =
                                 "SELECT *
                                 FROM HOLIDAYS
                                 WHERE userID = :set1
                                 AND :set2 BETWEEN startsAt AND endsAt;";
-                                if(!empty(fetechTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
+                                if(!empty(fetchTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
 
                                     if(($acDate - $today) >= 86400){
                                         $query =
