@@ -25,10 +25,8 @@
         ($day < 10) ? $days = "0$day" : $days = $day;
         $date = "$ym-$day";
         $dates = "$ym-$days";
-        
             if(!empty($offs)){
-                if(isset($offs[$i]) && !empty($offs[$i])){
-                    if(strtotime($date) >= strtotime($offs[$i]['starts'])
+                    if(isset($offs[$i]) && strtotime($date) >= strtotime($offs[$i]['starts'])
                     && strtotime($date) <= strtotime($offs[$i]['ends'])) {
                         $week = $week."<td style='background-color:rgba(166, 148, 229, 0.6);min-width:200px;width:200px'
                         data-toggle='tooltip' data-placement='top' title='Congé'>$day</td>";
@@ -49,7 +47,7 @@
                                  $week .= '<td style="">';
                              }
                              $found = false;
-                             for($i = 0; $i <count($apps);$i++)
+                             for($i = 0; $i < count($apps);$i++)
                              {
                                 if($dates === $apps[$i]['appDay'])
                                 {
@@ -57,7 +55,7 @@
                                     $week = "$week
                                             <div class='row'>
                                                 <div class='col-lg-12' style='margin:auto'>
-                                                    <form method='post' class='form-check-inline'>
+                                                    <form method='post' class='form-check-inline' style='position: relative;top: 15px;'>
                                                         <button type='submit' class='btn btn-secondary form-check form-check-inline'  name='fetchApps' value='$date'
                                                         data-toggle='tooltip' data-placement='top' title='Afficher les évènements de la journée'
                                                         style='text-align:center;left:10px;font-size:14px' onclick='getMyApps($day,event);'>$day</button>
@@ -102,7 +100,7 @@
                                     $week = "$week
                                         <div class='row'>
                                             <div class='col-lg-12' style='margin:auto'>
-                                                <form method='post' class='form-check-inline'>
+                                                <form method='post' class='form-check-inline'  style='position: relative;top: 15px;'>
                                                     <button type='submit' class='btn btn-secondary form-check form-check-inline'  name='fetchApps' value='$date'
                                                     data-toggle='tooltip' data-placement='top' title='Afficher les évènements de la journée'
                                                     style='text-align:center;left:10px;font-size:14px' onclick='getMyApps($day,event);'>$day</button>
@@ -140,7 +138,6 @@
                         }
                          
                         
-                    }
                
     
                 }

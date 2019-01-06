@@ -8,8 +8,39 @@
     include('C/Functions/PHP/messages.php');
     include('C/Functions/PHP/sessionCheck.php');
     $actualDate = actualDate($db);
-    var_dump($_POST);
     $messages = array();
+    $query = 
+    "SELECT *
+    FROM CATEGORYS;";
+    
+    $cats = fetchNoSets($db,$query);
+    $query =
+    "SELECT PATIENTS.patientName as name, PATIENTS.ID as ID,OWNERS.lastName as owName, OWNERS.firstName as owFirst, OWNERS.phone as owPhone
+    FROM PATIENTS
+    JOIN CLIENTS_HAS_PATIENTS AS CHP ON PATIENTS.ID = CHP.patientID
+    JOIN OWNERS ON CHP.ownerID = OWNERS.ID;";
+
+    $patients = fetchNoSets($db,$query);
+    
+    unset($query);
+
+    $query =
+    "SELECT *
+    FROM SEX";
+
+    $sex = fetchNoSets($db,$query);
+
+    unset($query);
+
+    $query =
+    "SELECT ID, CONCAT(lastName,' ',firstName) as name
+    FROM OWNERS";
+
+    $owners = fetchNoSets($db,$query);
+    $today = date('Y-m-j');
+    $todays = date('Y-m-d',strtotime('+1 day'));
+    include('V/_template/appsModal.php');
+
 
     switch(isset($_POST)):
         case(isset($_POST['choice'])):

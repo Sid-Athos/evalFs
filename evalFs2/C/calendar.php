@@ -15,7 +15,7 @@
     "SELECT *
     FROM CATEGORYS;";
     
-    $res = fetchNoSets($db,$query);
+    $cats = fetchNoSets($db,$query);
     if (isset($_GET['ym'])) { // l'utilisateur a cliqué sur mois suivant ou mois précédent
         $ym = $_GET['ym'];
     } else {
@@ -25,17 +25,16 @@
     $date = "$ym%";
 
     $query =
-    "SELECT dayOfmonth(APPOINTMENTS.appDay), COUNT(APPOINTMENTS.ID) as compteur, 
-    HOLIDAYS.startsAt as startHolidays, HOLIDAYS.endsAt as endHolidays, SCHEDULES.workingDay
+    "SELECT APPOINTMENTS.appDay, dayOfmonth(APPOINTMENTS.appDay), COUNT(APPOINTMENTS.ID) as compteur
     FROM APPOINTMENTS
-    JOIN USER_HAS_APPOINTMENTS AS UHA ON UHA.appointmentID = APPOINTMENTS.ID
+    JOIN USER_HAS_APPS AS UHA ON UHA.appointmentID = APPOINTMENTS.ID
     JOIN USERS ON USERS.ID = UHA.userID
     WHERE USERS.ID = :set1
     AND APPOINTMENTS.appDay LIKE :set2
     GROUP BY APPOINTMENTS.appDay
-    ORDER BY APPOINTMENTS.appDay, startTime;";
+    ORDER BY APPOINTMENTS.appDay;";
 
-    $apps = fetchThreeSets($db,$query,$_SESSION['ID'],$date,$date);
+    $apps = fetchTwoSets($db,$query,$_SESSION['ID'],$date);
 
     $days = array("Lundi" => 1, "Mardi" => 2, "Mercredi" => 3, "Jeudi" => 4, "Vendredi" => 5, "Samedi" => 6, "Dimanche" => 7);
 

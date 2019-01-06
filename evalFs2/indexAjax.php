@@ -7,6 +7,25 @@
     include('M/otherSql.php');
 
     switch(isset($_POST)):
+        case(isset($_POST['getOwners'])):
+                $query = 
+                "SELECT O.ID, O.lastName,  o.firstName
+                FROM OWNERS AS O
+                JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.ownerID = O.ID
+                JOIN PATIENTS AS P ON P.ID = CHP.patientID
+                JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.patientID = P.ID
+                JOIN APPOINTMENTS AS APPS ON APPS.ID = PHA.appointmentID
+                JOIN USER_HAS_APPS AS UHA ON UHA.appointmentID = APPS.ID
+                WHERE USA.userID = :set1";
+
+                $res = fetchOneSet($db,$query,$_POST['getOwners']);
+                for($i = 0;$i < count($res);$i++)
+                ?>
+                    <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
+                    value="<?php echo $res[$i]['ID']; ?>">
+                    <?php echo $res[$i]['name']; ?></option>
+                <?php
+            break;
         case(isset($_POST['eraseApp'])):
                 if(preg_match("/^[0-9]+$/",$_POST['eraseApp'])){
                     $query[0] = 
@@ -17,7 +36,7 @@
                     $query[1] =
                     "DELETE 
                     FROM APPOINTMENTS 
-                    WHERE APPOINTMENTS.ID =:set1
+                    WHERE APPOINTMENTS.ID = :set1
                     AND appDay > CURRENT_TIMESTAMP();";
 
                     for($i = 0; $i < count($query);$i++)
@@ -128,14 +147,15 @@
                     $acDate = strtotime($_POST['appDate']);
 
                     if(count($messages) === 0){
+
                         $query =
                         "SELECT APPS.name, APPS.startTime
                         FROM APPOINTMENTS AS APPS
                         JOIN USER_HAS_APPS AS USAP ON APPS.ID = USAP.appointmentID
                         WHERE USAP.userID = :set1
                         AND APPS.appDay LIKE :set2
-                        AND (startTime Between :set3 AND addtime(:set4,'00:29:00')
-                        OR :set5 Between startTime  AND addtime(startTime,'00:29:00'));";
+                        AND (APPS.startTime Between :set3 AND addtime(:set4,'00:29')
+                        OR :set5 Between APPS.startTime  AND addtime(APPS.startTime,'00:29'));";
 
                         $query1 =
                         "SELECT *
@@ -144,6 +164,7 @@
                         AND :set2 BETWEEN startsAt AND endsAt;";
 
                         if(!empty($res = fetchFiveSets(
+
                             $db,
                             $query,
                             $_POST['usrID'],
@@ -156,15 +177,16 @@
                         }
                         else 
                         {
+                            
                             $query = 
                             "SELECT *
                             FROM SCHEDULES AS S
-                            JOIN USER_HAS_SCHEDULES AS UHS ON SCHEDULES.ID = UHS.scheduleID
+                            JOIN USER_HAS_SCHEDULE AS UHS ON S.ID = UHS.scheduleID
                             JOIN USERS ON USERS.ID =  UHS.userID
                             WHERE USERS.ID = :set1
-                            AND workingDay Like DAYNAME(:set2)
-                            AND fromTime > :set3
-                            AND toTime < :set4;";
+                            AND S.workingDay LIKE DAYNAME(:set2)
+                            AND S.fromTime < :set3
+                            AND S.toTime > :set4;";
 
                             if(!empty(fetchFourSets($db,$query,$_POST['usrID'],$_POST['appDate'],($_POST['appHour'].":00"),($_POST['appHour'].":00")))){
 
@@ -173,8 +195,9 @@
                                 FROM HOLIDAYS
                                 WHERE userID = :set1
                                 AND :set2 BETWEEN startsAt AND endsAt;";
-                                if(!empty(fetchTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
+                                if(empty(fetchTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
                             unset($res);
+
                             $query0 =
                             "INSERT INTO OWNERS(email,lastName,firstName,address,postCode,city,phone)
                             VALUES(:set1,:set2,:set3,:set4,:set5,:set5,:set7);";
@@ -260,6 +283,7 @@
                         }
                     }
                 }
+            }
                 
                             
                 }
@@ -336,86 +360,90 @@
                             if($res0 === true){
 
                                 (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appPlace'])) ?  $_POST['appPlace'] : $_POST['appPlace'] = "Aucun endroit défini!";
-                                (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appNotes']) || empty($_POST)) ?  $_POST['appNotes'] : $_POST['appPlace'] = "Aucune note défini!";
+                                (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appNotes']) || empty($_POST)) ?  $_POST['appNotes'] : $_POST['appNotes'] = "Aucune note défini!";
+                                var_dump($_POST);
 
                                 $query = 
                                 "SELECT *
                                 FROM SCHEDULES AS S
-                                JOIN USER_HAS_SCHEDULES AS UHS ON SCHEDULES.ID = UHS.scheduleID
+                                JOIN USER_HAS_SCHEDULE AS UHS ON S.ID = UHS.scheduleID
                                 JOIN USERS ON USERS.ID =  UHS.userID
                                 WHERE USERS.ID = :set1
-                                AND workingDay Like DAYNAME(:set2)
-                                AND fromTime > :set3
-                                AND toTime < :set4;";
+                                AND S.workingDay LIKE DAYNAME(:set2)
+                                AND S.fromTime < :set3
+                                AND S.toTime > ADDTIME(:set4,'00:30:00');";
     
-                                if(!empty(fetchFourSets($db,$query,$_POST['usrID'],$_POST['appDate'],($_POST['appHour'].":00"),($_POST['appHour'].":00")))){
-    
-                                    $query =
-                                    "SELECT *
-                                    FROM HOLIDAYS
-                                    WHERE userID = :set1
-                                    AND :set2 BETWEEN startsAt AND endsAt;";
-                                    if(!empty(fetchTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
+                                    if(!empty(fetchFourSets($db,$query,$_POST['usrID'],$_POST['appDate'],($_POST['appHour'].":00"),($_POST['appHour'].":00")))){
+                                        var_dump($_POST);
         
-                                        if(($acDate - $today) >= 86400){
-                                            $query =
-                                            "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime) 
-                                            VALUES(:set1,:set2, :set3, (
-                                            CASE appDay 
-                                            WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
-                                            THEN :set5 ELSE NULL
-                                            END),:set6);";
+                                        $query =
+                                        "SELECT *
+                                        FROM HOLIDAYS
+                                        WHERE userID = :set1
+                                        AND :set2 BETWEEN startsAt AND endsAt;";
+                                        if(empty(fetchTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
+            
+                                            if(($acDate - $today) >= 86400){
+                                                $query =
+                                                "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime) 
+                                                VALUES(:set1,:set2, :set3, (
+                                                CASE appDay 
+                                                WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
+                                                THEN :set5 ELSE NULL
+                                                END),:set6);";
+                                                        
+                                                if(sixSets(
+                                                    $db,$query,$_POST['appName'],$_POST['appPlace'],$_POST['appNotes'],
+                                                    $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":00")) == true){
+
+                                                    $messages[] = success("Rdv ajouté!");
+                                                    unset($query,$res);
+                                                    $id = $db -> lastInsertId();
                                                     
-                                            if(sixSets(
-                                                $db,$query,$_POST['appName'],$_POST['appPlace'],$_POST['appNotes'],
-                                                $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":00")) == true){
+                                                    $query =
+                                                    "INSERT INTO BELONGS(categoryID,appointmentID)
+                                                    VALUES(:set1,:set2);";
 
-                                                $messages[] = success("Rdv ajouté!");
-                                                unset($query,$res);
-                                                $id = $db -> lastInsertId();
-                                                
-                                                $query =
-                                                "INSERT INTO BELONGS(categoryID,appointmentID)
-                                                VALUES(:set1,:set2);";
+                                                    twoSets($db,$query,$_POST['appCat'],$id);
+                                                    unset($query);
 
-                                                twoSets($db,$query,$_POST['appCat'],$id);
-                                                unset($query);
+                                                    $query = 
+                                                    "INSERT INTO USER_HAS_APPS(userID, appointmentID)
+                                                    VALUES(:set1,:set2);";
 
-                                                $query = 
-                                                "INSERT INTO USER_HAS_APPS(userID, appointmentID)
-                                                VALUES(:set1,:set2);";
+                                                    twoSets($db,$query,$_POST['usrID'],$id);
 
-                                                twoSets($db,$query,$_POST['usrID'],$id);
+                                                    
 
-                                                
+                                                    $query =
+                                                    "INSERT INTO PATIENT_HAS_APPOINTMENTS(patientID,appointmentID) 
+                                                    VALUES (:set1,:set2);";
 
-                                                $query =
-                                                "INSERT INTO PATIENT_HAS_APPOINTMENTS(patientID,appointmentID) 
-                                                VALUES (:set1,:set2);";
+                                                    twoSets($db,$query,$patID,$id);
 
-                                                twoSets($db,$query,$patID,$id);
-
-                                                $query =
-                                                "INSERT INTO CLIENTS_HAS_PATIENTS(ownerID,patientID) 
-                                                VALUES (:set1,:set2);";
-                
-                                                twoSets($db,$query,$_POST['appOwner'],$patID);
-                
-                                            } else{
-                                                $messages[] = alert("Erreur dans l'ajout du rdv!");
+                                                    $query =
+                                                    "INSERT INTO CLIENTS_HAS_PATIENTS(ownerID,patientID) 
+                                                    VALUES (:set1,:set2);";
+                    
+                                                    twoSets($db,$query,$_POST['appOwner'],$patID);
+                    
+                                                } else{
+                                                    $messages[] = alert("Erreur dans l'ajout du rdv!");
+                                                }
+                                            } else {
+                                                $messages[] = alert("La date de rendez-vous ne peut être prise dans le passé!");
                                             }
-                                        } else {
-                                            $messages[] = alert("La date de rendez-vous ne peut être prise dans le passé!");
                                         }
+                                    } else {
+                                        $messages[] = alert("Vous ne travaillez pas ce jour-ci, veuillez changer vos disponibilités.");
                                     }
-                                }
-                            
+                                
+                                } 
                             } else {
                                 $messages[] = alert("Le patient est déjà enregistré");
                             }
                         }
                     }
-                }
                 }
                 else
                 {
@@ -471,12 +499,12 @@
                             $query = 
                             "SELECT *
                             FROM SCHEDULES AS S
-                            JOIN USER_HAS_SCHEDULES AS UHS ON SCHEDULES.ID = UHS.scheduleID
+                            JOIN USER_HAS_SCHEDULE AS UHS ON S.ID = UHS.scheduleID
                             JOIN USERS ON USERS.ID =  UHS.userID
                             WHERE USERS.ID = :set1
-                            AND workingDay Like DAYNAME(:set2)
-                            AND fromTime > :set3
-                            AND toTime < :set4;";
+                            AND S.workingDay LIKE DAYNAME(:set2)
+                            AND S.fromTime < :set3
+                            AND S.toTime > ADDTIME(:set4,'00:30:00')";
 
                             if(!empty(fetchFourSets($db,$query,$_POST['usrID'],$_POST['appDate'],($_POST['appHour'].":00"),($_POST['appHour'].":00")))){
 
@@ -485,7 +513,7 @@
                                 FROM HOLIDAYS
                                 WHERE userID = :set1
                                 AND :set2 BETWEEN startsAt AND endsAt;";
-                                if(!empty(fetchTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
+                                if(empty(fetchTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
 
                                     if(($acDate - $today) >= 86400){
                                         $query =

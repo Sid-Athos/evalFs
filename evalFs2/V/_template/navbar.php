@@ -60,6 +60,9 @@
 					</div>
 					</li>
 	        		<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="modal" data-target="#loginModal" style="cursor:pointer"> 
+								<i class="now-ui-icons sport_user-run" style="margin-top:-13px;margin-bottom:-9px;margin-left:-13px;font-size:16px"></i>Rendez-vous rapide
+							</a>
 					</li>
 					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
@@ -84,6 +87,7 @@
 								<i class="now-ui-icons media-1_button-power" style="margin-top:-13px;margin-bottom:-9px;margin-left:-13px;font-size:16px"></i>Déconnexion
 								</button>
 							</form>
+							
 						</div>
 					</li>
 					<form class="form-inline ml-auto" data-background-color action="index.php?page=browse" method="POST">

@@ -90,12 +90,12 @@
                                                 <select class=" form-check-inline form-control" 
                                                 style="height:45px;widtih:200px" name="appCat" required id="3">
                                                     <?php
-                                                        for($i = 0; $i < count($res); $i++)
+                                                        for($i = 0; $i < count($cats); $i++)
                                                         {
                                                             ?>
                                                                 <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
-                                                                value="<?php echo $res[$i]['ID']; ?>">
-                                                                <?php echo $res[$i]['name']; ?></option>
+                                                                value="<?php echo $cats[$i]['ID']; ?>">
+                                                                <?php echo $cats[$i]['name']; ?></option>
                                                             <?php
                                                         }
                                                     ?>
@@ -488,10 +488,8 @@
         }
     }
 $("#addApps").submit(function(event){
-    console.log('dsqdqs');
         event.preventDefault();
         type = $('#appRec').val();
-        console.log(type);
         if(type === "36")
         {
             query = $.post({
@@ -523,7 +521,6 @@ $("#addApps").submit(function(event){
 
                 }
             });
-            console.log("client + pat");
         } else if(type==="37"){
             query = $.post({
                 url : 'indexAjax.php',
@@ -543,7 +540,6 @@ $("#addApps").submit(function(event){
         }
         else
         {
-            console.log("pat");
             query = $.post({
                 url : 'indexAjax.php',
                 data : 
@@ -588,6 +584,7 @@ $("#addApps").submit(function(event){
                 {
                     
                     date = document.getElementById('0').value;
+                    console.log(date);
                     day = date.split("-");
                     day = Number(day[2]);
                     lol = document.getElementById('alert');
@@ -602,6 +599,18 @@ $("#addApps").submit(function(event){
                         {
                         liste[i].value = "";
                         }
+                        query = $.post({
+                            url : 'indexAjax.php',
+                            data : 
+                            {
+                                'getOwners': String(<?php echo $_SESSION['ID']; ?>),
+                            }
+                        });
+                        check = query.done(function(response){
+                            $('#12').html(response);
+                        
+                        });
+            
                 }
             }
         }
