@@ -369,10 +369,6 @@
             </div>
         </div>
     <!-- Modal -->
-<div class="modal fade" id="appsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-  </div>
-</div>
     <div class="modal fade modal-primary" id="confModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-login">
         <div class="modal-content" style="background-color:#fff">
@@ -423,14 +419,16 @@
             }
         });
     }
-        
+       </script>
+       <script> 
     function eraseDates(date)
     {
         if(Number(document.getElementById('apps'+ date).innerHTML) > 0)
         {
             
-            query = $.post({
+            query = $.ajax({
                 url : 'indexAjax.php',
+                type: "POST",
                 data : 
                 {
                     'eraseDate': date, 
@@ -439,14 +437,13 @@
             });
             check = query.done(function(response){
                 //$("#apps"+)
-                $('#answer1').html(response);
+                $('#answer2').html(response);
                
             });
             document.getElementById('past'+ date).style.display = "none";
             document.getElementById('apps'+ date).innerHTML = "0";
         }
     }
-    
     var form;
     var cssClass;
     function tableCss()
@@ -478,6 +475,48 @@
             document.getElementById('calTable').classList.add("slideOutRight");
             localStorage.setItem('cssClass',"slideOutRight");            
         }
+    }
+    function deleteApps(date,event)
+    {   
+        date = date.split("-");
+        (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
+        day = Number(date[2]);
+        date = date[0] +"-"+date[1]+"-"+  date[2];
+        console.log(date);
+        if(Number(document.getElementById('apps'+ date).innerHTML) > 0)
+        {
+            event.preventDefault();
+            document.getElementById("eraseDate").value = date;
+
+        }
+        document.getElementById("alert"+ day).style.backgroundColor = "rgba(44, 168, 255, 0.8)";
+        document.getElementById("past"+ date).style.display = "";
+        eraseDates(date);
+    }
+    function getMyApps(date,event){
+            event.preventDefault();
+            console.log(date)
+            date = document.getElementById('kill'+ date).value;
+            date = date.split("-");
+            (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
+            date = date[0] +"-"+date[1]+"-"+  date[2];
+            query = $.ajax({
+            url : 'indexAjax.php',
+            type: 'POST',
+            data : 
+            {
+                'fetchApps': date, 
+                'usrID': <?php echo $_SESSION['ID']; ?>, 
+            }
+            });
+            console.log(date);
+
+            check = query.done(function(response){
+                //$("#apps"+)
+                //$('#appsModal').modal("show");
+                $('#answer2').html(response);
+            
+            });
     }
 $("#addApps").submit(function(event){
         event.preventDefault();
@@ -608,45 +647,5 @@ $("#addApps").submit(function(event){
         }
     }
 
-    function deleteApps(date,event)
-    {   
-        date = date.split("-");
-        (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
-        day = Number(date[2]);
-        date = date[0] +"-"+date[1]+"-"+  date[2];
-        if(Number(document.getElementById('apps'+ date).innerHTML) > 0)
-        {
-            event.preventDefault();
-            $('#confModal').modal('show');
-            document.getElementById("eraseDate").value = date;
-
-        }
-        document.getElementById("alert"+ day).style.backgroundColor = "rgba(44, 168, 255, 0.8)";
-        document.getElementById("past"+ date).style.display = "";
-    }
-    function getMyApps(date,event){
-            event.preventDefault();
-            console.log(date)
-            date = document.getElementById('kill'+ date).value;
-            date = date.split("-");
-            (Number(date[2]< 10)) ? date[2] = "0"+ date[2]: date[2];
-            date = date[0] +"-"+date[1]+"-"+  date[2];
-            query = $.ajax({
-            url : 'indexAjax.php',
-            type: 'POST',
-            data : 
-            {
-                'fetchApps': date, 
-                'usrID': <?php echo $_SESSION['ID']; ?>, 
-            }
-            });
-            console.log(date);
-
-            check = query.done(function(response){
-                //$("#apps"+)
-                //$('#appsModal').modal("show");
-                $('#answer2').html(response);
-            
-            });
-    }
+   
 </script>

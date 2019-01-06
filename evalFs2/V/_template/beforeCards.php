@@ -6,4 +6,4 @@
           <div class="page-header-image" data-parallax="true" style="background-image:url('V/_template/assets/img/header.jpg');"></div>
           <div class="container">
           <?php if(isset($message)){ echo $message; }?>                            
-          </div>
+          <div>

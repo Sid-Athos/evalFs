@@ -92,7 +92,13 @@ ALTER TABLE `SEX` ADD CONSTRAINT UNIQUE(`name`);
 INSERT INTO `SEX` (`ID`, `name`) VALUES
 (1, 'Non-Binaire'),
 (2, 'Hermaphrodite'),
+(4, 'Mâle'),
+(5, 'Femelle'),
+(6, 'Non défini'),
 (3, 'Vanille');
+
+
+
 DROP TABLE IF EXISTS `PATIENTS`;
 CREATE TABLE IF NOT EXISTS `PATIENTS` (
   `ID` INT(11) NOT NULL AUTO_INCREMENT,
@@ -230,6 +236,15 @@ CREATE TABLE IF NOT EXISTS `SPECS` (
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `SPECS` (`ID`, `name`) VALUES
+(1, 'Souffrologie'),
+(2, 'Rebouteux'),
+(4, 'Yogi'),
+(5, 'Charlaton, car il y en a toujours'),
+(6, 'Ylang Ylang'),
+(3, 'Osthéopathe');
 
 DROP TABLE IF EXISTS `SPECCED_IN`;
 CREATE TABLE IF NOT EXISTS `SPECCED_IN` (

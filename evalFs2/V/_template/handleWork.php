@@ -9,15 +9,8 @@
             <div class="page-header-image" data-parallax="true" 
             style="background-image:url('V/_template/assets/img/header.jpg');"></div>
                 <div class="container">
-                    <div class="content-center brand" >
-                        <?php 
-                            if(isset($messages)){ 
-                                for($i = count($messages)-1; $i > 0;$i--){
-                                    echo $messages[$i];
-                                }
-                            }
-                        ?>                            
-                        <div class="col-md-6">
+                                    <div class="row">               
+                        <div class="col-md-6" style="margin:auto">
                             <div class="">
                                 <form class="form" method="POST" action="index.php?page=account" id="form" style="color:white;width:350px;margin-left:15%" autocomplete="off">
                                         <?php

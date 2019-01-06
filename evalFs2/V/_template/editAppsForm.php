@@ -40,7 +40,7 @@
                                         </div>
                                         <input type="text" class="form-control" placeholder="Lieu"  name="newPlace" id="1"
                                         data-toggle="tooltip" date-placement="left" title="Lieu du rendez-vous"
-                                        value="<?php if(isset($res[0]['appPlace'])){ echo $res[0]['appPlace']; } ?>" style="color:#FFFFFF" required autocomplete="off">
+                                        value="<?php if(isset($res[0]['place'])){ echo $res[0]['place']; } ?>" style="color:#FFFFFF" required autocomplete="off">
                                     </div>
                                     <div class="form-row">
                                         <div class="input-group no-border input-lg" style="max-width:170;left:5px">
@@ -60,30 +60,11 @@
                                             </span>
                                             </div>
                                             <input type="date" class="form-control" placeholder="Date du Rendez-vous"  name="newDate" id="3"
-                                            data-toggle="tooltip" date-placement="left" title="Date de rdv"
+                                            data-toggle="tooltip" date-placement="left" title="Date de rdv" min="<?php echo $todays; ?>"
                                             value="<?php if(isset($res[0]['appDay'])){ echo $res[0]['appDay']; } ?>" style="color:#FFFFFF" required autocomplete="off">
                                         </div>
                                     </div>
-                                    <div class="form-row" data-toggle="tooltip" date-placement="left" title="Durée">
-                                        <div class="input-group no-border input-lg" style="max-width:170;left:5px">
-                                            <div class="input-group-prepend" id="prep">
-                                            <span class="input-group-text">
-                                            <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
-                                            </span>
-                                            </div>
-                                            <input type="number" class="form-control" placeholder="Heures"  name="newDurH" id="durationH"
-                                            value="<?php if(isset($res[0]['startTime'])){ echo $hour; } ?>" style="color:#FFFFFF;width:100px;max-width:130px" required autocomplete="off">
-                                        </div>
-                                        <div class="input-group no-border input-lg" style="max-width: 180px;float:right;position: absolute;left: 50%;">
-                                            <div class="input-group-prepend" id="prep">
-                                            <span class="input-group-text">
-                                            <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
-                                            </span>
-                                            </div>
-                                            <input type="number" class="form-control" placeholder="Minutes"  name="newDurM" id="3"
-                                            value="<?php if(isset($res[0]['appDay'])){ echo $res[0]['appDay']; } ?>" style="color:#FFFFFF" required autocomplete="off">
-                                        </div>
-                                    </div>
+                                    
                                 <h3 class="motto">Sélectionnez une catégorie de référencement :</h3>
                                 <div class="input-group no-border input-xs" data-toggle="tooltip" 
                                             data-placement="top" 

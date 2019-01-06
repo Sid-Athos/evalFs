@@ -28,7 +28,7 @@
             break;
         case(isset($_POST['eraseApp'])):
                 if(preg_match("/^[0-9]+$/",$_POST['eraseApp'])){
-                    /***
+                    
                     $query[0] = 
                     "DELETE 
                     FROM BELONGS 
@@ -42,14 +42,9 @@
                     $query[2] = 
                     "DELETE 
                     FROM PATIENT_HAS_APPOINTMENTS 
-                    WHERE PATIENT_HAS_APPOINTMENTS .appointmentID = :set1;";
+                    WHERE PATIENT_HAS_APPOINTMENTS.appointmentID = :set1;";
 
-                    $query[2] = 
-                    "DELETE 
-                    FROM PATIENT_HAS_APPOINTMENTS 
-                    WHERE PATIENT_HAS_APPOINTMENTS .appointmentID = :set1;";
-
-                    $query[2] =
+                    $query[3] =
                     "DELETE 
                     FROM APPOINTMENTS 
                     WHERE APPOINTMENTS.ID = :set1
@@ -73,7 +68,6 @@
                         }
                         unset($messages);
                     }
-                    */
                     var_dump($_POST);
                 }
             break;
@@ -103,32 +97,55 @@
                 }
             break;
         case(isset($_POST['eraseDate'])):
-                var_dump($_POST);
                 (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['eraseDate']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
                 if(count($messages) === 0)
                 {
-                    /***$query[0] = 
-                    "DELETE 
-                    FROM BELONGS 
-                    WHERE BELONGS.appointmentID = ANY (SELECT ID FROM APPOINTMENTS WHERE userID = :set1 and appDay = :set2 AND appDay > CURRENT_TIMESTAMP());";
+                    
+                    $query =
+                    "SELECT APPOINTMENTS.ID as ID
+                    FROM USER_HAS_APPS AS UHA JOIN APPOINTMENTS ON APPOINTMENTS.ID = UHA.appointmentID
+                    WHERE UHA.userID = :set1
+                    AND APPOINTMENTS.appDay LIKE :set2;";
 
-                    $query[1] =
-                    "DELETE 
-                    FROM APPOINTMENTS 
-                    WHERE userID = :set1 
-                    and appDay = :set2
-                    AND appDay > CURRENT_TIMESTAMP();";
+                    if(!empty($res = fetchTwoSets($db,$query,$_POST['usrID'],$_POST['eraseDate']))){
+                        unset($query);
+                        for($j = 0; $j < count($res);$j++){
+                            $query[0] = 
+                                "DELETE 
+                                FROM BELONGS 
+                                WHERE BELONGS.appointmentID = :set1;";
 
-                    for($i = 0; $i < count($query);$i++)
-                    {
-                        if(twoSets($db,$query[$i],$_POST['usrID'],$_POST['eraseDate']) === true){
-                            if($i === 1){
-                                $messages[] = success("Suppression confirmée");
+                            $query[1] = 
+                                "DELETE 
+                                FROM USER_HAS_APPS 
+                                WHERE USER_HAS_APPS.appointmentID = :set1;";
+
+                            $query[2] = 
+                                "DELETE 
+                                FROM PATIENT_HAS_APPOINTMENTS 
+                                WHERE PATIENT_HAS_APPOINTMENTS .appointmentID = :set1;";
+
+
+                            $query[3] =
+                                "DELETE 
+                                FROM APPOINTMENTS 
+                                WHERE APPOINTMENTS.ID = :set1
+                                AND appDay > CURRENT_TIMESTAMP();";
+                    
+
+                            for($i = 0; $i < count($query);$i++)
+                            {
+                                if(oneSet($db,$query[$i],$res[$j]['ID']) === true){
+                                    if($i === 3){
+                                        $messages[] = success("Suppression confirmée");
+                                    }
+                                } else {
+                                    $messages[] = alert("Erreur lors du traitement de la requête, veuillez réessayer plus tard.");
+                                }
                             }
-                        } else {
-                            $messages[] = alert("Erreur lors du traitement de la requête, veuillez réessayer plus tard.");
                         }
-                    }*/
+                    }
+                  
                 }
                 if(count($messages) > 0)
                 {
@@ -382,7 +399,6 @@
 
                                 (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appPlace'])) ?  $_POST['appPlace'] : $_POST['appPlace'] = "Aucun endroit défini!";
                                 (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appNotes']) || empty($_POST)) ?  $_POST['appNotes'] : $_POST['appNotes'] = "Aucune note défini!";
-                                var_dump($_POST);
 
                                 $query = 
                                 "SELECT *
@@ -395,7 +411,6 @@
                                 AND S.toTime > ADDTIME(:set4,'00:30:00');";
     
                                     if(!empty(fetchFourSets($db,$query,$_POST['usrID'],$_POST['appDate'],($_POST['appHour'].":00"),($_POST['appHour'].":00")))){
-                                        var_dump($_POST);
         
                                         $query =
                                         "SELECT *

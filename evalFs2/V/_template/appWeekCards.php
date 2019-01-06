@@ -36,7 +36,7 @@
                             </div> <!-- end front panel -->
                             <div class="back" style="overflow-y:scroll;overflow-x:hidden;background-color:#212529;border-top-left-radius:5px;border-top-right-radius:5px">
                             <div class="form-check-inline" style="color:#FFFFFF;max-height:10px;" >
-                            <button onclick="document.getElementById('cardApps').remove();" class="btn btn-neutral" style="background-color:transparent;position:relative;text-align:center;left:40%;font-size:15px">Fermer la carte</button>
+                            <button onclick="document.getElementById('cardApps').remove();" class="btn btn-neutral" style="background-color:transparent;position:relative;text-align:center;left:40%;font-size:15px;top:10px">Fermer la carte</button>
                                 </div>
                     <?php
                     for($i = 0; $i <  count($res); $i++)
@@ -118,8 +118,8 @@
                                             
                                         </div>
                                     </div>
-                                <div class="form-check-inline" style="background-color:transparent;color:#FFFFFF;max-height:10px;min-height:10px;height:10px;margin-left:25px" >
-                                    <form method="post" action="index.php?page=apps">
+                                <div class="form-check" style="background-color:transparent;color:#FFFFFF;max-height:10px;min-height:10px;height:10px;margin-left:25px;margin-top:15px;position:relative;margin-bottom:30px" >
+                                    <form method="post" action="index.php?page=apps" style="margin-top:15px">
                                         <button type="submit" name="editApp" value="<?php echo $res[$i]['appId']; ?>" class="btn sid form-check-inline"
                                         style="left:50px;margin-top:-5px">
                                         Modifier l'évènement

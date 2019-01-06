@@ -8,7 +8,10 @@
     include('C/Functions/PHP/messages.php');
     include('C/Functions/PHP/sessionCheck.php');
     $actualDate = actualDate($db);
+
     $messages = array();
+    
+
     $query = 
     "SELECT *
     FROM CATEGORYS;";
@@ -40,8 +43,6 @@
     $today = date('Y-m-j');
     $todays = date('Y-m-d',strtotime('+1 day'));
     include('V/_template/appsModal.php');
-
-
     switch(isset($_POST)):
         case(isset($_POST['choice'])):
                 $today = date('Y-m-j');
@@ -49,11 +50,19 @@
                 {
                     $query = 
                     "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
-                    year(appDay) as years, dayname(appDay) as dayName, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, APPOINTMENTS.duration
-                    ,CATEGORYS.name
-                    FROM APPOINTMENTS JOIN CATEGORYS ON APPOINTMENTS.appCat = CATEGORYS.ID
+                    year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, 
+                    CATEGORYS.name, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName,
+                    OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone
+                    FROM APPOINTMENTS 
+                    JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
+                    JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
+                    JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
+                    JOIN PATIENTS ON PHA.patientID = PATIENTS.ID
+                    JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.patientID = PATIENTS.ID
+                    JOIN OWNERS ON OWNERS.ID = CHP.ownerID
+                    JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
                     WHERE APPOINTMENTS.appDay = :set1
-                    AND APPOINTMENTS.userID = :set2
+                    AND USER_HAS_APPS.userID = :set2
                     ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
 
                     $res = fetchTwoSets($db,$query,$today,$_SESSION['ID']);
@@ -62,8 +71,31 @@
                     include('V/_template/beforeCards.php');
                     include('V/_template/appDetailsCards.php');
                     include('V/_template/afterCards.php');
-                    include('V/_template/appsModal.php');   
                     include('V/_template/footer.html');                 
+                } else if($_POST['choice'] === 'weekApps'){
+                    $query = 
+                    "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
+                    year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, 
+                    CATEGORYS.name, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName,
+                    OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone
+                    FROM APPOINTMENTS 
+                    JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
+                    JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
+                    JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
+                    JOIN PATIENTS ON PHA.patientID = PATIENTS.ID
+                    JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.patientID = PATIENTS.ID
+                    JOIN OWNERS ON OWNERS.ID = CHP.ownerID
+                    JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
+                    WHERE WEEK(APPOINTMENTS.appDay) = WEEK(:set1)
+                    AND USER_HAS_APPS.userID = :set2
+                    ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
+                
+                    $res = fetchTwoSets($db,$query,$today,$_SESSION['ID']);
+                    include('V/_template/htmlTop.php');
+                    include('V/_template/navbar.php');
+                    include('V/_template/beforeCards.php');
+                    include('V/_template/appWeekCards.php');
+                    include('V/_template/footer.html'); 
                 } else {
                     header("Location: index.php?page=error");
                 }
@@ -119,16 +151,25 @@
                 }
 
 
-                if((!empty($_POST['newTime']) && (strtotime($_POST['newTime']) < strtotime("23:59:15")) && (strtotime($_POST['newTime']) >= strtotime("00:00:00"))) && (intval($_POST['newDurH']) <= 99 && intval($_POST['newDurH']) >= 0) && 
-                (intval($_POST['newDurM']) <= 59 && intval($_POST['newDurM']) >= 0)){
+                if((!empty($_POST['newTime']) && (strtotime($_POST['newTime']) < strtotime("23:59:15")) && (strtotime($_POST['newTime']) >= strtotime("00:00:00")))){
                     $query =
-                        "SELECT *
-                        FROM APPOINTMENTS
+                        "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
+                        year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place as place, APPOINTMENTS.notes, 
+                        CATEGORYS.name AS appCat, CATEGORYS.ID as catId, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName,
+                        OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, APPOINTMENTS.appDay as appDay
+                        FROM APPOINTMENTS 
+                        JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
+                        JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
+                        JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
+                        JOIN PATIENTS ON PHA.patientID = PATIENTS.ID
+                        JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.patientID = PATIENTS.ID
+                        JOIN OWNERS ON OWNERS.ID = CHP.ownerID
+                        JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
                         WHERE userID = :set1
                         AND appDay = :set2
-                        AND (:set3 BETWEEN startTime AND addtime(startTime,duration)
-                        OR startTime Between :set4 AND addtime(:set5,:set6))
-                        AND ID != :set7
+                        AND (:set3 BETWEEN startTime AND addtime(startTime,'00:30:00')
+                        OR startTime Between :set4 AND addtime(:set5,'00:30:00'))
+                        AND ID != :set6
                         ORDER BY startTime;";
 
                         if(!empty($res = fetchSixSets(
@@ -139,7 +180,6 @@
                             ($_POST['newTime'].":00"),
                             ($_POST['newTime'].":00"),
                             ($_POST['newTime'].":00"),
-                            ($_POST['newDurH'].":".$_POST['newDurM'].":00"),
                             $_POST['modApp'])))
                         {
                             $messages[] = alert("Le rendez-vous ".$res[0]['name']." à ".$res[0]['startTime']." <br>a déjà été pris ce jour là.");
@@ -184,33 +224,42 @@
                     $messages[] = alert("La nouvelle heure ou la durée n'est pas au format adéquat !") ;
                 }
 
-                        $query =
-                        "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
-                        year(appDay) as years, dayname(appDay) as dayName, APPOINTMENTS.startTime as startTime, APPOINTMENTS.place as appPlace, APPOINTMENTS.appDay as appDay,
-                        APPOINTMENTS.notes as appNotes, APPOINTMENTS.duration as appDuration
-                        ,CATEGORYS.name as appCat, CATEGORYS.ID as catId
-                        FROM APPOINTMENTS JOIN CATEGORYS ON APPOINTMENTS.appCat = CATEGORYS.ID
-                        WHERE APPOINTMENTS.ID = :set1
-                        ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
-                        
-                        
-                        $res = fetchOneSet($db,$query,$_POST['modApp']);
-                        unset($query);
+                $query =
+                "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
+                year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place as place, APPOINTMENTS.notes, 
+                CATEGORYS.name AS appCat, CATEGORYS.ID as catId, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName,
+                OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, APPOINTMENTS.appDay as appDay
+                FROM APPOINTMENTS 
+                JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
+                JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
+                JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
+                JOIN PATIENTS ON PHA.patientID = PATIENTS.ID
+                JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.patientID = PATIENTS.ID
+                JOIN OWNERS ON OWNERS.ID = CHP.ownerID
+                JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
+                WHERE APPOINTMENTS.ID = :set1
+                ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
+                
+                
+                $res = fetchOneSet($db,$query,$_POST['modApp']);
+                unset($query);
 
-                        $query = 
-                        "SELECT CATEGORYS.ID, CATEGORYS.name
-                        FROM CATEGORYS
-                       WHERE CATEGORYS.ID != ALL(
-                           SELECT BELONGS.categoryID 
-                           FROM BELONGS 
-                           WHERE BELONGS.appointmentID = :set1);";
-
-                        $cats = fetchOneSet($db,$query,$_POST['modApp']);
-                        include('V/_template/htmlTop.php');
-                        include('V/_template/navbar.php');
-                        include('V/_template/editAppsForm.php');
-                        include('V/_template/appsModal.php');
-                        include('V/_template/footer.html');
+                $query = 
+                "SELECT CATEGORYS.ID, CATEGORYS.name
+                FROM CATEGORYS
+               WHERE CATEGORYS.ID != ALL(
+                   SELECT BELONGS.categoryID 
+                   FROM BELONGS 
+                   WHERE BELONGS.appointmentID = :set1);";
+                for($i = 0;$i <count($messages);$i++){
+                    echo $messages[$i];
+                }
+                $cats = fetchOneSet($db,$query,$_POST['modApp']);
+                include('V/_template/htmlTop.php');
+                include('V/_template/navbar.php');
+                include('V/_template/editAppsForm.php');
+                include('V/_template/appsModal.php');
+                include('V/_template/footer.html');
 
             break;
         case(isset($_POST['fetchApps'])):
@@ -243,10 +292,17 @@
                     {
                         $query =
                         "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
-                        year(appDay) as years, dayname(appDay) as dayName, APPOINTMENTS.startTime as startTime, APPOINTMENTS.place as appPlace, APPOINTMENTS.appDay as appDay,
-                        APPOINTMENTS.notes as appNotes, APPOINTMENTS.duration as appDuration
-                        ,CATEGORYS.name as appCat, CATEGORYS.ID as catId
-                        FROM APPOINTMENTS JOIN CATEGORYS ON APPOINTMENTS.appCat = CATEGORYS.ID
+                        year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place as place, APPOINTMENTS.notes, 
+                        CATEGORYS.name AS appCat, CATEGORYS.ID as catId, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName,
+                        OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, APPOINTMENTS.appDay as appDay
+                        FROM APPOINTMENTS 
+                        JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
+                        JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
+                        JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
+                        JOIN PATIENTS ON PHA.patientID = PATIENTS.ID
+                        JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.patientID = PATIENTS.ID
+                        JOIN OWNERS ON OWNERS.ID = CHP.ownerID
+                        JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
                         WHERE APPOINTMENTS.ID = :set1
                         ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
                         
@@ -273,7 +329,7 @@
                     }
                 break;
         default:
-            include('E/404.html');
+            header('Location: index.php?page=error');
     endswitch;
-
+   
 ?>
