@@ -1,7 +1,7 @@
 <?php
 /* Petits messages d'alerte */
     function alert($string) {
-        return $string = '<div class="alert alert-danger ml-auto mr-auto" role="alert" style="text-align:center;width:500px;display:inline-block;
+        return $string = '<div class="alert alert-danger ml-auto mr-auto" role="alert" style="text-align:center;width:500px;display:inline-block;max-height:200px;
         margin:auto;z-index:4;" >
         <div class="container" id="success">
         <div class="alert-icon">
@@ -15,7 +15,7 @@
     </div>';
     }
     function success($string) {
-        return $string = '<div class="alert alert-warning ml-auto mr-auto" role="alert" style="width:500px;display:inline-block;margin:auto;z-index:4;
+        return $string = '<div class="alert alert-warning ml-auto mr-auto" role="alert" style="width:500px;display:inline-block;max-height:200px;margin:auto;z-index:4;
         text-align:center">
         <div class="container" id="alert">
           <div class="alert-icon">

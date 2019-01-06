@@ -11,7 +11,7 @@
 
     $messages = array();
     
-
+    var_dump($_POST);
     $query = 
     "SELECT *
     FROM CATEGORYS;";
@@ -42,8 +42,46 @@
     $owners = fetchNoSets($db,$query);
     $today = date('Y-m-j');
     $todays = date('Y-m-d',strtotime('+1 day'));
-    include('V/_template/appsModal.php');
     switch(isset($_POST)):
+        case(isset($_POST['consult'])):
+                $query = 
+                "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
+                year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, 
+                CATEGORYS.name, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName, SEX.name AS sexName,
+                OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone
+                FROM APPOINTMENTS 
+                JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
+                JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
+                JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
+                JOIN PATIENTS ON PHA.patientID = PATIENTS.ID
+                JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.patientID = PATIENTS.ID
+                JOIN OWNERS ON OWNERS.ID = CHP.ownerID
+                JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
+                JOIN SEX ON SEX.ID = PATIENTS.sexID
+                WHERE APPOINTMENTS.ID = :set1
+                ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
+                include('V/_template/htmlTop.php');
+                include('V/_template/navbar.php');
+                $res = fetchOneSet($db,$query,$_POST['consult']);
+
+                $query = 
+                "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
+                year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.note
+              
+                FROM APPOINTMENTS 
+                JOIN CONSULTATIONS AS CONS ON CONS.appointmentID = APPOINTMENTS.ID
+                JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
+                JOIN PATIENTS ON PHA.patientID = PATIENTS.ID
+                JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
+                JOIN SEX ON SEX.ID = PATIENTS.sexID
+                WHERE APPOINTMENTS.ID = :set1
+                ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
+
+
+                include('V/_template/consultations.php');
+                include('V/_template/footer.html');
+
+            break;
         case(isset($_POST['choice'])):
                 $today = date('Y-m-j');
                 if($_POST['choice'] ==='todayApps')
@@ -91,6 +129,7 @@
                     ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
                 
                     $res = fetchTwoSets($db,$query,$today,$_SESSION['ID']);
+                    //var_dump($res);
                     include('V/_template/htmlTop.php');
                     include('V/_template/navbar.php');
                     include('V/_template/beforeCards.php');
@@ -331,5 +370,6 @@
         default:
             header('Location: index.php?page=error');
     endswitch;
+    include('V/_template/appsModal.php');
    
 ?>
