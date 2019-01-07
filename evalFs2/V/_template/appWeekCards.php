@@ -12,7 +12,7 @@
                 $day = intval($res[0]['dayNum']);
                 ?>
                 <div class="card-container form-check-inline" id="cardApps"  data-toggle="tooltip" data-placement="right" title="Passez la souris par dessus la carte pour voir apparaître le planning" 
-                style="z-index:5;width:290px;margin:auto;background-color:transparent;margin-right:50px">
+                style="z-index:5;width:290px;margin:auto;background-color:transparent;margin-right:50px;">
                     <div class="card" style="border:none;position:relative;top:-200px;min-width: 310px;">
                         <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                             <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
@@ -64,7 +64,7 @@
                         <div class="front" style="background-color:#212529;border:none;border-top-left-radius:5px;border-top-right-radius:5px">
                             <div class="header" style="background-color:rgba(44, 95, 255);text-align:center;z-index:99;border-top-left-radius:5px;border-top-right-radius:5px">
                                 <h2 class="text-center" style="z-index:99;color:rgba(255,255,255,1);font-size:20px">
-                                    <?php echo ucfirst($res[0]['dayName']);?>, <?php echo $res[0]['dayNum'];?> <?php echo ucfirst($res[0]['monthName']);?> <?php echo ucfirst($res[0]['years']);?>
+                                    <?php echo ucfirst($res[$i]['dayName']);?>, <?php echo $res[$i]['dayNum'];?> <?php echo ucfirst($res[$i]['monthName']);?> <?php echo ucfirst($res[$i]['years']);?>
                             </div>
                             <div class="header" style="z-index:2;border:none">
                                 <img class="" src="<?php if($res[0]['name'] === 'Amoureux'){ echo 'https://media.giphy.com/media/LRVnPYqM8DLag/giphy.gif'; } else { echo 'V/_template/assets/img/header.jpg'; }?>" style="z-index:-2;border:none" style="z-index:-2;border:none;">
@@ -240,3 +240,4 @@
         }
 
        </style>
+</div>

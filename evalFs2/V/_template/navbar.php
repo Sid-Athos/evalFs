@@ -17,8 +17,10 @@
   <body class="index-page sidebar-collapse">
   	<!-- NAVBAR -->
   	<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent" color-on-scroll="600">
+
 		<div class="container">
 			<div class="navbar-translate" style="background-color:transparent;color:#fff" >
+<?php if(!empty($_SESSION['avPath'])){?><img class="nav-item rounded-circle" style="max-height:50px;max-width:50px,border-radius:50px" src="<?php echo $_SESSION['avPath'];?>" ><?php }?>
 				<a class="navbar-brand" href="index.php?page=lobby" rel="tooltip" title="" data-placement="bottom" target="_self">
 					<!--<img src="V/_template/assets/img/logo.png" height="50px" width="75px">-->
 				</a>

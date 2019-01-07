@@ -1,8 +1,9 @@
 <div class="wrapper">
         <div class="page-header clear-filter">
             <div class="page-header-image" data-parallax="true" style="background-image:url(
-            <?php if(isset($_SESSION['background'])){ echo $_SESSION['background']; } else { echo "V/_template/assets/img/header.jpg"; } ?>);"></div>
-                <div class="container" style="margin:auto;height:auto;">
+            <?php if(isset($_SESSION['background'])){ echo  $_SESSION['background']; } else { echo "V/_template/assets/img/header.jpg"; } ?>);"></div>
+
+                <div class="container" style="margin:auto;height:auto;margin-bottom:150px">
                 <?php 
                     if(isset($messages))
                     { 
@@ -32,13 +33,13 @@
 
                     <div id="collapse<?php echo $i; ?>" class="collapse show" role="tabpanel" aria-labelledby="heading<?php echo $i; ?>">
                     <div class="card-body">
-                                                    <h6 class="motto form-check-inline">Sexe : <?= $res[$i]['sexName']; ?></h6>
-                                                    <h6 class="motto form-check-inline">Né(e) le : <?php echo $res[$i]['birthDate']; ?></h6>
-                                                    <h6 class="motto form-check-inline">Mode de vie : <?php echo $res[$i]['lifeS']; ?></h6>
-                                                    <h6 class="motto form-check-inline">Alimentation : <?php echo $res[$i]['patFood']; ?></h6>
-                                                    <h6 class="motto form-check-inline">Représentant légal : <?php echo $res[$i]['lastName']; ?> <?php echo $res[$i]['firstName']; ?></h6>
-                                                    <h6 class="motto form-check-inline">Téléphone : <?php echo $res[$i]['phone']; ?></h6>
-                                                    <h6 class="motto form-check-inline">@ : <?php echo $res[$i]['email']; ?></h6>
+                                                    <h6 class="motto form-check-inline" style="color:#F1F2B5">Sexe :</h6> <?= $res[$i]['sexName']; ?>
+                                                    <h6 class="motto form-check-inline" style="color:#F1F2B5">Né(e) le : </h6> <?php echo $res[$i]['birthDate']; ?>
+                                                    <h6 class="motto form-check-inline" style="color:#F1F2B5">Mode de vie : </h6><?php echo $res[$i]['lifeS']; ?>
+                                                    <h6 class="motto form-check-inline" style="color:#F1F2B5">Alimentation : </h6><?php echo $res[$i]['patFood']; ?>
+                                                    <h6 class="motto form-check-inline" style="color:#F1F2B5">Représentant légal : </h6><?php echo $res[$i]['lastName']; ?> <?php echo $res[$i]['firstName']; ?>
+                                                    <h6 class="motto form-check-inline" style="color:#F1F2B5">Téléphone : </h6><?php echo $res[$i]['phone']; ?>
+                                                    <h6 class="motto form-check-inline" style="color:#F1F2B5">@ : </h6><?php echo $res[$i]['email']; ?>
                                                     <form method="POST">
                                                     Historique des consultations<br>
                                                     <button type="submit" name="patientID" class="btn btn-primary" style="background-color:rgba(25,25,25,.05);font-size:18px" value="<?php echo $res[$i]['patID'];?>">Accéder à l'historique du patient</button>
@@ -54,5 +55,5 @@
                 
                     </div>
                 </div>
-                </div>
+                </div></div>
                 </div>

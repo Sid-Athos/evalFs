@@ -2,7 +2,7 @@
         <div class="page-header clear-filter">
             <div class="page-header-image" data-parallax="true" style="background-image:url(
             <?php if(isset($_SESSION['background'])){ echo $_SESSION['background']; } else { echo "V/_template/assets/img/header.jpg"; } ?>);"></div>
-                <div class="container" style="margin:auto;height:auto;">
+                <div class="container"style="margin:auto;height:auto;margin-bottom:150px">
                 <?php 
                     if(isset($messages))
                     { 
@@ -15,7 +15,6 @@
                         }
                     }
                 ?>                            
-                        <div class="content-center-brand">
                             <div class="col-md-6 col-xs-8  ml-auto mr-auto" data-toggle="tooltip" data-placement="right" title="Liste de vos patients">
                             <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse"  style="margin-top:90px">
                     <div class=" container" style="transform:scale(-1,1);background-color:rgba(16,16,16,0.4);height:auto" >
@@ -36,13 +35,13 @@
 
                     <div id="collapse<?php echo $i; ?>" class="collapse show" role="tabpanel" aria-labelledby="heading<?php echo $i; ?>">
                     <div class="card-body">
-                        <h6 class="motto">Intitulé : <br><?php echo $prevCons[$i]['appName']; ?><br></h6>
-                        <h6 class="motto">Raison : <br><?php echo $prevCons[$i]['reason']; ?><br></h6>
-                        <h6 class="motto">État mental : <br><?php echo $prevCons[$i]['mState']; ?><br></h6>
-                        <h6 class="motto">État physique : <br><?php echo $prevCons[$i]['pState']; ?><br></h6>
-                        <h6 class="motto">Tempérament : <br><?php echo $prevCons[$i]['temp']; ?></h6>
-                        <h6 class="motto">Notes : <br><?php echo $prevCons[$i]['cNotes']; ?><br></h6>
-                        <h6 class="motto">Poids : <br><?php echo $prevCons[$i]['weight']; ?> kg<br></h6>    
+                        <h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">Intitulé : </h6><?php echo $prevCons[$i]['appName']; ?>
+                        <h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">Raison : </h6><?php echo $prevCons[$i]['reason']; ?>
+                        <h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">État mental :</h6> <?php echo $prevCons[$i]['mState']; ?>
+                        <h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">État physique :</h6> <?php echo $prevCons[$i]['pState']; ?>
+                        <h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">Tempérament :</h6> <?php echo $prevCons[$i]['temp']; ?>
+                        <h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">Notes :</h6> <?php echo $prevCons[$i]['cNotes']; ?>
+                        <h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">Poids :</h6> <?php echo $prevCons[$i]['weight']; ?> kg    
                     </div>
                     </div>
                                 <?php

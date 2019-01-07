@@ -11,7 +11,7 @@
         style="background-image:url('V/_template/assets/img/header.jpg');"></div>
         <div class="container">
             <div>
-                <div class="content-center brand" >
+                <div class="content-center-brand" >
             <?php if(isset($messages)){ 
               for($i = count($messages)-1; $i > 0;$i--){
                 echo $messages[$i];
@@ -27,7 +27,7 @@
                             </div>
                             <div class="-body ml-auto mr-auto" style="width:350px">
                               <div class="col-md-6 ml-auto mr-auto" style="width:500px">
-                                <img id="blah"  style="width:250px;height:250px;border-radius:50%;opacity: 0.75;filter: alpha(opacity=50);z-index:99;position:fixed;left:-230px;top:70px;font-size:30px" alt="Preview">
+                                <img id="blah"  style="max-width:250px;max-height:250px;border-radius:50%;opacity: 0.75;filter: alpha(opacity=50);z-index:99;position:relative;left:-350px;top:70px;font-size:30px" alt="Preview">
                                 <input type="file"  placeholder="Avatar"
                                 name="avatar" id="file" autocomplete="off" class="form-control" onchange="readURL(this)"
                                 style="text-decoration:none;opacity:0;height:0px;width:0px;">
@@ -43,8 +43,8 @@
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" style="color:#FFFFFF" autocomplete="off" id="3"
-                                placeholder="Nouvelle adresse email..." name="newMail"  pattern="^[a-zA-Z0-9\.]{2,18}@[a-z]{2,6}.[a-z]{2,5}$"
-                                value="<?php if(isset($res[0]['mail'])){ echo $res[0]['mail']; }?>">
+                                placeholder="<?php if(isset($res[0]['mail'])){ echo $res[0]['mail']; }?>" name="newMail"  pattern="^[a-zA-Z0-9\.]{2,18}@[a-z]{2,6}.[a-z]{2,5}$"
+                                value="">
                               </div>
                               <div class="input-group no-border input-lg">
                                 <div class="input-group-prepend">
@@ -52,10 +52,10 @@
                                   <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
                                   </span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Nouveau pseudo..." style="color:#FFFFFF" autocomplete="off" 
+                                <input type="text" class="form-control" placeholder="<?php if(isset($res[0]['pseudo'])){ echo $res[0]['pseudo']; }?>" style="color:#FFFFFF" autocomplete="off" 
                                 title="Alphanumériques, point, underscore, tirets et apostrophe uniquement, minimum 4 caractères" 
                                 name="newPseudo"  pattern="/^[a-zA-Z0-9\_\'\.\-]{4,45]$/" id="4"
-                                value="<?php if(isset($res[0]['pseudo'])){ echo $res[0]['pseudo']; }?>">
+                                value="">
                               </div>
                               <div class="input-group no-border input-lg">
                                 <div class="input-group-prepend">
@@ -63,9 +63,9 @@
                                     <i class="fas fa-phone" style="color:#FFFFFF"></i>
                                     </span>
                                 </div>
-                                <input type="phone" class="form-control" placeholder="Nouveau numéro de téléphone..." style="color:#FFFFFF" 
+                                <input type="phone" class="form-control" placeholder="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" style="color:#FFFFFF" 
                                 pattern="^[0-9]{10,12}$" name="newPhone" id="5"
-                                value="<?php if(isset($res[0]['phone'])){ if($res[0]['phone'] !== NULL){ echo $res[0]['phone']; } }?>" autocomplete="off">
+                                value="" autocomplete="off">
                               </div>
                               <div class="input-group no-border input-lg">
                                   <div class="input-group-prepend">

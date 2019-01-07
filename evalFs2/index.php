@@ -4,7 +4,6 @@
     setlocale(LC_ALL, 'fra');
 
     date_default_timezone_set ("Europe/Paris");
-
     switch(isset($_GET)):
         case(isset($_GET['page'])):
             switch($_GET['page']):

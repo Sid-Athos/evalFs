@@ -5,12 +5,10 @@
         header("Location: http://localhost/evalFs/evalFs2/index.php");
     }
     $page = "Gestion de compte";
-    include('V/_template/htmlTop.php');
     include('M/dbConnect.php');
     require_once('M/getSql.php');
     require_once('M/otherSql.php');
     $actualDate = actualDate($db);
-    include('V/_template/navbar.php');
     include('C/Functions/PHP/messages.php');
     include('C/Functions/PHP/killAvatar.php');
     include('C/Functions/PHP/daysAvailable.php');
@@ -46,11 +44,13 @@
     $owners = fetchNoSets($db,$query);
     $today = date('Y-m-j');
     $todays = date('Y-m-d',strtotime('+1 day'));
-    include('V/_template/appsModal.php');
     $messages = array();
 
     switch(isset($_POST)):
         case(isset($_POST['handleWork'])):
+    include('V/_template/htmlTop.php');
+    include('V/_template/navbar.php');
+
                 $todays = date('Y-m-d',strtotime('+1 day'));
                 $twoDays = date('Y-m-d',strtotime('+2 days'));
 
@@ -85,6 +85,8 @@
         case(isset($_POST['choice'])):
             switch($_POST['choice']):
                 case($_POST['choice'] === 'modWork'):
+                include('V/_template/htmlTop.php');
+    include('V/_template/navbar.php');
                         $array = array("Lundi" => 1, "Mardi" => 2, "Mercredi" => 3,"Jeudi" => 4, "Vendredi" => 5,"Samedi" => 5,"Dimanche" => 7);
                         if(array_key_exists($_POST['addDayWork'],$array)){
                             $query=
@@ -203,6 +205,8 @@
                             }
                     break;
                 case($_POST['choice'] === 'changeBackground'):
+                include('V/_template/htmlTop.php');
+    include('V/_template/navbar.php');
                         if(isset($_POST['cBack']) && isset($_POST['bg']))
                         {
                             if(preg_match("/^[0-9]+$/",$_POST['bg']) && preg_match("/^[0-9]+$/",$_SESSION['ID']))
@@ -347,20 +351,16 @@
                                         /** Path pour l'upload */
                                     }
                                     
-                                    $query = 
-                                    "SELECT avPath
-                                    FROM USERS
-                                    WHERE ID = :set1;";
-
-                                    $actualAvatar = fetchOneSet($db,$query,$_SESSION['ID']);
+                                   
                                     $dir='V/A/';
                                     $avatarPath=$dir.basename($_FILES['avatar']['name']);
 
-                                    if(!empty($actualAvatar['avPath']))
-                                    {
+                                   
+                                   if(!empty($_SESSION['avPath']))
+                                   {
+                                       killAvatar($_SESSION['avPath']);
+                                   } 
                                     
-                                        killAvatar("V/A",$actualAvatar['avPath']);
-                                    }
                                     $upload = move_uploaded_file($_FILES['avatar']['tmp_name'],$avatarPath);
 
                                     $query =
@@ -371,8 +371,9 @@
                                     $check = twoSets($db,$query,$avatarPath,$_SESSION['ID']);
                                     if($upload === true && $check === true)
                                     {
-                                        $_SESSION['avatar'] = $avatarPath;
                                         $messages[] = success("Photo ajoutée");
+                                    $_SESSION['avPath'] = $avatarPath;
+
                                     }
                                     else 
                                     {
@@ -403,6 +404,8 @@
                             WHERE ID = :set1;";
 
                         $res = fetchOneSet($db,$query,$_SESSION['ID']);
+                        include('V/_template/htmlTop.php');
+    include('V/_template/navbar.php');
                         include('V/_template/account.php');
                     break;
                 default:
@@ -425,5 +428,7 @@
             
             include('V/_template/account.php');
     endswitch;
+    include('V/_template/appsModal.php');
+
     include('V/_template/footer.html');
 ?>

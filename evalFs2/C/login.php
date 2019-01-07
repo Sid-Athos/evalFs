@@ -108,6 +108,7 @@
                                 if($check === true)
                                 {
                                     $_SESSION['ID'] = $db -> lastInsertId();
+                                    $_SESSION['avPath'] = "";
                                     $query = 
                                     "SELECT *
                                     FROM USERS;";
@@ -156,7 +157,7 @@
                                 unset($query);
 
                                 $query =
-                                "SELECT ID, pseudo 
+                                "SELECT ID, pseudo, avPath
                                 FROM USERS
                                 WHERE (mail = :set1 
                                 OR pseudo = :set2);";
@@ -176,6 +177,7 @@
                                         $message = success("Connexion réussie");
                                         //sessionKeyller($_SESSION);
                                         $_SESSION['ID'] = $res[0]['ID'];
+                                        $_SESSION['avPath'] = $res[0]['avPath'];
                                         $_SESSION['greetings'] = "Bonjour ".$res[0]['pseudo']." <br>. Nous sommes le $actualDate !";
                                         header("Location:index.php?page=calendar");
                                     }
