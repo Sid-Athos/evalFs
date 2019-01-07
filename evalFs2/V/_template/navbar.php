@@ -65,6 +65,11 @@
 							</a>
 					</li>
 					<li class="nav-item dropdown">
+					<a class="nav-link" href="index.php?page=patients" style="cursor:pointer"> 
+					<i class="now-ui-icons users_single-02"></i>Mes patients
+							</a>
+					</li>
+					<li class="nav-item dropdown">
 						<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
 							<i class="now-ui-icons ui-1_settings-gear-63"></i>
 							<p>Mon Compte</p>

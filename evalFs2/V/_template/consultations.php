@@ -10,6 +10,10 @@
                         <form class="form" method="POST" action="index.php?page=apps" autocomplete="false">
                             
                             <div class="card-body" style="text-align:center">
+                              <button type="button" class="sid"
+                                    name="insConsult" value="<?php echo $_POST['consult']; ?>" style="font-size:19px;font-weight:950"
+                                    data-toggle="modal" data-target="#exampleModal"
+                                >Cliquez ici pour des informations complémentaires</button>
                                 <div class="input-group no-border input-lg">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -66,7 +70,7 @@
                                         <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
                                         </span>
                                     </div>
-                                    <textarea  class="form-control" placeholder="Remarques"  name="mail" id="0" data-toggle="tooltip" data-placement="right" 
+                                    <textarea  class="form-control" placeholder="Remarques"  name="consNotes" id="0" data-toggle="tooltip" data-placement="right" 
                                     title="Adresse mail ou identifiant"
                                     value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
                                 </div>
@@ -76,21 +80,16 @@
                                         <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
                                         </span>
                                     </div>
-                                    <textarea  class="form-control" placeholder="Diagnostic/recommandations"  name="mail" id="0" data-toggle="tooltip" data-placement="right" 
+                                    <textarea  class="form-control" placeholder="Diagnostic/recommandations"  name="diagnosis" id="0" data-toggle="tooltip" data-placement="right" 
                                     title="Adresse mail ou identifiant"
                                     value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
                                 </div>
                             <div class="card-footer text-center">
                               <button type="submit" class="btn btn-primary btn-round btn-lg btn-block"
-                              name="choice" value="connexion">Enregistrer la fiche</button>
+                              name="regCons" value="<?php echo $res[0]['appId']; ?>">Enregistrer la fiche</button>
                         </form>
                               
-                              <div class="pull-right">
-                              <button type="button" class="sid"
-                                    name="insConsult" value="<?php echo $_POST['consult']; ?>"
-                                    data-toggle="modal" data-target="#exampleModal"
-                                >Fiche patient/client</button>
-                              </div>
+                              
                         </div>
                       </div>
                   </div>
@@ -218,18 +217,45 @@
                                             
                                         </div>
                                     </div>
-                                <div class="form-check" style="background-color:transparent;color:#FFFFFF;max-height:10px;min-height:10px;height:10px;margin-left:25px;margin-top:15px;position:relative;margin-bottom:30px" >
-                                    <form method="post" action="index.php?page=apps" style="margin-top:15px">
-                                        <button type="submit" name="editApp" value="<?php echo $res[$i]['appId']; ?>" class="btn sid form-check-inline"
-                                        style="left:50px;margin-top:-5px">
-                                        Modifier l'évènement
-                                        </button>
-                                        <button type="submit" name="consult" value="<?php echo $res[$i]['appId']; ?>" class="btn sid form-check-inline"
-                                        style="left:50px;margin-top:-5px;margin-bottom:15px">
-                                        Gérer la consultation
-                                        </button>
-                                    </form>
-                                </div>
+                                    <?php
+                                    if(!empty($prevCons)){
+                                        ?>
+                                                <h3 class="motto">Historique</h3>
+                                        <?php
+                                        for($p = 0;$p < count($prevCons);$p++)
+                                        {
+                                                $hours = explode(":",$prevCons[$i]['consH']);
+                                                $hours = $hours[0].":".$hours[1];
+                                                $datesC = explode("-",$prevCons[$i]['consDate']);
+                                                $datesC = "$datesC[2]-$datesC[1]-$datesC[0]";
+                                            ?>
+                                                <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse" >
+                                                    <div class="card-plain" style="background:transparent">
+                                                        <div class="card-header" role="tab" id="heading<?php echo $compteur; ?>" style="text-align:center;font-size:16px">
+                                                            <i class="now-ui-icons travel_info" style="color:#3d72b4"></i>
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $compteur; ?>" aria-expanded="false" aria-controls="collapse<?php echo $compteur; ?>">
+                                                            Consultation du <?= $datesC;?> à <?= $hours; ?>
+                                                            <i class="now-ui-icons arrows-1_minimal-down"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div id="collapse<?php echo $compteur; ?>" class="collapse hide" role="tabpanel" aria-labelledby="heading<?php echo $compteur; $compteur++?>">
+                                                            <div class="card-body" style="background:transparent;color:rgb(255,255,255,0.7);">
+                                                                <h6 class="motto">Intitulé : <br><?php echo $prevCons[$i]['appName']; ?><br></h6>
+                                                                <h6 class="motto">Raison : <br><?php echo $prevCons[$i]['reason']; ?><br></h6>
+                                                                <h6 class="motto">État mental : <br><?php echo $prevCons[$i]['mState']; ?><br></h6>
+                                                                <h6 class="motto">État physique : <br><?php echo $prevCons[$i]['pState']; ?><br></h6>
+                                                                <h6 class="motto">Tempérament : <br><?php echo $prevCons[$i]['temp']; ?></h6>
+                                                                <h6 class="motto">Notes : <br><?php echo $prevCons[$i]['cNotes']; ?><br></h6>
+                                                                <h6 class="motto">Poids : <br><?php echo $prevCons[$i]['weight']; ?> kg<br></h6>                                                    
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                
                                 </div>
                     <?php
                     }

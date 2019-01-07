@@ -11,7 +11,6 @@
 
     $messages = array();
     
-    var_dump($_POST);
     $query = 
     "SELECT *
     FROM CATEGORYS;";
@@ -48,7 +47,7 @@
                 "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
                 year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, 
                 CATEGORYS.name, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName, SEX.name AS sexName,
-                OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone
+                OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, PATIENTS.lifeStyle as lifeS, PATIENTS.food AS patFood
                 FROM APPOINTMENTS 
                 JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
                 JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
@@ -59,25 +58,29 @@
                 JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
                 JOIN SEX ON SEX.ID = PATIENTS.sexID
                 WHERE APPOINTMENTS.ID = :set1
+                AND APPOINTMENTS.status = 1
                 ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
                 include('V/_template/htmlTop.php');
                 include('V/_template/navbar.php');
                 $res = fetchOneSet($db,$query,$_POST['consult']);
+                $_SESSIOn['app'] = $_POST['consult'];
 
                 $query = 
                 "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
-                year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.note
-              
+                year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes,
+                CONSULTATIONS.reason, CONSULTATIONS.food, CONSULTATIONS.mindState as mState,CONSULTATIONS.phyState AS pState, CONSULTATIONS.temper as temp,CONSULTATIONS.notes as cNotes, CONSULTATIONS.weight, CONSULTATIONS.recommandations AS recs, DATE(CONSULTATIONS.consDate) AS consDate, TIME(CONSULTATIONS.consDate) as consH
                 FROM APPOINTMENTS 
-                JOIN CONSULTATIONS AS CONS ON CONS.appointmentID = APPOINTMENTS.ID
+                JOIN CONSULTATIONS AS CONSULTATIONS ON CONSULTATIONS.appointmentID = APPOINTMENTS.ID
                 JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
                 JOIN PATIENTS ON PHA.patientID = PATIENTS.ID
-                JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
+                JOIN USER_HAS_APPS ON APPOINTMENTS.ID = USER_HAS_APPS.appointmentID
                 JOIN SEX ON SEX.ID = PATIENTS.sexID
-                WHERE APPOINTMENTS.ID = :set1
+                WHERE PATIENTS.ID = :set1
+                AND APPOINTMENTS.status = 1
+                AND USER_HAS_APPS.userID = :set2
                 ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
 
-
+                $prevCons = fetchTwoSets($db,$query,$res[0]['patID'],$_SESSION['ID']);
                 include('V/_template/consultations.php');
                 include('V/_template/footer.html');
 
@@ -129,7 +132,6 @@
                     ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
                 
                     $res = fetchTwoSets($db,$query,$today,$_SESSION['ID']);
-                    //var_dump($res);
                     include('V/_template/htmlTop.php');
                     include('V/_template/navbar.php');
                     include('V/_template/beforeCards.php');
@@ -137,6 +139,43 @@
                     include('V/_template/footer.html'); 
                 } else {
                     header("Location: index.php?page=error");
+                }
+            break;
+        case(isset($_POST['regCons'])):
+                $count = 0;
+                
+                foreach($_POST as $key => $val){
+                    if($_POST[$key] === "consWeight"){
+                        if(preg_match("/^[0-9\,\.]+$/",$_POST[$key])){
+                            $count++;
+                        }
+                    } else {
+                        if(preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/",$_POST[$key]))
+                        {
+                            $count++;
+                        }
+                    }
+                }
+                if($count === count($_POST)){
+                    $query =
+                    "INSERT INTO CONSULTATIONS(reason,mindState,phyState,temper,notes,weight,recommandations,appointmentID)
+                    VALUES(:set1,:set2,:set3,:set4,:set5,:set6,:set7,:set8);";
+
+                    if(heightSets($db,$query,$_POST['consReas'],$_POST['consMind'],$_POST['consPhy'],$_POST['consTemp'],$_POST['consNotes'],$_POST['consWeight'],$_POST['diagnosis'],$_POST['regCons'])){
+                        $_SESSION['app'] = 1;
+                        echo success("Consultation enregistrée");
+                        include('V/_template/htmlTop.php');
+                        include('V/_template/navbar.php');
+                        $query =
+                        "UPDATE APPOINTMENTS SET STATUS = 0
+                        WHERE ID = :set1;";
+
+                        oneSet($db,$query,$_SESSION['app']);
+
+                        header("refresh:2;url=index.php?page=calendar");
+                    } 
+                } else {
+                    echo alert("Erreur dans le formulaire");
                 }
             break;
         case(isset($_POST['modApp']) && preg_match("/^[0-9]+$/",$_POST['modApp'])):
