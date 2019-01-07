@@ -48,8 +48,8 @@
 
     switch(isset($_POST)):
         case(isset($_POST['handleWork'])):
-    include('V/_template/htmlTop.php');
-    include('V/_template/navbar.php');
+                include('V/_template/htmlTop.php');
+                include('V/_template/navbar.php');
 
                 $todays = date('Y-m-d',strtotime('+1 day'));
                 $twoDays = date('Y-m-d',strtotime('+2 days'));
@@ -85,8 +85,8 @@
         case(isset($_POST['choice'])):
             switch($_POST['choice']):
                 case($_POST['choice'] === 'modWork'):
-                include('V/_template/htmlTop.php');
-    include('V/_template/navbar.php');
+                        include('V/_template/htmlTop.php');
+                        include('V/_template/navbar.php');
                         $array = array("Lundi" => 1, "Mardi" => 2, "Mercredi" => 3,"Jeudi" => 4, "Vendredi" => 5,"Samedi" => 5,"Dimanche" => 7);
                         if(array_key_exists($_POST['addDayWork'],$array)){
                             $query=
@@ -205,8 +205,8 @@
                             }
                     break;
                 case($_POST['choice'] === 'changeBackground'):
-                include('V/_template/htmlTop.php');
-    include('V/_template/navbar.php');
+                        include('V/_template/htmlTop.php');
+                        include('V/_template/navbar.php');
                         if(isset($_POST['cBack']) && isset($_POST['bg']))
                         {
                             if(preg_match("/^[0-9]+$/",$_POST['bg']) && preg_match("/^[0-9]+$/",$_SESSION['ID']))
@@ -405,7 +405,7 @@
 
                         $res = fetchOneSet($db,$query,$_SESSION['ID']);
                         include('V/_template/htmlTop.php');
-    include('V/_template/navbar.php');
+                        include('V/_template/navbar.php');
                         include('V/_template/account.php');
                     break;
                 default:
@@ -424,7 +424,9 @@
             WHERE ID = :set1;";
 
             $res = fetchOneSet($db,$query,$_SESSION['ID']);
+            include('V/_template/htmlTop.php');
 
+            include('V/_template/navbar.php');
             
             include('V/_template/account.php');
     endswitch;

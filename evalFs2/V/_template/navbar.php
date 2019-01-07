@@ -14,6 +14,17 @@
 		height:40px;
 	}
   </style>
+  <style>
+	.btn.form-control:hover{
+		background-color:transparent;
+	}
+	.btn.form-control:focus{
+		background-color:transparent;
+	}
+	.btn.form-control:active{
+		background-color:transparent;
+	}
+	</style>
   <body class="index-page sidebar-collapse">
   	<!-- NAVBAR -->
   	<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent" color-on-scroll="600">
@@ -61,12 +72,12 @@
 							</form>
 					</div>
 					</li>
-	        		<li class="nav-item dropdown">
+	        		<li class="nav-item dropdown" data-toggle="tooltip" data-placement="bottom" title="Prise de rendez-vous rapide"> 
 					<a class="nav-link" data-toggle="modal" data-target="#loginModal" style="cursor:pointer"> 
-								<i class="now-ui-icons sport_user-run" style="margin-top:-13px;margin-bottom:-9px;margin-left:-13px;font-size:16px"></i>Rendez-vous rapide
+							<i class="now-ui-icons ui-1_simple-add" style="font-size:16px"  ></i>Rendez-vous 
 							</a>
 					</li>
-					<li class="nav-item dropdown">
+					<li class="nav-item dropdown" data-toggle="tooltip" data-placement="bottom" title="Lise de mes patients, fiches consultations" >
 					<a class="nav-link" href="index.php?page=patients" style="cursor:pointer"> 
 					<i class="now-ui-icons users_single-02"></i>Mes patients
 							</a>
@@ -98,14 +109,15 @@
 						</div>
 					</li>
 					<form class="form-inline ml-auto" data-background-color action="index.php?page=browse" method="POST">
-		                <div class="input-group">
-		                	<div class="input-group-prepend">
+		                <div class="input-group" style="height:50px">
+		                	<div class="input-group-prepend" style="max-height:40px;position:relative;top:10px">
 		                    	<span class="input-group-text"><i class="now-ui-icons ui-1_zoom-bold"></i></span>
 		                	</div>
-		                	<input type="text" class="form-control" placeholder="Rechercher">
+		                	<button  class="btn form-control"  placeholder="Rechercher">Outil de recherche</button>
 		                </div>
 		            </form>
 				</ul>
 		    </div>
 		</div>
 	</nav>
+	
