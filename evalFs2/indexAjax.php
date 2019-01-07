@@ -7,6 +7,7 @@
     include('M/otherSql.php');
 
     switch(isset($_POST)):
+        
         case(isset($_POST['getOwners'])):
                 $query = 
                 "SELECT O.ID, O.lastName,  o.firstName
@@ -90,6 +91,7 @@
                         JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
                         WHERE APPOINTMENTS.appDay = :set1
                         AND USER_HAS_APPS.userID = :set2
+                        AND APPOINTMENTS.status = 1
                         ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
 
                     $res = fetchTwoSets($db,$query,$_POST['fetchApps'],$_POST['usrID']);
@@ -243,10 +245,10 @@
                             
                             $patName = $_POST['patName']." ".$_POST['patFi'];
                             $query1 = 
-                            "INSERT INTO PATIENTS(patientName, breed, sexID, birthDate)
-                            VALUES(:set1,:set2,:set3,:set4);";
+                            "INSERT INTO PATIENTS(patientName, breed, sexID, birthDate,lifeStyle,food)
+                            VALUES(:set1,:set2,:set3,:set4,:set5,:set6);";
 
-                            $res0 = fourSets($db,$query1,$patName,$_POST['patOr'],$_POST['patSex'],$_POST['patBirth']);
+                            $res0 = sixSets($db,$query1,$patName,$_POST['patOr'],$_POST['patSex'],$_POST['patBirth'],$_POST['patLstyle'],$_POST['patFood']);
                             $patID = $db -> lastInsertId();                                
 
                             $res1 =
@@ -389,10 +391,10 @@
                             if(empty(fetchTwoSets($db,$query,$_POST['appOwner'],$patName)))
                             {
                             $query1 = 
-                            "INSERT INTO PATIENTS(patientName, breed, sexID, birthDate)
-                            VALUES(:set1,:set2,:set3,:set4);";
+                            "INSERT INTO PATIENTS(patientName, breed, sexID, birthDate,lifeStyle,food)
+                            VALUES(:set1,:set2,:set3,:set4,:set5,:set6);";
 
-                            $res0 = fourSets($db,$query1,$patName,$_POST['patOr'],$_POST['patSex'],$_POST['patBirth']);
+                            $res0 = sixSets($db,$query1,$patName,$_POST['patOr'],$_POST['patSex'],$_POST['patBirth'],$_POST['patLstyle'],$_POST['patFood']);
                             $patID = $db -> lastInsertId();                                
 
                             if($res0 === true){

@@ -15,11 +15,10 @@
                         include('C/Functions/PHP/sessionCheck.php');
                         include('C/apps.php');
                     break;
-                /**case($_GET['page'] === 'lobby'):
+                case($_GET['page'] === 'patients'):
                         include('C/Functions/PHP/sessionCheck.php');
-                        //include('C/lobby.php');
-                        header('Location:index.php?page=calendar');
-                    break;*/
+                        include('C/patients.php');
+                    break;
                 case($_GET['page'] === 'account'):
                         include('C/Functions/PHP/sessionCheck.php');
                         include('C/account.php');

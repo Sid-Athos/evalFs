@@ -20,38 +20,41 @@
                             <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse"  style="margin-top:90px">
                     <div class=" container" style="transform:scale(-1,1);background-color:rgba(16,16,16,0.4);height:auto" >
                     <?php
-                        if(!empty($res)){
-                            for($i = 0;$i < count($res);$i++){
+                        if(!empty($prevCons)){
+                            for($i = 0;$i < count($prevCons);$i++){
+                                $hours = explode(":",$prevCons[$i]['consH']);
+                            $hours = $hours[0].":".$hours[1];
+                            $datesC = explode("-",$prevCons[$i]['consDate']);
+                            $datesC = "$datesC[2]-$datesC[1]-$datesC[0]";
                                 ?>
                         <div class="card-header" role="tab" id="heading<?php echo $i; ?>">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $i; ?>" aria-expanded="true" aria-controls="collapse<?php echo $i; ?>" style="color:#ED8F03;font-weight:850">
-                            <?= $res[$i]['patientName']; ?>
+                            Consultation du <?= $datesC;?> à <?= $hours; ?>
                             <i class="now-ui-icons arrows-1_minimal-down"></i>
                             </a>
                     </div>
 
                     <div id="collapse<?php echo $i; ?>" class="collapse show" role="tabpanel" aria-labelledby="heading<?php echo $i; ?>">
                     <div class="card-body">
-                                                    <h6 class="motto form-check-inline">Sexe : <?= $res[$i]['sexName']; ?></h6>
-                                                    <h6 class="motto form-check-inline">Né(e) le : <?php echo $res[$i]['birthDate']; ?></h6>
-                                                    <h6 class="motto form-check-inline">Mode de vie : <?php echo $res[$i]['lifeS']; ?></h6>
-                                                    <h6 class="motto form-check-inline">Alimentation : <?php echo $res[$i]['patFood']; ?></h6>
-                                                    <h6 class="motto form-check-inline">Représentant légal : <?php echo $res[$i]['lastName']; ?> <?php echo $res[$i]['firstName']; ?></h6>
-                                                    <h6 class="motto form-check-inline">Téléphone : <?php echo $res[$i]['phone']; ?></h6>
-                                                    <h6 class="motto form-check-inline">@ : <?php echo $res[$i]['email']; ?></h6>
-                                                    <form method="POST">
-                                                    Historique des consultations<br>
-                                                    <button type="submit" name="patientID" class="btn btn-primary" style="background-color:rgba(25,25,25,.05);font-size:18px" value="<?php echo $res[$i]['patID'];?>">Accéder à l'historique du patient</button>
-                                                    </form>
+                        <h6 class="motto">Intitulé : <br><?php echo $prevCons[$i]['appName']; ?><br></h6>
+                        <h6 class="motto">Raison : <br><?php echo $prevCons[$i]['reason']; ?><br></h6>
+                        <h6 class="motto">État mental : <br><?php echo $prevCons[$i]['mState']; ?><br></h6>
+                        <h6 class="motto">État physique : <br><?php echo $prevCons[$i]['pState']; ?><br></h6>
+                        <h6 class="motto">Tempérament : <br><?php echo $prevCons[$i]['temp']; ?></h6>
+                        <h6 class="motto">Notes : <br><?php echo $prevCons[$i]['cNotes']; ?><br></h6>
+                        <h6 class="motto">Poids : <br><?php echo $prevCons[$i]['weight']; ?> kg<br></h6>    
                     </div>
                     </div>
                                 <?php
                             }
-                        }
-                    ?>
+                        
+                        ?>
                     
-                </div>
-                
+                        <?php }else {
+                            echo alert("Aucune consultation effectuée avec ce patient");
+                        }
+                        ?>
+                        </div>
                     </div>
                 </div>
                 </div>
