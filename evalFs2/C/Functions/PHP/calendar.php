@@ -20,20 +20,21 @@
     // Add empty cell(s)
     $week = $week.str_repeat('<td style=""></td>', $str - 1);
     $color = "none";
-    $i = 0;
+    $z = 0;
     for ($day = 1; $day <= $daysCount; $day++, $str++) {
         ($day < 10) ? $days = "0$day" : $days = $day;
         $date = "$ym-$day";
         $dates = "$ym-$days";
-            if(!empty($offs)){
-                    if(isset($offs[$i]) && strtotime($date) >= strtotime($offs[$i]['starts'])
-                    && strtotime($date) <= strtotime($offs[$i]['ends'])) {
+        if(isset($offs[$z]) && !empty($offs)){
+            if(strtotime($date) >= strtotime($offs[$z]['starts'])
+            && strtotime($date) <= strtotime($offs[$z]['ends'])) {
                         $week = $week."<td style='background-color:rgba(166, 148, 229, 0.6);min-width:200px;width:200px'
                         data-toggle='tooltip' data-placement='top' title='Congé'>$day</td>";
                     } else {
-                        if(isset($offs[($i+1)])){
-                            $i++;
+                        if(isset($offs[($z+1)])){
+                            $z++;
                         }
+
                         if(!in_array(intval(date('N',strtotime($date))),$noApps)){
                             $week = $week."<td style='background-color:rgba(66, 66, 63, 0.2);min-width:190px'
                             data-toggle='tooltip' data-placement='top' title='Jour de repos'>$day</td>";

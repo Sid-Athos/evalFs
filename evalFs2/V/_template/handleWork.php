@@ -195,6 +195,19 @@
                 echo "Aucune spécialisation ajoutée";
             }
             ?>
+
+            <h3 class="motto">Mes Vacances</h3>
+            <?php 
+            if(!empty($holi)){
+                for($i=0;$i< count($holi);$i++){
+                    ?>
+                    <center>Début le : <?php echo sqlDates($holi[$i]['startsAt']); ?>  Fin le : <?php echo sqlDates($holi[$i]['endsAt']); ?> </center>
+                    <?php
+                }
+            } else {
+                echo "Aucune vacances prévues";
+            }
+            ?>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

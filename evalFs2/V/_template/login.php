@@ -68,12 +68,13 @@
         <div class="modal-content" style="background-color:#333333;color:#FFFFFF">
           <div class="modal-header" style="text-align:center;white-space:pre-wrap;color:#ce943b">
           <form method="POST" id="reg" action="index.php?page=login">
-            <h6 class="modal-title">Nom de compte perdu? Mot de passe oublié? Des questions sur le formulaire? Pas d'inquiétude ;)</h6>
+            <h6 class="modal-title">Première visite? Pas d'inquiétude ;)</h6>
           </div>
           <div class="modal-body" style="text-align:center;white-space:pre-wrap;margin-top:-80px">
             Ton adresse mail ainsi que ton numéro de téléphone te serviront à récupérer ton compte facilement.<br>
             Aussi, ton mail peut tout autant te servir que ton pseudonyme pour te connecter! Ce dernier sera cependant le seul identifiant visible par les autres utilisateurs te concernant.<br>
             Si tu as perdu ton compte, saisis ton mail, nous te renverrons tes informations de connexion par mail et par message!
+            Après ton inscription, il est nécessaire que tu choisisses des spécialisations et des horaires de travail avant de pouvoir ajouter des rendez-vous!
             <div class="input-group no-border input-lg">
               <div class="input-group-prepend">
                   <span class="input-group-text">

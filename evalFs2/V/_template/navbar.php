@@ -109,7 +109,7 @@
 						</div>
 					</li>
 					<form class="form-inline ml-auto" data-background-color action="index.php?page=browse" method="POST">
-		                <div class="input-group" style="height:50px">
+		                <div class="input-group" style="height:50px;top:-15px">
 		                	<div class="input-group-prepend" style="max-height:40px;position:relative;top:10px">
 		                    	<span class="input-group-text"><i class="now-ui-icons ui-1_zoom-bold"></i></span>
 		                	</div>

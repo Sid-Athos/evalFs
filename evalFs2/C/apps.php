@@ -2,6 +2,7 @@
     if(!isset($_GET['page'])){
         header("Location: http://localhost/evalFs/evalFs2/index.php");
     }
+    $page = "Rendez-vous";
     include('M/dbConnect.php');
     include('M/getSql.php');
     include('M/otherSql.php');
@@ -25,7 +26,11 @@
     $patients = fetchNoSets($db,$query);
     
     unset($query);
+    $query =
+    "SELECT *
+    FROM ORIGINS";
 
+    $origins = fetchNoSets($db,$query);
     $query =
     "SELECT *
     FROM SEX";
@@ -47,7 +52,7 @@
                 "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
                 year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, 
                 CATEGORYS.name, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName, SEX.name AS sexName,
-                OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, PATIENTS.lifeStyle as lifeS, PATIENTS.food AS patFood
+                OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, PATIENTS.lifeStyle as lifeS, PATIENTS.food AS patFood,  ORIGINS.name AS origin,
                 FROM APPOINTMENTS 
                 JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
                 JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
@@ -57,9 +62,11 @@
                 JOIN OWNERS ON OWNERS.ID = CHP.ownerID
                 JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
                 JOIN SEX ON SEX.ID = PATIENTS.sexID
+                JOIN ORIGINS ON ORIGINS.ID = PATIENTS.originID
                 WHERE APPOINTMENTS.ID = :set1
                 AND APPOINTMENTS.status = 1
                 ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
+                
                 include('V/_template/htmlTop.php');
                 include('V/_template/navbar.php');
                 $res = fetchOneSet($db,$query,$_POST['consult']);
@@ -67,7 +74,7 @@
 
                 $query = 
                 "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
-                year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes,
+                year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, ORIGINS.name AS origin,
                 CONSULTATIONS.reason, CONSULTATIONS.food, CONSULTATIONS.mindState as mState,CONSULTATIONS.phyState AS pState, CONSULTATIONS.temper as temp,CONSULTATIONS.notes as cNotes, CONSULTATIONS.weight, CONSULTATIONS.recommandations AS recs, DATE(CONSULTATIONS.consDate) AS consDate, TIME(CONSULTATIONS.consDate) as consH
                 FROM APPOINTMENTS 
                 JOIN CONSULTATIONS AS CONSULTATIONS ON CONSULTATIONS.appointmentID = APPOINTMENTS.ID
@@ -75,12 +82,19 @@
                 JOIN PATIENTS ON PHA.patientID = PATIENTS.ID
                 JOIN USER_HAS_APPS ON APPOINTMENTS.ID = USER_HAS_APPS.appointmentID
                 JOIN SEX ON SEX.ID = PATIENTS.sexID
+                JOIN ORIGINS ON ORIGINS.ID = PATIENTS.originID
                 WHERE PATIENTS.ID = :set1
                 AND APPOINTMENTS.status = 1
                 AND USER_HAS_APPS.userID = :set2
                 ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
 
                 $prevCons = fetchTwoSets($db,$query,$res[0]['patID'],$_SESSION['ID']);
+
+                $query =
+                "SELECT ID, name
+                FROM ZONES;";
+
+                $zones = fetchNoSets($db,$query);
                 include('V/_template/consultations.php');
                 include('V/_template/footer.html');
 
@@ -112,6 +126,7 @@
                     include('V/_template/beforeCards.php');
                     include('V/_template/appDetailsCards.php');
                     include('V/_template/afterCards.php');
+                    echo "</div>";
                     include('V/_template/footer.html');                 
                 } else if($_POST['choice'] === 'weekApps'){
                     $query = 
@@ -136,6 +151,7 @@
                     include('V/_template/navbar.php');
                     include('V/_template/beforeCards.php');
                     include('V/_template/appWeekCards.php');
+                    echo "</div>";
                     include('V/_template/footer.html'); 
                 } else {
                     header("Location: index.php?page=error");
@@ -149,7 +165,9 @@
                         if(preg_match("/^[0-9\,\.]+$/",$_POST[$key])){
                             $count++;
                         }
-                    } else {
+                    } else if($key === "zonesIn") {
+                        $count++;
+                    }else {
                         if(preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/",$_POST[$key]))
                         {
                             $count++;
@@ -160,21 +178,33 @@
                     $query =
                     "INSERT INTO CONSULTATIONS(reason,mindState,phyState,temper,notes,weight,recommandations,appointmentID)
                     VALUES(:set1,:set2,:set3,:set4,:set5,:set6,:set7,:set8);";
-
                     if(heightSets($db,$query,$_POST['consReas'],$_POST['consMind'],$_POST['consPhy'],$_POST['consTemp'],$_POST['consNotes'],$_POST['consWeight'],$_POST['diagnosis'],$_POST['regCons'])){
                         $_SESSION['app'] = 1;
                         echo success("Consultation enregistrée");
-                        include('V/_template/htmlTop.php');
-                        include('V/_template/navbar.php');
+                        $consID = $db -> lastInsertId();
+
+                        $query = 
+                        "INSERT INTO ZONE_HANDLED(zoneID,consultationID)
+                        VALUES(:set1,:set2);";
+
+                        if(isset($_POST['zonesIn'])){
+                            for($i = 0;$i < count($_POST['zonesIn']);$i++){
+                                twoSets($db,$query,$_POST['zonesIn'][$i],$_POST['regCons']);
+                            }
+                        }
+                        
                         $query =
                         "UPDATE APPOINTMENTS SET STATUS = 0
                         WHERE ID = :set1;";
 
                         oneSet($db,$query,$_SESSION['app']);
 
-                        header("refresh:2;url=index.php?page=calendar");
+                        header("Location: index.php?page=calendar");
+                        echo success("Consultation enregistrée");
                     } 
                 } else {
+                    include('V/_template/htmlTop.php');
+                        include('V/_template/navbar.php');
                     echo alert("Erreur dans le formulaire");
                 }
             break;

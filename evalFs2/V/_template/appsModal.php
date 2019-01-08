@@ -302,6 +302,30 @@
                                                 ?>
                                             </select>
                                         </div>
+                                        <div class=" form-check-inline"  style="position: relative;width:490px">
+                                            <div class="input-group no-border input-xs" data-toggle="tooltip" 
+                                            data-placement="top" 
+                                            title="Origine du patient" style="left:-2px">
+                                                <div class="input-group-prepend ">
+                                                    <span class="input-group-text" style="height:45px">
+                                                    <i class="now-ui-icons files_box" style="color:#FFFFFF"></i>
+                                                    </span>
+                                                </div>
+                                                <select class=" form-check-inline form-control" id="origins"
+                                                style="height:45px;width:200px" name="newPatGins">
+                                                    <?php
+                                                        for($i = 0; $i < count($origins); $i++)
+                                                        {
+                                                            ?>
+                                                                <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
+                                                                value="<?php echo $origins[$i]['ID']; ?>">
+                                                                <?php echo $origins[$i]['name']; ?></option>
+                                                            <?php
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="input-group no-border input-lg">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -546,6 +570,7 @@ $("#addApps").submit(function(event){
                     'patFi' : $('input[name=newPatFi]').val(),
                     'patBirth' : $('input[name=newPatBirth]').val(),
                     'patSex' : $('#16').val(),
+                    'patNature' : $('#origins').val(),
                     'patLstyle' : $('input[name=newPatLs]').val(),
                     'patFood' : $('input[name=newPatFood]').val(),
                     'patOr' : $('input[name=newPatOrs]').val(),
@@ -588,6 +613,7 @@ $("#addApps").submit(function(event){
                     'patFi' : $('input[name=newPatFi]').val(),
                     'patBirth' : $('input[name=newPatBirth]').val(),
                     'patSex' : $('#16').val(),
+                    'patNature' : $('#origins').val(),
                     'patLstyle' : $('input[name=newPatLs]').val(),
                     'patFood' : $('input[name=newPatFood]').val(),
                     'patOr' : $('input[name=newPatOrs]').val(),   

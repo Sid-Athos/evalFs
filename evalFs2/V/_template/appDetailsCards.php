@@ -76,7 +76,7 @@
                                     <h5 class="motto" id="tooltip<?php echo $res[$i]['appId'];?>" data-toggle="tooltip" data-placement="top" 
                                     title="Rendez-vous de <?php $hour = explode(":",$res[$i]['startTime']); $hour = $hour[0].":".$hour[1];  echo $hour; ?>, cliquez sur la croix pour supprimer" 
                                     style="z-index:99;color:rgba(255,255,255,1);font-size:20px"><?php echo $res[$i]['appName']; ?>
-                                    <i class="now-ui-icons ui-1_simple-remove" onclick="killApp(<?php echo $res[$i]['appId'];?>);" style="cursor:pointer;font-size:18px"></i>
+                        <?php if($res[$i]['appStatus'] === "1"){?><i class="now-ui-icons ui-1_simple-remove" onclick="killApp(<?php echo $res[$i]['appId'];?>);" style="cursor:pointer;font-size:18px"></i><?php } else {?>, Rendez-vous effectué<?php }?>
                                     </h5>
                                     <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse" >
                                         <div class="card-plain" style="background:transparent">
@@ -110,6 +110,8 @@
                                                 <div class="card-body" style="background:transparent;color:rgb(255,255,255,0.7)">
                                                     <h6 class="motto">Patient : <br><?= $res[$i]['patientName']; ?><br></h6>
                                                     <h6 class="motto">Né(e) le :<br> <?php echo $res[$i]['birthDate']; ?><br></h6>
+                                                    <h6 class="motto">Origine :<br> <?php echo $res[$i]['origin']; ?><br></h6>
+                                                    <h6 class="motto">Détails origine :<br> <?php echo $res[$i]['breed']; ?><br></h6>
                                                     <h6 class="motto">Représentant légal : <br><?php echo $res[$i]['lastName']; ?> <?php echo $res[$i]['firstName']; ?></h6>
                                                     <h6 class="motto">Téléphone : <br><?php echo $res[$i]['phone']; ?><br></h6>
                                                     <h6 class="motto">@ : <br><?php echo $res[$i]['email']; ?><br></h6>
@@ -118,10 +120,12 @@
                                             
                                         </div>
                                     </div>
-                                <div class="form-check-inline" style="background-color:transparent;color:#FFFFFF;max-height:10px;min-height:10px;height:10px;margin-left:25px" >
+                                    <?php
+                                    if(intval($res[$i]['appStatus']) === 1){?>
+                                <div class="form-check-inline" style="background-color:transparent;color:#FFFFFF;max-height:10px;min-height:10px;height:10px;margin-left:25px;position:relative;top:20px;margin-bottom:30px" >
                                     <form method="post" action="index.php?page=apps">
                                         <button type="submit" name="editApp" value="<?php echo $res[$i]['appId']; ?>" class="btn sid form-check-inline"
-                                        style="left:50px;margin-top:-5px">
+                                        style="left:50px;">
                                         Modifier l'évènement
                                         </button>
                                         <button type="submit" name="consult" value="<?php echo $res[$i]['appId']; ?>" class="btn sid form-check-inline"
@@ -130,6 +134,7 @@
                                         </button>
                                     </form>
                                 </div>
+                                    <?php }?>
                                 </div>
                     <?php
                     }

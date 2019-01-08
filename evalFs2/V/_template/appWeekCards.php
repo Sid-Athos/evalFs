@@ -117,6 +117,7 @@
                                                 <div class="card-body" style="background:transparent;color:rgb(255,255,255,0.7)">
                                                     <h6 class="motto">Patient : <br><?= $res[$i]['patientName']; ?><br></h6>
                                                     <h6 class="motto">Né(e) le :<br> <?php echo $res[$i]['birthDate']; ?><br></h6>
+                                                    <h6 class="motto">Origine :<br> <?php echo $res[$i]['origin']; ?><br></h6>
                                                     <h6 class="motto">Représentant légal : <br><?php echo $res[$i]['lastName']; ?> <?php echo $res[$i]['firstName']; ?></h6>
                                                     <h6 class="motto">Téléphone : <br><?php echo $res[$i]['phone']; ?><br></h6>
                                                     <h6 class="motto">@ : <br><?php echo $res[$i]['email']; ?><br></h6>

@@ -23,6 +23,18 @@ ALTER TABLE `CATEGORYS` ADD CONSTRAINT UNIQUE(`name`);
 --
 -- Structure de la table `USERS`
 --
+DROP TABLE IF EXISTS `ORIGINS`;
+CREATE TABLE IF NOT EXISTS `ORIGINS` (
+  `ID` TINYINT(1) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+INSERT INTO `ORIGINS` (`ID`, `name`) VALUES
+(1, 'Humain'),
+(2, 'Animal'),
+(4, 'Végétal'),
+(5, 'Cailloux et assimilé');
 
 DROP TABLE IF EXISTS `BACKGROUNDS`;
 CREATE TABLE IF NOT EXISTS `BACKGROUNDS` (
@@ -105,13 +117,18 @@ CREATE TABLE IF NOT EXISTS `PATIENTS` (
   `patientName` varchar(20) NOT NULL DEFAULT 'Unknown',
   `breed` varchar(25) DEFAULT 'human',
   `sexID` INT(11) NOT NULL,
+  `originID` tinyint(1) NOT NULL DEFAULT 1,
   `birthDate` date DEFAULT NULL,
-  `comment` longtext,
-  `history` longtext,
+  `lifeStyle` longtext,
+  `food` longtext,
   `avpath` varchar(155),
   PRIMARY KEY (`ID`),
   CONSTRAINT FK_patients_sex FOREIGN KEY (`sexID`)
   REFERENCES SEX(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT,
+  CONSTRAINT FK_patients_origin FOREIGN KEY (`originID`)
+  REFERENCES ORIGINS(`ID`)
   ON UPDATE CASCADE
   ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -144,6 +161,7 @@ CREATE TABLE IF NOT EXISTS `CONSULTATIONS` (
   `weight` VARCHAR(50) NOT NULL, 
   `recommandations` varchar(1500) NOT NULL,
   `appointmentID` INT(11) NOT NULL DEFAULT 1,
+  `consDate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   /** `totalActivity` TIME NOT NULL DEFAULT CURRENT_TIMESTAMP(), */
   PRIMARY KEY (`ID`),
   CONSTRAINT FK_cons_appointmentID FOREIGN KEY (`appointmentID`)
@@ -242,7 +260,7 @@ INSERT INTO `SPECS` (`ID`, `name`) VALUES
 (1, 'Souffrologie'),
 (2, 'Rebouteux'),
 (4, 'Yogi'),
-(5, 'Charlaton, car il y en a toujours'),
+(5, 'Charlatan'),
 (6, 'Ylang Ylang'),
 (3, 'Osthéopathe');
 
@@ -276,6 +294,34 @@ CREATE TABLE IF NOT EXISTS `HOLIDAYS` (
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `ZONES`;
+CREATE TABLE IF NOT EXISTS `ZONES` (
+  `ID` TINYINT(4) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `zonePath` varchar(145) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+
+
+
+DROP TABLE IF EXISTS `ZONE_HANDLED`;
+CREATE TABLE IF NOT EXISTS `ZONE_HANDLED` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `zoneID` TINYINT(4) NOT NULL,
+  `consultationID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT FOREIGN KEY (`zoneID`)
+  REFERENCES ZONES(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT,
+  CONSTRAINT FOREIGN KEY (`consultationID`)
+  REFERENCES CONSULTATIONS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Déchargement des données de la table `USERS`
 --
@@ -283,7 +329,20 @@ CREATE TABLE IF NOT EXISTS `HOLIDAYS` (
 INSERT INTO `USERS` (`ID`, `pseudo`, `mail`, `password`, `phone`) VALUES
 (1, 'Athos', 'sa.bennaceur@gmail.com', 'cd98bf0202ef07e38e87f6bd9445e5e7331e2c78', '0612121212'),
 (2, 'Sidou', 'sa.benn90@gmail.com', 'cd98bf0202ef07e38e87f6bd9445e5e7331e2c78', '0610101010');
+INSERT INTO `SCHEDULES` (`ID`, `fromTime`, `toTime`, `workingDay`) VALUES (NULL, '08:00:00', '20:00:00', 'Mardi');
+INSERT INTO `USER_HAS_SCHEDULE` (`ID`, `userID`, `scheduleID`) VALUES (NULL, '1', '1');
+INSERT INTO `HOLIDAYS` (`ID`, `startsAt`, `endsAt`, `userID`) VALUES (NULL, '2019-01-18 00:00:00', '2019-01-29 00:00:00', '1');
 
+INSERT INTO `zones` (`ID`, `name`, `zonePath`) VALUES
+(1, 'Tête', 'V/Parts/head.png'),
+(2, 'Épaules', 'V/Parts/epaules.jfif'),
+(3, 'Cage thoracique', 'V/Parts/thoracique.jfif'),
+(4, 'Abdomen', 'V/Parts/abdomen.jfif'),
+(5, 'Bras', 'V/Parts/bras.jfif'),
+(6, 'Bassin', 'V/Parts/bassin.jfif'),
+(7, 'Jambes', 'V/Parts/jambes.jfif'),
+(8, 'Pieds', 'V/Parts/pieds.jfif');
+COMMIT;
 
 --
 -- Structure de la table `PLATOONS`

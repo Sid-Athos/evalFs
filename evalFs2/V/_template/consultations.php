@@ -1,104 +1,124 @@
 <div class="wrapper">
-      <div class="page-header clear-filter" style="margin-top:0px">
-          <div class="page-header-image" data-parallax="true" style="background-image:url('V/_template/assets/img/header.jpg');"></div>
-          <div class="container">
-          <?php if(isset($message)){ echo $message; }?>                            
-            <div>
-                <div class="content-center brand" style="min-height:650px">
-                  <div class="col-md-6 ml-auto mr-auto">
-                      <div class="card-login">
-                        <form class="form" method="POST" action="index.php?page=apps" autocomplete="false">
-                            
-                            <div class="card-body" style="text-align:center">
-                              <button type="button" class="sid"
-                                    name="insConsult" value="<?php echo $_POST['consult']; ?>" style="font-size:19px;font-weight:950"
-                                    data-toggle="modal" data-target="#exampleModal"
-                                >Cliquez ici pour des informations complémentaires</button>
-                                <div class="input-group no-border input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                        <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
-                                        </span>
+    <div class="page-header clear-filter" style="margin-top:0px">
+        <div class="page-header-image" data-parallax="true" style="background-image:url('V/_template/assets/img/header.jpg');"></div>
+        <?php if(isset($message)){ echo $message; }?>                            
+            <div class="row ml-auto mr-auto" style="max-width:950px;margin-top:15%">
+                <div class="col-md-6" style="max-width:600px">
+                    <form class="form" method="POST" action="index.php?page=apps" autocomplete="false">
+                        <button type="button" class="sid"
+                        name="insConsult" value="<?php echo $_POST['consult']; ?>" style="font-size:19px;font-weight:950"
+                        data-toggle="modal" data-target="#exampleModal">Cliquez ici pour des informations complémentaires</button>
+                        <div class="input-group no-border input-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
+                                    </span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Raison(s)"  name="consReas" id="" data-toggle="tooltip" data-placement="right" 
+                            title="Adresse mail ou identifiant"
+                            value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required>
+                        </div>
+                        <div class="input-group no-border input-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
+                                </span>
+                            </div>
+                            <textarea class="form-control" placeholder="Etat d'esprit"  name="consMind" id="" data-toggle="tooltip" data-placement="right" 
+                            title="Adresse mail ou identifiant"
+                            value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
+                        </div>
+                        <div class="input-group no-border input-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
+                                </span>
+                            </div>
+                            <textarea class="form-control" placeholder="État physique"  name="consPhy" id="" data-toggle="tooltip" data-placement="right" 
+                            title="Adresse mail ou identifiant"
+                            value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
+                        </div>
+                        <div class="input-group no-border input-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
+                                </span>
+                            </div>
+                            <input type="number" class="form-control" placeholder="Poids" min="0" step="0.1" max="5000" name="consWeight" id="" data-toggle="tooltip" data-placement="right" 
+                            title="Adresse mail ou identifiant"
+                            value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required>
+                        </div>
+                        <div class="input-group no-border input-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
+                                </span>
+                            </div>
+                            <textarea  class="form-control" placeholder="Tempérament"  name="consTemp" id="0" data-toggle="tooltip" data-placement="right" 
+                            title="Adresse mail ou identifiant"
+                            value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
+                        </div>
+                        <div class="input-group no-border input-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
+                                </span>
+                            </div>
+                            <textarea  class="form-control" placeholder="Remarques"  name="consNotes" id="0" data-toggle="tooltip" data-placement="right" 
+                            title="Adresse mail ou identifiant"
+                            value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
+                        </div>
+                        <div class="input-group no-border input-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
+                                </span>
+                            </div>
+                            <textarea  class="form-control" placeholder="Diagnostic/recommandations"  name="diagnosis" id="0" data-toggle="tooltip" data-placement="right" 
+                            title="Adresse mail ou identifiant"
+                            value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
+                        </div>
+                </div>
+                <div class="col-md-6">
+                    <?php
+                        if(!empty($zones))
+                        {
+                            ?>
+                                <h4 class="motto">Zones traitées</h4>
+                                    <div class="row">
+                                <?php 
+                                    for($i = 0;$i < count($zones);$i++)
+                                    {
+                                ?>
+                                        <div class="col-md-3 form-check form-check-inline" style="margin-bottom:30px;margin-right:20px;cursor:pointer">
+
+                                            <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" style="color:#FFFFFF" name="zonesIn[]" style="margin:auto"
+                                            value="<?php echo $zones[$i]['ID']; ?>">
+                                            <span class="form-check-sign form-check-inline">
+                                            </span>
+                                            <?php echo $zones[$i]['name']; ?>
+                                            </label>
+                                        </div>
+                                        
+                                <?php
+                                    }
+                                    ?>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Raison(s)"  name="consReas" id="" data-toggle="tooltip" data-placement="right" 
-                                    title="Adresse mail ou identifiant"
-                                    value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required>
-                                </div>
-                                <div class="input-group no-border input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                        <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
-                                        </span>
-                                    </div>
-                                    <textarea class="form-control" placeholder="Etat d'esprit"  name="consMind" id="" data-toggle="tooltip" data-placement="right" 
-                                    title="Adresse mail ou identifiant"
-                                    value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
-                                </div>
-                                <div class="input-group no-border input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                        <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
-                                        </span>
-                                    </div>
-                                    <textarea class="form-control" placeholder="État physique"  name="consPhy" id="" data-toggle="tooltip" data-placement="right" 
-                                    title="Adresse mail ou identifiant"
-                                    value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
-                                </div>
-                                <div class="input-group no-border input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                        <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
-                                        </span>
-                                    </div>
-                                    <input type="number" class="form-control" placeholder="Poids" min="0" step="0.1" max="5000" name="consWeight" id="" data-toggle="tooltip" data-placement="right" 
-                                    title="Adresse mail ou identifiant"
-                                    value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required>
-                                </div>
-                                <div class="input-group no-border input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                        <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
-                                        </span>
-                                    </div>
-                                    <textarea  class="form-control" placeholder="Tempérament"  name="consTemp" id="0" data-toggle="tooltip" data-placement="right" 
-                                    title="Adresse mail ou identifiant"
-                                    value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
-                                </div>
-                                <div class="input-group no-border input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                        <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
-                                        </span>
-                                    </div>
-                                    <textarea  class="form-control" placeholder="Remarques"  name="consNotes" id="0" data-toggle="tooltip" data-placement="right" 
-                                    title="Adresse mail ou identifiant"
-                                    value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
-                                </div>
-                                <div class="input-group no-border input-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                        <i class="now-ui-icons users_circle-08" style="color:#FFFFFF"></i>
-                                        </span>
-                                    </div>
-                                    <textarea  class="form-control" placeholder="Diagnostic/recommandations"  name="diagnosis" id="0" data-toggle="tooltip" data-placement="right" 
-                                    title="Adresse mail ou identifiant"
-                                    value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
-                                </div>
-                            <div class="card-footer text-center">
+
+                                    <?php
+                                }
+                                ?>
+                            <div class="card-footer text-center" style="margin-bottom:150px">
                               <button type="submit" class="btn btn-primary btn-round btn-lg btn-block"
                               name="regCons" value="<?php echo $res[0]['appId']; ?>">Enregistrer la fiche</button>
-                        </form>
+                        
+                            </div>
+                            </form>
                               
-                              
-                        </div>
-                      </div>
-                  </div>
+                    </div>
                 </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>    
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document" style="position:absolute;margin-top:100px;left:50px">
         <div class="modal-content" style="background-color:transparent;color:#FFFFFF">
@@ -131,9 +151,7 @@
                                 </div>
                             </div> <!-- end front panel -->
                             <div class="back" style="overflow-y:scroll;overflow-x:hidden;background-color:#212529;border-top-left-radius:5px;border-top-right-radius:5px">
-                            <div class="form-check-inline" style="color:#FFFFFF;max-height:10px;" >
-                            <button onclick="document.getElementById('cardApps').remove();" class="btn btn-neutral" style="background-color:transparent;position:relative;text-align:center;left:40%;font-size:15px;top:10px">Fermer la carte</button>
-                                </div>
+                            
                     <?php
                     for($i = 0; $i <  count($res); $i++)
                     {
@@ -160,10 +178,6 @@
                                 </div>
                             </div> <!-- end front panel -->
                             <div class="back" style="overflow-y:scroll;overflow-x:hidden;background-color:#212529;border-top-left-radius:5px;border-top-right-radius:5px">
-                            <div class="content" id="rdv<?php echo $res[$i]['appId'];?>" style="border-top-left-radius:5px;border-top-right-radius:5px;font-size:16px">
-
-                       <h5 onclick="document.getElementById('cardApps').remove();" class="btn btn-neutral motto" style="background-color:transparent;">Fermer la carte</h5>
-                            </div>
                             <?php
                         } else {
                         ?>
@@ -174,7 +188,6 @@
                                     data-toggle="tooltip" data-placement="right" 
                                     title="Rendez-vous de <?php $hour = explode(":",$res[$i]['startTime']); $hour = $hour[0].":".$hour[1];  echo $hour; ?>, cliquez sur la croix pour supprimer" 
                                     style="z-index:99;color:rgba(255,255,255,1);font-size:20px"><?php echo $res[$i]['appName']; ?>
-                                    <i class="now-ui-icons ui-1_simple-remove" onclick="killApp(<?php echo $res[$i]['appId'];?>);" style="cursor:pointer;font-size:18px"></i>
                                     </h5>
                                     <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse" >
                                         <div class="card-plain" style="background:transparent">
@@ -273,7 +286,6 @@
                                         <a href="#" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
                                         <a href="#" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
                                         <a href="#" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
-                                        <button onclick="document.getElementById('cardApps').remove();" class="btn btn-neutral" style="background-color:transparent;">Fermer la carte<i class="now-ui-icons ui-1_simple-remove"></i></button>
                                     </div>
                                 </div>
                             </div>

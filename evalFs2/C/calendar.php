@@ -31,7 +31,6 @@
     JOIN USERS ON USERS.ID = UHA.userID
     WHERE USERS.ID = :set1
     AND APPOINTMENTS.appDay LIKE :set2
-    AND APPOINTMENTS.status = 1
     GROUP BY APPOINTMENTS.appDay
     ORDER BY APPOINTMENTS.appDay;";
 
@@ -60,11 +59,16 @@
     FROM HOLIDAYS
     WHERE userID = :set1
     AND (startsAt LIKE :set2
-    OR endsAt Like :set3);";
+    OR endsAt Like :set3)
+    ORDER BY startsAt;";
 
     $offs = fetchThreeSets($db,$query,$_SESSION['ID'],$date,$date);
-    
-    
+    ($offs);
+    $query =
+    "SELECT *
+    FROM ORIGINS";
+
+    $origins = fetchNoSets($db,$query);
     
     unset($query);
 

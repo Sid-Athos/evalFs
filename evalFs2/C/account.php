@@ -10,6 +10,7 @@
     require_once('M/otherSql.php');
     $actualDate = actualDate($db);
     include('C/Functions/PHP/messages.php');
+    include('C/Functions/PHP/dateSql.php');
     include('C/Functions/PHP/killAvatar.php');
     include('C/Functions/PHP/daysAvailable.php');
 
@@ -36,6 +37,12 @@
     $sex = fetchNoSets($db,$query);
 
     unset($query);
+    $query =
+    "SELECT *
+    FROM ORIGINS";
+
+    $origins = fetchNoSets($db,$query);
+
 
     $query =
     "SELECT ID, CONCAT(lastName,' ',firstName) as name
@@ -48,8 +55,7 @@
 
     switch(isset($_POST)):
         case(isset($_POST['handleWork'])):
-                include('V/_template/htmlTop.php');
-                include('V/_template/navbar.php');
+                
 
                 $todays = date('Y-m-d',strtotime('+1 day'));
                 $twoDays = date('Y-m-d',strtotime('+2 days'));
@@ -72,14 +78,21 @@
                 WHERE ID != ALL(SELECT specID FROM SPECCED_IN AS SI WHERE SI.userID = :set1);";
 
                 $specs = fetchOneSet($db,$query,$_SESSION['ID']);
-
+                $holidays = 
+                "SELECT DATE(startsAt) as startsAt, DATE(endsAt) as endsAt
+                FROM HOLIDAYS
+                WHERE userID = :set1";
+                $holi = fetchOneSet($db,$holidays,$_SESSION['ID']);
+        var_dump($holi);
                 $query =
                 "SELECT SPECS.name, SPECS.ID
                 FROM SPECS 
                 WHERE ID = ANY(SELECT specID FROM SPECCED_IN AS SI WHERE SI.userID = :set1);";
 
                 $mySpecs = fetchOneSet($db,$query,$_SESSION['ID']);
+                include('V/_template/htmlTop.php');
 
+                include('V/_template/navbar.php');
                 include('V/_template/handleWork.php');
             break;
         case(isset($_POST['choice'])):
@@ -113,7 +126,7 @@
                                 "SELECT *
                                 FROM HOLIDAYS
                                 WHERE :set1 BETWEEN startsAt AND endsAt
-                                AND :set2 BETWEEN startsAt AND endsAt
+                                OR :set2 BETWEEN startsAt AND endsAt
                                 WHERE userID = :set3";
 
                                 if(empty($check = fetchThreeSets($db,$query,$_POST['startDate'],$_POST['endDate'],$_SESSION['ID'])))
@@ -197,6 +210,13 @@
                         WHERE ID = ANY(SELECT specID FROM SPECCED_IN AS SI WHERE SI.userID = :set1);";
         
                         $mySpecs = fetchOneSet($db,$query,$_SESSION['ID']);
+                        include('V/_template/htmlTop.php');
+                        $holidays = 
+                        "SELECT DATE(startsAt) as startsAt, DATE(endsAt) as endsAt
+                        FROM HOLIDAYS
+                        WHERE userID = :set1";
+                        $holi = fetchOneSet($db,$holidays,$_SESSION['ID']);
+            include('V/_template/navbar.php');
                         include('V/_template/handleWork.php');
                             if(isset($messages)){ 
                                 for($i = count($messages)-1; $i > 0;$i--){
@@ -404,6 +424,14 @@
                             WHERE ID = :set1;";
 
                         $res = fetchOneSet($db,$query,$_SESSION['ID']);
+
+                        $holidays = 
+                        "SELECT DATE(startsAt) as startsAt, DATE(endsAt) as endsAt
+                        FROM HOLIDAYS
+                        WHERE userID = :set1";
+                        $holi = fetchOneSet($db,$holidays,$_SESSION['ID']);
+
+
                         include('V/_template/htmlTop.php');
                         include('V/_template/navbar.php');
                         include('V/_template/account.php');

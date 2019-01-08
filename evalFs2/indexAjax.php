@@ -9,7 +9,7 @@
     switch(isset($_POST)):
         
         case(isset($_POST['getOwners'])):
-                $query = 
+                /***$query = 
                 "SELECT O.ID, O.lastName,  o.firstName
                 FROM OWNERS AS O
                 JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.ownerID = O.ID
@@ -25,7 +25,7 @@
                     <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
                     value="<?php echo $res[$i]['ID']; ?>">
                     <?php echo $res[$i]['name']; ?></option>
-                <?php
+                <?php*/
             break;
         case(isset($_POST['eraseApp'])):
                 if(preg_match("/^[0-9]+$/",$_POST['eraseApp'])){
@@ -79,8 +79,8 @@
                     $query =
                         "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
                         year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, 
-                        CATEGORYS.name, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName,
-                        OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone
+                        CATEGORYS.name, PATIENTS.patientName,PATIENTS.breed as breed, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName, ORIGINS.name as origin,
+                        OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone,APPOINTMENTS.status AS appStatus
                         FROM APPOINTMENTS 
                         JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
                         JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
@@ -89,9 +89,9 @@
                         JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.patientID = PATIENTS.ID
                         JOIN OWNERS ON OWNERS.ID = CHP.ownerID
                         JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
+                        JOIN ORIGINS ON ORIGINS.ID = PATIENTS.originID
                         WHERE APPOINTMENTS.appDay = :set1
                         AND USER_HAS_APPS.userID = :set2
-                        AND APPOINTMENTS.status = 1
                         ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
 
                     $res = fetchTwoSets($db,$query,$_POST['fetchApps'],$_POST['usrID']);
@@ -159,6 +159,7 @@
                 } 
             break;
         case(isset($_POST['appRecc'])):
+        var_dump($_POST);
                 if($_POST['appRecc'] === "36")
                 {
 
@@ -245,10 +246,10 @@
                             
                             $patName = $_POST['patName']." ".$_POST['patFi'];
                             $query1 = 
-                            "INSERT INTO PATIENTS(patientName, breed, sexID, birthDate,lifeStyle,food)
-                            VALUES(:set1,:set2,:set3,:set4,:set5,:set6);";
+                            "INSERT INTO PATIENTS(patientName, breed, sexID,originID, birthDate,lifeStyle,food)
+                            VALUES(:set1,:set2,:set3,:set4,:set5,:set6,:set7);";
 
-                            $res0 = sixSets($db,$query1,$patName,$_POST['patOr'],$_POST['patSex'],$_POST['patBirth'],$_POST['patLstyle'],$_POST['patFood']);
+                            $res0 = sevenSets($db,$query1,$patName,$_POST['patOr'],$_POST['patSex'],$_POST['patNature'],$_POST['patBirth'],$_POST['patLstyle'],$_POST['patFood']);
                             $patID = $db -> lastInsertId();                                
 
                             $res1 =
@@ -391,10 +392,10 @@
                             if(empty(fetchTwoSets($db,$query,$_POST['appOwner'],$patName)))
                             {
                             $query1 = 
-                            "INSERT INTO PATIENTS(patientName, breed, sexID, birthDate,lifeStyle,food)
-                            VALUES(:set1,:set2,:set3,:set4,:set5,:set6);";
+                            "INSERT INTO PATIENTS(patientName, breed, sexID, originID, birthDate,lifeStyle,food)
+                            VALUES(:set1,:set2,:set3,:set4,:set5,:set6,:set7);";
 
-                            $res0 = sixSets($db,$query1,$patName,$_POST['patOr'],$_POST['patSex'],$_POST['patBirth'],$_POST['patLstyle'],$_POST['patFood']);
+                            $res0 = sevenSets($db,$query1,$patName,$_POST['patOr'],$_POST['patSex'],$_POST['patNature'],$_POST['patBirth'],$_POST['patLstyle'],$_POST['patFood']);
                             $patID = $db -> lastInsertId();                                
 
                             if($res0 === true){
