@@ -134,7 +134,7 @@
                 }
                 $query =
                     "SELECT PATIENTS.ID as patID, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName, SEX.name AS sexName,SEX.ID as sexID,
-                    OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, PATIENTS.lifeStyle as lifeS, PATIENTS.food AS patFood, PATIENTS.breed as origins, ORIGINS.name AS origin,
+                    OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, PATIENTS.lifeStyle as lifeS, PATIENTS.food AS patFood, PATIENTS.breed as origins, ORIGINS.name AS origin, PATIENTS.breed as breed
                     FROM APPOINTMENTS 
                     JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
                     JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
@@ -165,7 +165,7 @@
             break;
         case(isset($_POST['patientID'])):
                 $query = 
-                "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
+                "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName,  PATIENTS.breed as breed,
                 year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, CONSULTATIONS.ID as consID, ORIGINS.name AS origin,
                 CONSULTATIONS.reason, CONSULTATIONS.food, CONSULTATIONS.mindState as mState,CONSULTATIONS.phyState AS pState, CONSULTATIONS.temper as temp,CONSULTATIONS.notes as cNotes, CONSULTATIONS.weight, CONSULTATIONS.recommandations AS recs, DATE(CONSULTATIONS.consDate) AS consDate, TIME(CONSULTATIONS.consDate) as consH
                 FROM APPOINTMENTS 
@@ -197,7 +197,7 @@
         default:
             $query =
             "SELECT PATIENTS.ID as patID, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName, SEX.name AS sexName,SEX.ID as sexID,
-            OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, PATIENTS.lifeStyle as lifeS, PATIENTS.food AS patFood, PATIENTS.breed as origins, ORIGINS.name AS origin,
+            OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, PATIENTS.lifeStyle as lifeS, PATIENTS.food AS patFood, ORIGINS.name AS origin, PATIENTS.breed as breed
             FROM APPOINTMENTS 
             JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
             JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID

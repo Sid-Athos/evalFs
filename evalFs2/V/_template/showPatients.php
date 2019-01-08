@@ -34,10 +34,9 @@
                     <div id="collapse<?php echo $i; ?>" class="collapse show" role="tabpanel" aria-labelledby="heading<?php echo $i; ?>">
                     <div class="card-body">
                                             <form action="index.php?page=patients" METHOD="POST">
-                                            <h5 class="motto form-check-inline"> Origine : <?= $res[$i]['origins']; ?></h5><br>
                                             <h5 class="motto form-check-inline"> Sexe : </h5>
 
-                                                <select name="sexID" class="form-control form-check-inline" style="max-width:160px" data-toggle="tooltil" data-placement="left" title="Sexe">
+                                                <select name="sexID" class="form-control form-check-inline" style="max-width:260px" data-toggle="tooltil" data-placement="left" title="Sexe">
                                                     <option  style="color:#333333" value="<?php echo $res[$i]['sexID']; ?>"><?= $res[$i]['sexName']; ?></option>
                                                     <?php
                                                         for($s = 0;$s < count($sexes[$i]);$s++)
@@ -50,38 +49,49 @@
 
                                                     ?>
                                                 </select>
-                                                <div class="input-group no-border input-lg " style="max-width:360px">
+                                                <div class="input-group no-border input-lg " style="max-width:460px">
                                                        <h5 class="motto form-check-inline"> Né(e) le </h5>
                                                     <input type="date" class="form-control" placeholder="<?php echo $res[$i]['birthDate']; ?>"  max="<?php echo $todays; ?>" name="birthDate" id="" data-toggle="tooltip" data-placement="right" 
                                                     title="Date de naissance"
                                                     value="" style="color:#FFFFFF" autocomplete="false" >
                                                 </div>
-                                               
-                                                <div class="input-group no-border input-lg " style="max-width:360px">
+                                                <div class="input-group no-border input-lg " style="max-width:460px">
+                                                       <h5 class="motto form-check-inline"> Type </h5>
+                                                    <input type="text" readonly class="form-control" placeholder="<?php echo $res[$i]['breed']; ?>" name="breed"
+                                                    title="Type"
+                                                    value="" style="color:#FFFFFF" autocomplete="false" >
+                                                </div>
+                                                <div class="input-group no-border input-lg " style="max-width:460px">
+                                                       <h5 class="motto form-check-inline"> Origine </h5>
+                                                    <input type="text" readonly class="form-control" placeholder="<?php echo $res[$i]['origin']; ?>" name="breed"
+                                                    title="Type"
+                                                    value="" style="color:#FFFFFF" autocomplete="false" >
+                                                </div>
+                                                <div class="input-group no-border input-lg " style="max-width:460px">
                                                        <h5 class="motto form-check-inline"> Mode de vie </h5>
                                                     <input type="text" class="form-control" placeholder="<?php echo $res[$i]['lifeS']; ?>"  name="patLs" id="" data-toggle="tooltip" data-placement="right" 
                                                     title="Mode de vie"
                                                     value="" style="color:#FFFFFF" autocomplete="false" >
                                                 </div>
-                                                <div class="input-group no-border input-lg " style="max-width:360px">
+                                                <div class="input-group no-border input-lg " style="max-width:460px">
                                                        <h5 class="motto form-check-inline"> Alimentation </h5>
                                                     <input type="text" class="form-control" placeholder="<?php echo $res[$i]['patFood']; ?>"  name="patFood" id="" data-toggle="tooltip" data-placement="right" 
                                                     title="Alimentation"
                                                     value="" style="color:#FFFFFF" autocomplete="false" >
                                                 </div>
-                                                <div class="input-group no-border input-lg " style="max-width:360px">
+                                                <div class="input-group no-border input-lg " style="max-width:460px">
                                                        <h5 class="motto form-check-inline"> Nom du représentant </h5>
                                                     <input type="text" class="form-control" placeholder="<?php echo $res[$i]['lastName']; ?> <?php echo $res[$i]['firstName']; ?>"  name="patResp" id="" data-toggle="tooltip" data-placement="right" 
                                                     title="Représentant légal (nom et prénom séparé d'un espace)"
                                                     value="" style="color:#FFFFFF" autocomplete="false" >
                                                 </div>
-                                                <div class="input-group no-border input-lg " style="max-width:360px">
+                                                <div class="input-group no-border input-lg " style="max-width:460px">
                                                        <h5 class="motto form-check-inline"> Téléphone </h5>
                                                     <input type="phone" class="form-control" placeholder="<?php echo $res[$i]['phone']; ?>"  name="respPhone" id="" data-toggle="tooltip" data-placement="right" 
                                                     title="Représentant légal (nom et prénom séparé d'un espace)"
                                                     value="" style="color:#FFFFFF" autocomplete="false" >
                                                 </div>
-                                                <div class="input-group no-border input-lg " style="max-width:360px">
+                                                <div class="input-group no-border input-lg " style="max-width:460px">
                                                        <h5 class="motto form-check-inline"> @ </h5>
                                                     <input type="mail" class="form-control" placeholder="<?php echo $res[$i]['email']; ?>"  name="respEmail" id="" data-toggle="tooltip" data-placement="right" 
                                                     title="Représentant légal (nom et prénom séparé d'un espace)"

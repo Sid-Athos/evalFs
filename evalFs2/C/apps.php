@@ -52,7 +52,7 @@
                 "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
                 year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, 
                 CATEGORYS.name, PATIENTS.patientName, PATIENTS.birthDate, OWNERS.email, OWNERS.lastName, OWNERS.firstName, SEX.name AS sexName,
-                OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, PATIENTS.lifeStyle as lifeS, PATIENTS.food AS patFood,  ORIGINS.name AS origin,
+                OWNERS.address, OWNERS.postCode, OWNERS.city, OWNERS.phone, PATIENTS.lifeStyle as lifeS, PATIENTS.food AS patFood,  ORIGINS.name AS origin, PATIENTS.breed as breed
                 FROM APPOINTMENTS 
                 JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
                 JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
@@ -66,15 +66,14 @@
                 WHERE APPOINTMENTS.ID = :set1
                 AND APPOINTMENTS.status = 1
                 ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
-                
                 include('V/_template/htmlTop.php');
                 include('V/_template/navbar.php');
                 $res = fetchOneSet($db,$query,$_POST['consult']);
-                $_SESSIOn['app'] = $_POST['consult'];
+                $_SESSION['app'] = $_POST['consult'];
 
                 $query = 
                 "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
-                year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, ORIGINS.name AS origin,
+                year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, ORIGINS.name AS origin, PATIENTS.breed as breed,
                 CONSULTATIONS.reason, CONSULTATIONS.food, CONSULTATIONS.mindState as mState,CONSULTATIONS.phyState AS pState, CONSULTATIONS.temper as temp,CONSULTATIONS.notes as cNotes, CONSULTATIONS.weight, CONSULTATIONS.recommandations AS recs, DATE(CONSULTATIONS.consDate) AS consDate, TIME(CONSULTATIONS.consDate) as consH
                 FROM APPOINTMENTS 
                 JOIN CONSULTATIONS AS CONSULTATIONS ON CONSULTATIONS.appointmentID = APPOINTMENTS.ID

@@ -83,7 +83,6 @@
                 FROM HOLIDAYS
                 WHERE userID = :set1";
                 $holi = fetchOneSet($db,$holidays,$_SESSION['ID']);
-        var_dump($holi);
                 $query =
                 "SELECT SPECS.name, SPECS.ID
                 FROM SPECS 
