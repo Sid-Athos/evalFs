@@ -15,7 +15,7 @@
                                     </span>
                             </div>
                             <input type="text" class="form-control" placeholder="Raison(s)"  name="consReas" id="" data-toggle="tooltip" data-placement="right" 
-                            title="Adresse mail ou identifiant"
+                            title="Raisons de la consultation"
                             value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required>
                         </div>
                         <div class="input-group no-border input-lg">
@@ -25,7 +25,7 @@
                                 </span>
                             </div>
                             <textarea class="form-control" placeholder="Etat d'esprit"  name="consMind" id="" data-toggle="tooltip" data-placement="right" 
-                            title="Adresse mail ou identifiant"
+                            title="État d'esprit"
                             value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
                         </div>
                         <div class="input-group no-border input-lg">
@@ -35,7 +35,7 @@
                                 </span>
                             </div>
                             <textarea class="form-control" placeholder="État physique"  name="consPhy" id="" data-toggle="tooltip" data-placement="right" 
-                            title="Adresse mail ou identifiant"
+                            title="Condition physique"
                             value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
                         </div>
                         <div class="input-group no-border input-lg">
@@ -45,7 +45,7 @@
                                 </span>
                             </div>
                             <input type="number" class="form-control" placeholder="Poids" min="0" step="0.1" max="5000" name="consWeight" id="" data-toggle="tooltip" data-placement="right" 
-                            title="Adresse mail ou identifiant"
+                            title="Poids du patient"
                             value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required>
                         </div>
                         <div class="input-group no-border input-lg">
@@ -55,7 +55,7 @@
                                 </span>
                             </div>
                             <textarea  class="form-control" placeholder="Tempérament"  name="consTemp" id="0" data-toggle="tooltip" data-placement="right" 
-                            title="Adresse mail ou identifiant"
+                            title="Tempérament"
                             value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
                         </div>
                         <div class="input-group no-border input-lg">
@@ -65,7 +65,7 @@
                                 </span>
                             </div>
                             <textarea  class="form-control" placeholder="Remarques"  name="consNotes" id="0" data-toggle="tooltip" data-placement="right" 
-                            title="Adresse mail ou identifiant"
+                            title="Remarques"
                             value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
                         </div>
                         <div class="input-group no-border input-lg">
@@ -75,7 +75,7 @@
                                 </span>
                             </div>
                             <textarea  class="form-control" placeholder="Diagnostic/recommandations"  name="diagnosis" id="0" data-toggle="tooltip" data-placement="right" 
-                            title="Adresse mail ou identifiant"
+                            title="Diagnostic et traitement"
                             value="<?php if(isset($flagMail)){ echo $flagMail; } ?>" style="color:#FFFFFF" autocomplete="false" required></textarea>
                         </div>
                 </div>

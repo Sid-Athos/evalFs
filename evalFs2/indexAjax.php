@@ -9,23 +9,7 @@
     switch(isset($_POST)):
         
         case(isset($_POST['getOwners'])):
-                /***$query = 
-                "SELECT O.ID, O.lastName,  o.firstName
-                FROM OWNERS AS O
-                JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.ownerID = O.ID
-                JOIN PATIENTS AS P ON P.ID = CHP.patientID
-                JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.patientID = P.ID
-                JOIN APPOINTMENTS AS APPS ON APPS.ID = PHA.appointmentID
-                JOIN USER_HAS_APPS AS UHA ON UHA.appointmentID = APPS.ID
-                WHERE USA.userID = :set1";
-
-                $res = fetchOneSet($db,$query,$_POST['getOwners']);
-                for($i = 0;$i < count($res);$i++)
-                ?>
-                    <option style="color:#FFF;background-color:rgb(0,0,0,0.8);border-radius:3px;" 
-                    value="<?php echo $res[$i]['ID']; ?>">
-                    <?php echo $res[$i]['name']; ?></option>
-                <?php*/
+               
             break;
         case(isset($_POST['eraseApp'])):
                 if(preg_match("/^[0-9]+$/",$_POST['eraseApp'])){
@@ -69,7 +53,6 @@
                         }
                         unset($messages);
                     }
-                    var_dump($_POST);
                 }
             break;
         case(isset($_POST['fetchApps'])):
@@ -159,7 +142,6 @@
                 } 
             break;
         case(isset($_POST['appRecc'])):
-        var_dump($_POST);
                 if($_POST['appRecc'] === "36")
                 {
 
@@ -169,19 +151,19 @@
 
                     (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['appDate']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
                     
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appName'])) ?  $messages = $messages : $messages[] = alert("Nom rdv incorrect !");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['cliName'])) ?  $messages = $messages : $messages[] = alert("Préom client incorrect !");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['cliFiName'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['cliAdress'])) ?  $messages = $messages : $messages[] = alert("Adresse incorrecte !");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['cliTown'])) ?  $messages = $messages : $messages[] = alert("Ville incorrecte !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['appName'])) ?  $messages = $messages : $messages[] = alert("Nom rdv incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['cliName'])) ?  $messages = $messages : $messages[] = alert("Préom client incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['cliFiName'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['cliAdress'])) ?  $messages = $messages : $messages[] = alert("Adresse incorrecte !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['cliTown'])) ?  $messages = $messages : $messages[] = alert("Ville incorrecte !");
                     (preg_match("/^[0-9]{10}$/", $_POST['cliPhone'])) ?  $messages = $messages : $messages[] = alert("Téléphone incorrect !");
                     (preg_match("/^[0-9]{5}$/", $_POST['cliPost'])) ?  $messages = $messages : $messages[] = alert("Code postal incorrect !");
                     (preg_match("/^[a-zA-Z\d](?:[a-z\d]|_|.(?=[a-zA-Z\d])){0,38}$/", $_POST['cliMail'])) ?  $messages = $messages : $messages[] = alert("Format de mail invalide!");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['patName'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['patFi'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['patName'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['patFi'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
                     (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['patBirth'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['patLstyle'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['patFood'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['patLstyle'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['patFood'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
                       
                     $today = date('Y-m-j');
                     $today = strtotime($today);
@@ -239,92 +221,96 @@
                                 if(empty(fetchTwoSets($db,$query,$_POST['usrID'],$_POST['appDate']))){
                             unset($res);
 
-                            $query0 =
-                            "INSERT INTO OWNERS(email,lastName,firstName,address,postCode,city,phone)
-                            VALUES(:set1,:set2,:set3,:set4,:set5,:set5,:set7);";
+                                $query0 =
+                                "INSERT INTO OWNERS(email,lastName,firstName,address,postCode,city,phone)
+                                VALUES(:set1,:set2,:set3,:set4,:set5,:set5,:set7);";
 
-                            
-                            $patName = $_POST['patName']." ".$_POST['patFi'];
-                            $query1 = 
-                            "INSERT INTO PATIENTS(patientName, breed, sexID,originID, birthDate,lifeStyle,food)
-                            VALUES(:set1,:set2,:set3,:set4,:set5,:set6,:set7);";
+                                
+                                $patName = $_POST['patName']." ".$_POST['patFi'];
+                                $query1 = 
+                                "INSERT INTO PATIENTS(patientName, breed, sexID,originID, birthDate,lifeStyle,food)
+                                VALUES(:set1,:set2,:set3,:set4,:set5,:set6,:set7);";
 
-                            $res0 = sevenSets($db,$query1,$patName,$_POST['patOr'],$_POST['patSex'],$_POST['patNature'],$_POST['patBirth'],$_POST['patLstyle'],$_POST['patFood']);
-                            $patID = $db -> lastInsertId();                                
+                                $res0 = sevenSets($db,$query1,$patName,$_POST['patOr'],$_POST['patSex'],$_POST['patNature'],$_POST['patBirth'],$_POST['patLstyle'],$_POST['patFood']);
+                                $patID = $db -> lastInsertId();                                
 
-                            $res1 =
-                            sevenSets(
-                            $db,
-                            $query0,
-                            $_POST['cliMail'],
-                            $_POST['cliName'],
-                            $_POST['cliFiName'],
-                            $_POST['cliAdress'],
-                            $_POST['cliPost'],$_POST['cliTown'],$_POST['cliPhone']);
-                            $ownID = $db -> lastInsertId();
+                                $res1 =
+                                sevenSets(
+                                $db,
+                                $query0,
+                                $_POST['cliMail'],
+                                $_POST['cliName'],
+                                $_POST['cliFiName'],
+                                $_POST['cliAdress'],
+                                $_POST['cliPost'],$_POST['cliTown'],$_POST['cliPhone']);
+                                $ownID = $db -> lastInsertId();
 
-                            if($res0 === true && $res1){
+                                if($res0 === true && $res1){
 
-                                (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appPlace'])) ?  $_POST['appPlace'] : $_POST['appPlace'] = "Aucun endroit défini!";
-                                (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appNotes']) || empty($_POST)) ?  $_POST['appNotes'] : $_POST['appPlace'] = "Aucune note défini!";
-        
-                                if(($acDate - $today) >= 86400){
-                                    $query =
-                                    "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime) 
-                                    VALUES(:set1,:set2, :set3, (
-                                    CASE appDay 
-                                    WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
-                                    THEN :set5 ELSE NULL
-                                    END),:set6);";
+                                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['appPlace'])) ?  $_POST['appPlace'] : $_POST['appPlace'] = "Aucun endroit défini!";
+                                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['appNotes']) || empty($_POST)) ?  $_POST['appNotes'] : $_POST['appPlace'] = "Aucune note défini!";
+            
+                                    if(($acDate - $today) >= 86400){
+                                        $query =
+                                        "INSERT INTO APPOINTMENTS(name, place, notes, appDay, startTime) 
+                                        VALUES(:set1,:set2, :set3, (
+                                        CASE appDay 
+                                        WHEN DATEDIFF(DATE(CURRENT_TIMESTAMP()),:set4) > 0
+                                        THEN :set5 ELSE NULL
+                                        END),:set6);";
+                                                
+                                        if(sixSets(
+                                            $db,$query,$_POST['appName'],$_POST['appPlace'],$_POST['appNotes'],
+                                            $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":00")) == true){
+
+                                            $messages[] = success("Rdv ajouté!");
+                                            unset($query,$res);
+                                            $id = $db -> lastInsertId();
                                             
-                                    if(sixSets(
-                                        $db,$query,$_POST['appName'],$_POST['appPlace'],$_POST['appNotes'],
-                                        $_POST['appDate'],$_POST['appDate'],($_POST['appHour'].":00")) == true){
+                                            $query =
+                                            "INSERT INTO BELONGS(appointmentID,categoryID)
+                                            VALUES(:set1,:set2);";
 
-                                        $messages[] = success("Rdv ajouté!");
-                                        unset($query,$res);
-                                        $id = $db -> lastInsertId();
-                                        
-                                        $query =
-                                        "INSERT INTO BELONGS(categoryID,appointmentID)
-                                        VALUES(:set1,:set2);";
+                                            twoSets($db,$query,$id,$_POST['appCat']);
+                                            unset($query);
 
-                                        twoSets($db,$query,$_POST['appCat'],$id);
-                                        unset($query);
+                                            $query = 
+                                            "INSERT INTO USER_HAS_APPS(userID, appointmentID)
+                                            VALUES(:set1,:set2);";
 
-                                        $query = 
-                                        "INSERT INTO USER_HAS_APPS(userID, appointmentID)
-                                        VALUES(:set1,:set2);";
+                                            twoSets($db,$query,$_POST['usrID'],$id);
 
-                                        twoSets($db,$query,$_POST['usrID'],$id);
+                                            
 
-                                        
+                                            $query =
+                                            "INSERT INTO PATIENT_HAS_APPOINTMENTS(patientID,appointmentID) 
+                                            VALUES (:set1,:set2);";
 
-                                        $query =
-                                        "INSERT INTO PATIENT_HAS_APPOINTMENTS(patientID,appointmentID) 
-                                        VALUES (:set1,:set2);";
+                                            twoSets($db,$query,$patID,$id);
 
-                                        twoSets($db,$query,$patID,$id);
-
-                                        $query =
-                                        "INSERT INTO CLIENTS_HAS_PATIENTS(ownerID,patientID) 
-                                        VALUES (:set1,:set2);";
-        
-                                        twoSets($db,$query,$ownID,$patID);
-        
-                                    } else{
-                                        $messages[] = alert("Erreur dans l'ajout du rdv!");
+                                            $query =
+                                            "INSERT INTO CLIENTS_HAS_PATIENTS(ownerID,patientID) 
+                                            VALUES (:set1,:set2);";
+            
+                                            twoSets($db,$query,$ownID,$patID);
+            
+                                        } else{
+                                            $messages[] = alert("Erreur dans l'ajout du rdv!");
+                                        }
+                                    } else {
+                                        $messages[] = alert("La date de rendez-vous ne peut être prise dans le passé!");
                                     }
                                 } else {
-                                    $messages[] = alert("La date de rendez-vous ne peut être prise dans le passé!");
+                                    $messages[] = alert("L'utilisateur est déjà enregistré");
                                 }
                             } else {
-                                $messages[] = alert("L'utilisateur est déjà enregistré");
+                                $messages [] = alert("Vous serez en vacances ce jour là.");
                             }
+                        } else {
+                            $messages [] = alert("L'heure et la date n'est pas dans vos disponibilités.");
                         }
+                     }
                     }
-                }
-            }
                 
                             
                 }
@@ -337,12 +323,12 @@
 
                     (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['appDate']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
                     
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appName'])) ?  $messages = $messages : $messages[] = alert("Nom rdv incorrect !");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['patName'])) ?  $messages = $messages : $messages[] = alert("Nom patient incorrect !");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['patFi'])) ?  $messages = $messages : $messages[] = alert("Prénom patient incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['appName'])) ?  $messages = $messages : $messages[] = alert("Nom rdv incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['patName'])) ?  $messages = $messages : $messages[] = alert("Nom patient incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['patFi'])) ?  $messages = $messages : $messages[] = alert("Prénom patient incorrect !");
                     (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['patBirth'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['patLstyle'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['patFood'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['patLstyle'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['patFood'])) ?  $messages = $messages : $messages[] = alert("Nom client incorrect !");
                       
                     $today = date('Y-m-j');
                     $today = strtotime($today);
@@ -400,8 +386,8 @@
 
                             if($res0 === true){
 
-                                (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appPlace'])) ?  $_POST['appPlace'] : $_POST['appPlace'] = "Aucun endroit défini!";
-                                (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appNotes']) || empty($_POST)) ?  $_POST['appNotes'] : $_POST['appNotes'] = "Aucune note défini!";
+                                (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['appPlace'])) ?  $_POST['appPlace'] : $_POST['appPlace'] = "Aucun endroit défini!";
+                                (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['appNotes']) || empty($_POST)) ?  $_POST['appNotes'] : $_POST['appNotes'] = "Aucune note défini!";
 
                                 $query = 
                                 "SELECT *
@@ -440,10 +426,10 @@
                                                     $id = $db -> lastInsertId();
                                                     
                                                     $query =
-                                                    "INSERT INTO BELONGS(categoryID,appointmentID)
+                                                    "INSERT INTO BELONGS(appointmentID,categoryID)
                                                     VALUES(:set1,:set2);";
 
-                                                    twoSets($db,$query,$_POST['appCat'],$id);
+                                                    twoSets($db,$query,$id,$_POST['appCat']);
                                                     unset($query);
 
                                                     $query = 
@@ -472,6 +458,9 @@
                                             } else {
                                                 $messages[] = alert("La date de rendez-vous ne peut être prise dans le passé!");
                                             }
+                                        } else {
+                                            $messages [] = alert("Vous serez en vacances ce jour là.");
+
                                         }
                                     } else {
                                         $messages[] = alert("Vous ne travaillez pas ce jour-ci, veuillez changer vos disponibilités.");
@@ -492,7 +481,7 @@
 
                     (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['appDate']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
                     
-                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appName'])) ?  $messages = $messages : $messages[] = alert("Nom rdv incorrect !");
+                    (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['appName'])) ?  $messages = $messages : $messages[] = alert("Nom rdv incorrect !");
                     (preg_match("/^[0-9]{1,5}$/",$_POST['appPat'])) ? $messages = $messages : $messages[] = alert("Patient invalide !") ;
                       
                     if(count($messages === 0) && $_POST['appPat'] != "")
@@ -532,8 +521,8 @@
                         else 
                         {
 
-                            (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appPlace'])) ?  $_POST['appPlace'] : $_POST['appPlace'] = "Aucun endroit défini!";
-                            (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/", $_POST['appNotes'])) ?  $_POST['appNotes'] : $_POST['appNotes'] = "Aucune note défini!";
+                            (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['appPlace'])) ?  $_POST['appPlace'] : $_POST['appPlace'] = "Aucun endroit défini!";
+                            (preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\.]+$/", $_POST['appNotes'])) ?  $_POST['appNotes'] : $_POST['appNotes'] = "Aucune note défini!";
         
                             $query = 
                             "SELECT *
@@ -572,10 +561,10 @@
                                             $id = $db -> lastInsertId();
                                             
                                             $query =
-                                            "INSERT INTO BELONGS(categoryID,appointmentID)
+                                            "INSERT INTO BELONGS(appointmentID,categoryID)
                                             VALUES(:set1,:set2);";
         
-                                            twoSets($db,$query,$_POST['appCat'],$id);
+                                            twoSets($db,$query,$id,$_POST['appCat']);
                                             unset($query);
         
                                             $query =
@@ -619,4 +608,6 @@
         default:
                 echo alert("Try again.");
     endswitch;
+//Ajouter le texte + index ligne 76
 ?>
+

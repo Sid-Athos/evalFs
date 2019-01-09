@@ -1,9 +1,6 @@
 
 <?php
 
-    if(!isset($_GET['page'])){
-        header("Location: http://localhost/evalFs/evalFs2/index.php");
-    }
     $page = "Gestion de compte";
     include('M/dbConnect.php');
     require_once('M/getSql.php');
@@ -83,6 +80,7 @@
                 FROM HOLIDAYS
                 WHERE userID = :set1";
                 $holi = fetchOneSet($db,$holidays,$_SESSION['ID']);
+                
                 $query =
                 "SELECT SPECS.name, SPECS.ID
                 FROM SPECS 
@@ -128,18 +126,40 @@
                                 OR :set2 BETWEEN startsAt AND endsAt
                                 WHERE userID = :set3";
 
-                                if(empty($check = fetchThreeSets($db,$query,$_POST['startDate'],$_POST['endDate'],$_SESSION['ID'])))
-                                {
-                                   $query = "INSERT INTO HOLIDAYS(startsAt,endsAt,userID) VALUES(:set1,:set2,:set3)";
-                                    if(threeSets($db,$query,$_POST['startDate'],$_POST['endDate'],$_SESSION['ID']))
+                                $query0 =
+                                "SELECT APPOINTMENTS.appDay, PATIENTS.patientName
+                                FROM APPOINTMENTS 
+                                JOIN BELONGS ON BELONGS.appointmentID = APPOINTMENTS.ID 
+                                JOIN CATEGORYS ON BELONGS.categoryID = CATEGORYS.ID
+                                JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
+                                JOIN PATIENTS ON PHA.patientID = PATIENTS.ID
+                                JOIN CLIENTS_HAS_PATIENTS AS CHP ON CHP.patientID = PATIENTS.ID
+                                JOIN OWNERS ON OWNERS.ID = CHP.ownerID
+                                JOIN USER_HAS_APPS ON APPOINTMENTS.ID = user_has_apps.appointmentID
+                                JOIN HOLIDAYS ON HOLIDAYS.userID = USER_HAS_APPS.userID
+                                WHERE USER_HAS_APPS.userID = :set1
+                                AND APPOINTMENTS.appDay BETWEEN :set2 AND :set3
+                                ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
+
+                                if(empty($checked = fetchThreeSets($db,$query0,$_SESSION['ID'],$_POST['startDate'],$_POST['endDate']))){
+                                    if(empty($check = fetchThreeSets($db,$query,$_POST['startDate'],$_POST['endDate'],$_SESSION['ID'])))
                                     {
-                                        $messages[] = success("Vacances enregistrées");
-                                    } else {
-                                        $messages[] = alert("une erreur est survenue lors de l'enregistrement de vos vacances");
+                                    $query = "INSERT INTO HOLIDAYS(startsAt,endsAt,userID) VALUES(:set1,:set2,:set3)";
+                                        if(threeSets($db,$query,$_POST['startDate'],$_POST['endDate'],$_SESSION['ID']))
+                                        {
+                                            $messages[] = success("Vacances enregistrées");
+                                        } else {
+                                            $messages[] = alert("une erreur est survenue lors de l'enregistrement de vos vacances");
+                                        }
+                                    }    
+                                    else {
+                                        $messages[] = alert("Vous avez déjà des vacances prévues du ".$check[0]['startsAt']." au ".$check[0]['endsAt']);
                                     }
-                                } 
-                                else {
-                                    $messages[] = alert("Vous avez déjà des vacances prévues du ".$check[0]['startsDate']." au ".$check[0]['endsDate']);
+                                } else {
+                                    $_SESSION['startsAt'] = $_POST['startDate'];
+                                    $_SESSION['endDate'] = $_POST['endDate'];
+
+                                    echo alert("<form method='post'><button type='submit' class='btn btn-primary sid' style='background-color:transparent' name='eraseAppsAddHoli' value='".$_POST['startDate']."/".$_POST['endDate']."'>Supprimer les rendez-vous entre les congés et ajouter les vacances</button></form>");
                                 }
                             }
                         }
@@ -215,13 +235,9 @@
                         FROM HOLIDAYS
                         WHERE userID = :set1";
                         $holi = fetchOneSet($db,$holidays,$_SESSION['ID']);
-            include('V/_template/navbar.php');
+                        include('V/_template/navbar.php');
                         include('V/_template/handleWork.php');
-                            if(isset($messages)){ 
-                                for($i = count($messages)-1; $i > 0;$i--){
-                                    echo $messages[$i];
-                                }
-                            }
+                            
                     break;
                 case($_POST['choice'] === 'changeBackground'):
                         include('V/_template/htmlTop.php');
@@ -236,7 +252,7 @@
                                 $_SESSION['background'] = $res[0]['backPath'];
                                 if($check === true)
                                 {
-                                    $message = success("Background modifié!");
+                                    $messages[] = success("Background modifié!");
                                     
                                 }
                             }
@@ -444,7 +460,7 @@
                 include('V/_template/backgroundForm.php');
             break;
         default:
-            $message = success("Ici, vous pouvez modifier <br>les informations relatives à votre compte");
+            $messages[] = success("Ici, vous pouvez modifier <br>les informations relatives à votre compte");
             $query =
             "SELECT *
             FROM USERS
@@ -459,5 +475,4 @@
     endswitch;
     include('V/_template/appsModal.php');
 
-    include('V/_template/footer.html');
 ?>

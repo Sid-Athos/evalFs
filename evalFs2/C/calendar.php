@@ -1,7 +1,5 @@
 <?php
-    if(!isset($_GET['page'])){
-        header("Location: http://localhost/evalFs/evalFs2/index.php");
-    }
+
     $page = "Calendrier";
     include('M/dbConnect.php');
     include('M/getSql.php');
@@ -99,6 +97,11 @@
     include('V/_template/htmlTop.php');
     include('V/_template/navbar.php');
     include('C/Functions/PHP/calendar.php');
+    if($lazy === $day - 1){
+        echo "<div style='position:absolute;top:100px;left:35%'>".
+        success("Afin de pouvoir utiliser notre calendrier, vous devez ajouter un jour de travail dans l'onglet <br>Mon Compte => Gestion pro").
+        "</div>";
+    }
     include('V/_template/appsModal.php');
     include('V/_template/calendar.php');
     include('V/_template/footer.html');

@@ -1,20 +1,19 @@
 <div class="wrapper" style="background-image:url('V/_template/assets/img/header.jpg');background-attachment:fixed;background-size:contain;background-size:100% 101%;min-height:1200px">
-                <?php 
-                //var_dump($zones);
-                    if(isset($messages))
-                    { 
-                        if(!empty($messages))
+<div class="row" style="position:relative;top:150px"> 
+    <div class="col-md-6 col-xs-8  ml-auto mr-auto" data-toggle="tooltip" data-placement="right" title="Liste de vos patients" style="margin-bottom:500px">
+            <?php 
+            //var_dump($zones);
+                if(isset($messages))
+                { 
+                    if(!empty($messages))
+                    {
+                        for($i = count($messages) - 1; $i >= 0 ; $i--)
                         {
-                            for($i = count($messages) - 1; $i >= 0 ; $i--)
-                            {
-                                echo $messages[$i];
-                            }
+                            echo $messages[$i];
                         }
                     }
-                ?>                           <div class="row"> 
-                            <div class="col-md-6 col-xs-8  ml-auto mr-auto" data-toggle="tooltip" data-placement="right" title="Liste de vos patients" style="margin-bottom:500px">
-                            <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse"  style="margin-top:90px;">
-                                <div class=" container" style="transform:scale(-1,1);background-color:rgba(16,16,16,0.4);height:auto" >
+                }
+            ?>   
                                 <?php
                                     if(!empty($prevCons)){
                                         for($i = 0;$i < count($prevCons);$i++){
@@ -23,6 +22,8 @@
                                         $datesC = explode("-",$prevCons[$i]['consDate']);
                                         $datesC = "$datesC[2]-$datesC[1]-$datesC[0]";
                                             ?>
+                            <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse"  style="margin-top:90px;">
+                                <div class=" container" style="transform:scale(-1,1);background-color:rgba(16,16,16,0.4);height:auto" >
                                     <div class="card-header" role="tab" id="heading<?php echo $i; ?>">
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $i; ?>" aria-expanded="true" aria-controls="collapse<?php echo $i; ?>" style="color:#ED8F03;font-weight:850">
                                         Consultation du <?= $datesC;?> à <?= $hours; ?>
@@ -75,13 +76,13 @@
                                 }
                                 ?>
 
+                        </div>
+                    </div>
                         <?php
                         }else {
                             echo alert("Aucune consultation effectuée avec ce patient");
                         }
                         ?>
-                        </div>
-                    </div>
                 </div>
 
                </div>

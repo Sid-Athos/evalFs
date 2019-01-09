@@ -6,11 +6,7 @@
     <link rel="icon" type="image/png" href="V/_template/assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-    <?php
-        if(!isset($_GET['page'])){
-            header("Location: http://localhost/evalFs/evalFs2/index.php");
-        }
-    ?>
+   
         Timestamped -   <?php
                             (isset($page)) ?  print($page): "";
                         ?>
@@ -56,4 +52,6 @@
     
     </script>
 </head>
-<body>
+<body style="background-image:url(
+            <?php if(isset($_SESSION['background'])){ echo  $_SESSION['background']; } else { 
+                echo "V/_template/assets/img/header.jpg"; } ?>);background-size:cover;background-repeat:no-repeat;background-attachement:scroll;" class="">

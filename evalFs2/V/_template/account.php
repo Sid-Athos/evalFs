@@ -1,8 +1,4 @@
-<?php
-  if(!isset($_GET['page'])){
-    header("Location: http://localhost/evalFs/evalFs2/index.php");
-  }
-?>
+
 <body style="background-color:#333333">
     <div class="wrapper">
       <div class="page-header clear-filter">
@@ -27,7 +23,7 @@
                             </div>
                             <div class="-body ml-auto mr-auto" style="width:350px">
                               <div class="col-md-6 ml-auto mr-auto" style="width:500px">
-                                <img id="blah"  style="max-width:250px;max-height:250px;border-radius:50%;opacity: 0.75;filter: alpha(opacity=50);z-index:99;position:relative;left:-350px;top:70px;font-size:30px" alt="Preview">
+                                <img id="blah"  style="max-width:250px;max-height:250px;border-radius:50%;opacity: 0.75;filter: alpha(opacity=50);z-index:99;position:absolute;left:-350px;top:70px;font-size:30px" alt="Preview">
                                 <input type="file"  placeholder="Avatar"
                                 name="avatar" id="file" autocomplete="off" class="form-control" onchange="readURL(this)"
                                 style="text-decoration:none;opacity:0;height:0px;width:0px;">

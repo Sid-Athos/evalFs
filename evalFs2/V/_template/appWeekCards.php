@@ -83,7 +83,7 @@
                                 <h5 class="motto" id="tooltip<?php echo $res[$i]['appId'];?>" data-toggle="tooltip" data-placement="top" 
                                 title="Rendez-vous de <?php $hour = explode(":",$res[$i]['startTime']); $hour = $hour[0].":".$hour[1];  echo $hour; ?>, cliquez sur la croix pour supprimer" 
                                 style="z-index:99;color:rgba(255,255,255,1);font-size:20px"><?php echo $res[$i]['appName']; ?>
-                                <i class="now-ui-icons ui-1_simple-remove" onclick="killApp(<?php echo $res[$i]['appId'];?>);" style="cursor:pointer;font-size:18px"></i>
+                        <?php if($res[$i]['appStatus'] === "1"){?><i class="now-ui-icons ui-1_simple-remove" onclick="killApp(<?php echo $res[$i]['appId'];?>);" style="cursor:pointer;font-size:18px"></i><?php } else {?>, Rendez-vous effectué<?php }?>
                                 </h5>
                                     <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse" >
                                         <div class="card-plain" style="background:transparent">

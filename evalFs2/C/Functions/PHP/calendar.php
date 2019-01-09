@@ -21,6 +21,7 @@
     $week = $week.str_repeat('<td style=""></td>', $str - 1);
     $color = "none";
     $z = 0;
+    $lazy = 0;
     for ($day = 1; $day <= $daysCount; $day++, $str++) {
         ($day < 10) ? $days = "0$day" : $days = $day;
         $date = "$ym-$day";
@@ -38,6 +39,7 @@
                         if(!in_array(intval(date('N',strtotime($date))),$noApps)){
                             $week = $week."<td style='background-color:rgba(66, 66, 63, 0.2);min-width:190px'
                             data-toggle='tooltip' data-placement='top' title='Jour de repos'>$day</td>";
+                            $lazy++;
                         } 
                         else 
                         {
@@ -147,7 +149,7 @@
                 if(!in_array(intval(date('N',strtotime($date))),$noApps)){
                     $week = $week."<td style='background-color:rgba(66, 66, 63, 0.2);min-width:190px'
                     data-toggle='tooltip' data-placement='top' title='Jour de repos'>$day</td>";
-                
+                    $lazy++;
                 } else {
                             if ($today == $date) {
                                 $week .= '<td class="today" data-toggle="tooltip" data-placement="left" title="Ajd" style="background-color:rgba(18,239,56,0.4);">';

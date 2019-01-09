@@ -1,8 +1,5 @@
 <?php
 
-    if(!isset($_GET['page'])){
-        header("Location: http://localhost/evalFs/evalFs2/index.php");
-    }
     $page = "Patients";
     include('M/dbConnect.php');
     include('M/getSql.php');
@@ -161,7 +158,6 @@
                     }
                     
                     include('V/_template/showPatients.php');
-                    include('V/_template/footer.html');
             break;
         case(isset($_POST['patientID'])):
                 $query = 
@@ -176,7 +172,6 @@
                 JOIN USER_HAS_APPS ON APPOINTMENTS.ID = USER_HAS_APPS.appointmentID
                 JOIN SEX ON SEX.ID = PATIENTS.sexID
                 WHERE PATIENTS.ID = :set1
-                AND APPOINTMENTS.status = 0
                 AND USER_HAS_APPS.userID = :set2
                 ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
 
@@ -192,7 +187,6 @@
                     $zones[] = fetchOneSet($db,$query,$prevCons[$z]['consID']);
                 }
                 include('V/_template/showConsults.php');
-                include('V/_template/footer.html');
             break;
         default:
             $query =
@@ -224,7 +218,6 @@
             }
             
             include('V/_template/showPatients.php');
-            include('V/_template/footer.html');
     endswitch;
     include('V/_template/appsModal.php');
 

@@ -1,17 +1,13 @@
-<?php                              
-  if(!isset($_GET['page'])){
-    header("Location: http://localhost/evalFs/evalFs2/index.php");
-  }
-?>
-<body style="background-color:#333333">
-    <div class="wrapper">
-        <div class="page-header clear-filter">
-            <div class="page-header-image" data-parallax="true" 
-            style="background-image:url('V/_template/assets/img/header.jpg');"></div>
+
                 <div class="container">
-                                    <div class="row">               
+                    <div class="row" style="margin-top:150px">               
                         <div class="col-md-6" style="margin:auto">
-                            <div class="">
+                <?php
+		for($m = count($messages)-1;$m > -1;$m--)
+		{
+			echo $messages[$m];
+		}
+	?>
                                 <form class="form" method="POST" action="index.php?page=account" id="form" style="color:white;width:350px;margin-left:15%" autocomplete="off">
                                         <?php
                                 if(!empty($workDays))
@@ -123,10 +119,20 @@
                                                  autocomplete="off"> 
                                             </div>
                                         </div>
+                                        <div class="ml-auto mr-auto">
+                              <button type="button" class="sid"
+                                    name="info" value="get"
+                                    data-toggle="modal" data-target="#exampleModal" style="font-size:16px"
+                                >Mes informations</button>
+                                <button type="submit" class="btn btn-primary btn-round btn-lg btn-block ml-auto mr-auto" 
+                                            style="cursor:pointer;width:auto" name="choice" value="modWork">Actualiser les informations</button>
+                                </div>
+                                    </div>
                                         <?php
                                         if(!empty($specs))
                                         {
                                             ?>
+                                    <div class="col-md-6">  
                                             <h4 class="motto">Lier une spécialité</h4>
                                             <?php 
                                                 for($i = 0;$i < count($specs);$i++)
@@ -145,20 +151,15 @@
                                                     
                                             <?php
                                                 }
+                                                ?>
+                                                </div>
+                                                <?php
                                             }
                                             ?>
-
                                         <div class="-footer text-center">
-                                            <button type="submit" class="btn btn-primary btn-round btn-lg btn-block ml-auto mr-auto" 
-                                            style="cursor:pointer;width:auto" name="choice" value="modWork">Actualiser les informations</button>
+                                            
                                     </form>
-                                    <div class="pull-right">
-                              <button type="button" class="sid"
-                                    name="info" value="get"
-                                    data-toggle="modal" data-target="#exampleModal" style="font-size:16px"
-                                >Mes informations</button>
-                                </div>
-                                </div>
+                                   
                             </div>
                         </div>
                     </div>
@@ -211,7 +212,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" name="choice" value="recover">Récupérer mon compte</button>
             </form>
           </div>
         </div>

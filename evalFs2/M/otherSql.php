@@ -53,8 +53,6 @@
         catch(PDOException $ex)
         {
             $res = false;   
-            echo $ex;
-
         }
         return $res; 
     }

@@ -1,9 +1,4 @@
-<div class="wrapper">
-        <div class="page-header clear-filter">
-            <div class="page-header-image" data-parallax="true" style="background-image:url(
-            <?php if(isset($_SESSION['background'])){ echo  $_SESSION['background']; } else { echo "V/_template/assets/img/header.jpg"; } ?>);"></div>
-
-                <div class="container" style="margin:auto;height:auto;margin-bottom:150px">
+ 
                 <?php 
                     if(isset($messages))
                     { 
@@ -16,28 +11,30 @@
                         }
                     }
                 ?>                            
-                        <div class="content-center-brand">
-                            <div class="col-md-6 col-xs-8  ml-auto mr-auto" data-toggle="tooltip" data-placement="right" title="Liste de vos patients">
-                    <?php
+                            <div class="row" style="margin-bottom:35px;margin-top:45px"> 
+                            <?php
                         if(!empty($res)){
-                            for($i = 0;$i < count($res);$i++){
-                                ?>
+                            for($z= 0;$z < 15; $z++){
+                                for($i = 0;$i < count($res);$i++){
+                                    ?>
+                        <div class="col-md-6 col-xs-8  ml-auto mr-auto" data-toggle="tooltip" style="max-width:500px" data-placement="right" title="Vos patients">
                                 <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse"  style="margin-top:90px">
                         <div class=" container" style="transform:scale(-1,1);background-color:rgba(16,16,16,0.4);height:auto" >
-                        <div class="card-header" role="tab" id="heading<?php echo $i; ?>">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $i; ?>" aria-expanded="true" aria-controls="collapse<?php echo $i; ?>" style="color:#ED8F03;font-weight:850">
+                        <div class="card-header" role="tab" id="heading<?php echo $z; ?>">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $z; ?>" aria-expanded="true" aria-controls="collapse<?php echo $z; ?>" style="color:#ED8F03;font-weight:850">
                             <?= $res[$i]['patientName']; ?>
                             <i class="now-ui-icons arrows-1_minimal-down"></i>
                             </a>
                     </div>
 
-                    <div id="collapse<?php echo $i; ?>" class="collapse show" role="tabpanel" aria-labelledby="heading<?php echo $i; ?>">
-                    <div class="card-body">
+                    <div id="collapse<?php echo $z; ?>" class="collapse show" role="tabpanel" aria-labelledby="heading<?php echo $z; ?>">
+                    <div class="card-body" style="color:#fff">
                                             <form action="index.php?page=patients" METHOD="POST">
                                             <h5 class="motto form-check-inline"> Sexe : </h5>
 
-                                                <select name="sexID" class="form-control form-check-inline" style="max-width:260px" data-toggle="tooltil" data-placement="left" title="Sexe">
-                                                    <option  style="color:#333333" value="<?php echo $res[$i]['sexID']; ?>"><?= $res[$i]['sexName']; ?></option>
+                                                <select name="sexID" class="form-control form-check-inline" style="max-width:260px" data-toggle="tooltil" data-placement="left" title="Sexe"
+                                                style="text-align:center">
+                                                    <option  style="color:#333333;position:relative;left:85px" value="<?php echo $res[$i]['sexID']; ?>"><?= $res[$i]['sexName']; ?></option>
                                                     <?php
                                                         for($s = 0;$s < count($sexes[$i]);$s++)
                                                         {
@@ -97,21 +94,26 @@
                                                     title="Représentant légal (nom et prénom séparé d'un espace)"
                                                     value="" style="color:#FFFFFF" autocomplete="false" >
                                                 </div>
-                                                <button type="submit" name="modPat" class="btn btn-primary" style="background-color:rgba(25,25,25,.05);font-size:18px" value="<?php echo $res[$i]['patID'];?>">Modifier informations patient</button>                                                
+                                                <button type="submit" name="modPat" class="btn btn-primary ml-auto mr-auto" style="background-color:rgba(25,25,25,.05);font-size:18px" value="<?php echo $res[$i]['patID'];?>">Modifier informations patient</button>                                                
                                                 </form>
                                                 <form method="POST">
                                                     <button type="submit" name="patientID" class="btn btn-primary" style="background-color:rgba(25,25,25,.05);font-size:18px" value="<?php echo $res[$i]['patID'];?>">Accéder à l'historique du patient</button>
-                                                    </form>
-                    </div>
-                    </div>
-                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                     
-                        </div>
+                                </div>
+                                </div>
                                 <?php
                             }
-                        }
+                        }}
                     ?>
                     
+                    </div>
+                    </div>
                 </div>
-                </div></div>
-                </div>
+                         <!-- Footer -->
+        
+    </body>
+</html>

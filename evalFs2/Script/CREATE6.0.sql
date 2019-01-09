@@ -23,6 +23,10 @@ ALTER TABLE `CATEGORYS` ADD CONSTRAINT UNIQUE(`name`);
 --
 -- Structure de la table `USERS`
 --
+
+
+
+
 DROP TABLE IF EXISTS `ORIGINS`;
 CREATE TABLE IF NOT EXISTS `ORIGINS` (
   `ID` TINYINT(1) NOT NULL AUTO_INCREMENT,
@@ -305,6 +309,38 @@ CREATE TABLE IF NOT EXISTS `ZONES` (
 
 
 
+INSERT INTO `USERS` (`ID`, `pseudo`, `mail`, `password`, `phone`) VALUES
+(1, 'Athos', 'sa.bennaceur@gmail.com', 'cd98bf0202ef07e38e87f6bd9445e5e7331e2c78', '0612121212'),
+(2, 'Sidou', 'sa.benn90@gmail.com', 'cd98bf0202ef07e38e87f6bd9445e5e7331e2c78', '0610101010');
+INSERT INTO `SCHEDULES` (`ID`, `fromTime`, `toTime`, `workingDay`) VALUES (NULL, '08:00:00', '20:00:00', 'Mardi');
+INSERT INTO `USER_HAS_SCHEDULE` (`ID`, `userID`, `scheduleID`) VALUES (NULL, '1', '1');
+INSERT INTO `HOLIDAYS` (`ID`, `startsAt`, `endsAt`, `userID`) VALUES (NULL, '2019-01-18 00:00:00', '2019-01-29 00:00:00', '1');
+INSERT INTO `ZONES` (`ID`, `name`, `zonePath`) VALUES
+(1, 'Tête', 'V/Parts/head.png'),
+(2, 'Épaules', 'V/Parts/epaules.jfif'),
+(3, 'Cage thoracique', 'V/Parts/thoracique.jfif'),
+(4, 'Abdomen', 'V/Parts/abdomen.jfif'),
+(5, 'Bras', 'V/Parts/bras.jfif'),
+(6, 'Bassin', 'V/Parts/bassin.jfif'),
+(7, 'Jambes', 'V/Parts/jambes.jfif'),
+(8, 'Pieds', 'V/Parts/pieds.jfif');
+
+
+INSERT INTO `PATIENTS` (`ID`, `patientName`, `breed`, `sexID`, `originID`, `birthDate`, `lifeStyle`, `food`, `avpath`) VALUES
+(1, 'Horseman Bojack', 'Cheval', 4, 2, '2000-02-10', 'Casanier', 'Foin', NULL);
+INSERT INTO `OWNERS` (`ID`, `email`, `lastName`, `firstName`, `address`, `postCode`, `city`, `phone`) VALUES
+(1, 'sa.benn@lol.lol', 'Corinne', 'Thomas', '101 rue des acuqevilles', '95215', '95215', '0606060606');
+
+INSERT INTO `APPOINTMENTS` (`ID`, `name`, `place`, `notes`, `appDay`, `startTime`, `status`) VALUES
+(1, 'test nature', 'Aucune note défini!', '', '2019-01-15', '16:30:00', 1);
+INSERT INTO `USER_HAS_APPS` (`ID`, `userID`, `appointmentID`) VALUES
+(1, 1, 1);
+INSERT INTO `PATIENT_HAS_APPOINTMENTS` (`ID`, `patientID`, `appointmentID`) VALUES
+(1, 1, 1);
+INSERT INTO `CLIENTS_HAS_PATIENTS` (`ID`, `ownerID`, `patientID`) VALUES
+(1, 1, 1);
+INSERT INTO `CONSULTATIONS` (`ID`, `reason`, `food`, `mindState`, `phyState`, `temper`, `notes`, `weight`, `recommandations`, `appointmentID`, `consDate`) VALUES
+(1, 'test1', 'Non renseigné', 'En forme wallah', 'Bon là par contre...', 'Tempura', 'Aucune note', '145,5', 'dqsdq', 1, '2019-01-09 22:36:57');
 
 DROP TABLE IF EXISTS `ZONE_HANDLED`;
 CREATE TABLE IF NOT EXISTS `ZONE_HANDLED` (
@@ -322,80 +358,31 @@ CREATE TABLE IF NOT EXISTS `ZONE_HANDLED` (
   ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `ZONE_HANDLED` (`ID`, `zoneID`, `consultationID`) VALUES
+(1, 6, 1),
+(2, 8, 1);
+
+DROP TABLE IF EXISTS `BELONGS`;
+CREATE TABLE IF NOT EXISTS `BELONGS` (
+  `ID` TINYINT(1) NOT NULL AUTO_INCREMENT,
+  `appointmentID` INT(11) NOT NULL,
+  `categoryID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT FK_belongs_appID FOREIGN KEY (`appointmentID`)
+  REFERENCES APPOINTMENTS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT,
+  CONSTRAINT FK_belongs_cat FOREIGN KEY (`categoryID`)
+  REFERENCES CATEGORYS(`ID`)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+INSERT INTO `BELONGS` (`ID`,`appointmentID`, `categoryID`) VALUES
+(1,1,1);
 --
 -- Déchargement des données de la table `USERS`
 --
 
-INSERT INTO `USERS` (`ID`, `pseudo`, `mail`, `password`, `phone`) VALUES
-(1, 'Athos', 'sa.bennaceur@gmail.com', 'cd98bf0202ef07e38e87f6bd9445e5e7331e2c78', '0612121212'),
-(2, 'Sidou', 'sa.benn90@gmail.com', 'cd98bf0202ef07e38e87f6bd9445e5e7331e2c78', '0610101010');
-INSERT INTO `SCHEDULES` (`ID`, `fromTime`, `toTime`, `workingDay`) VALUES (NULL, '08:00:00', '20:00:00', 'Mardi');
-INSERT INTO `USER_HAS_SCHEDULE` (`ID`, `userID`, `scheduleID`) VALUES (NULL, '1', '1');
-INSERT INTO `HOLIDAYS` (`ID`, `startsAt`, `endsAt`, `userID`) VALUES (NULL, '2019-01-18 00:00:00', '2019-01-29 00:00:00', '1');
 
-INSERT INTO `zones` (`ID`, `name`, `zonePath`) VALUES
-(1, 'Tête', 'V/Parts/head.png'),
-(2, 'Épaules', 'V/Parts/epaules.jfif'),
-(3, 'Cage thoracique', 'V/Parts/thoracique.jfif'),
-(4, 'Abdomen', 'V/Parts/abdomen.jfif'),
-(5, 'Bras', 'V/Parts/bras.jfif'),
-(6, 'Bassin', 'V/Parts/bassin.jfif'),
-(7, 'Jambes', 'V/Parts/jambes.jfif'),
-(8, 'Pieds', 'V/Parts/pieds.jfif');
-COMMIT;
-
---
--- Structure de la table `PLATOONS`
---
-
---
--- Déchargement des données de la table `PLATOONS`
---
-
--- --------------------------------------------------------
-
-
--- --------------------------------------------------------
-
-
-
--- --------------------------------------------------------
-
---
--- Structure de la table `belongs`
---
-
-DROP TABLE IF EXISTS `BELONGS`;
-CREATE TABLE IF NOT EXISTS `BELONGS` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `categoryID` int(11) NOT NULL,
-  `appointmentID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  CONSTRAINT FK_cat FOREIGN KEY (`categoryID`)
-  REFERENCES CATEGORYS(`ID`)
-  ON UPDATE CASCADE
-  ON DELETE RESTRICT,
-  CONSTRAINT FK_plat FOREIGN KEY (`appointmentID`)
-  REFERENCES APPOINTMENTS(`ID`)
-  ON UPDATE CASCADE
-  ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
--- --------------------------------------------------------
-
---
--- Structure de la table `MESSAGES`
---
-
-DROP TABLE IF EXISTS `MESSAGES`;
-CREATE TABLE IF NOT EXISTS `MESSAGES` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `message` varchar(250) NOT NULL,
-  `when` datetime NOT NULL,
-  `senderID` int(11) NOT NULL,
-  `receiverID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

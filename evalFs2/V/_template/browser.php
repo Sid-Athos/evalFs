@@ -1,8 +1,4 @@
-<?php
-  if(!isset($_GET['page'])){
-    header("Location: http://localhost/evalFs/evalFs2/index.php");
-  }
-?>
+
     <!-- Navbar -->
     <!-- End Navbar -->
     <div class="wrapper">
@@ -12,17 +8,13 @@
         style="background-image:url('V/_template/assets/img/header.jpg');"></div>
         <div class="container">
             <?php if(isset($message)){ echo $message; }?>                            
-            <div>
-                <div class="content-center brand">
-                  <div class="col-md-6 ml-auto mr-auto">
+                <div class="row" style="margin-top:10%">
+                  <div class="col-md-6 ml-auto mr-auto" style="max-width:500px">
                       <div class="card-login">
                         <form class="form" method="POST" action="index.php?page=browse" id="form"  autocomplete="off">
-                            <div class="card-header text-center">
-                              <div class="logo-container mb-3">
-                                <!--<img src="V/_template/assets/img/logo.png" alt="Glance logo" onclick="logoEventReg(event)"style="width:250px;height:200px;z-index:-10">-->
-                              </div>
-                            </div>
                             <div class="card-body" style="text-align:center">
+                            <h5 class="motto"><i class="now-ui-icons ui-1_zoom-bold" style="position:relative;right:20px"></i>Outil de recherche</h5>
+                            <div class="dropdown-divider"></div>
                               <div class="input-group no-border input-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -134,7 +126,6 @@
             </form>
           </div>
         </div>
-      </div>
     </div>
 
     <!--   Core JS Files   -->

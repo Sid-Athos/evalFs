@@ -1,8 +1,3 @@
-<?php
-  if(!isset($_GET['page'])){
-    header("Location: http://localhost/evalFs/evalFs2/index.php");
-  }
-?>
 	<div class="wrapper" >
 		<!-- Img -->
 		<div class="page-header clear-filter" filter-color="orange">

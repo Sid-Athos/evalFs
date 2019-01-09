@@ -1,7 +1,4 @@
 <?php
-    if(!isset($_GET['page'])){
-        header("Location: http://localhost/evalFs/evalFs2/index.php");
-    }
     $page = "Rendez-vous";
     include('M/dbConnect.php');
     include('M/getSql.php');
@@ -95,7 +92,6 @@
 
                 $zones = fetchNoSets($db,$query);
                 include('V/_template/consultations.php');
-                include('V/_template/footer.html');
 
             break;
         case(isset($_POST['choice'])):
@@ -126,7 +122,6 @@
                     include('V/_template/appDetailsCards.php');
                     include('V/_template/afterCards.php');
                     echo "</div>";
-                    include('V/_template/footer.html');                 
                 } else if($_POST['choice'] === 'weekApps'){
                     $query = 
                     "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
@@ -151,7 +146,6 @@
                     include('V/_template/beforeCards.php');
                     include('V/_template/appWeekCards.php');
                     echo "</div>";
-                    include('V/_template/footer.html'); 
                 } else {
                     header("Location: index.php?page=error");
                 }
@@ -193,7 +187,7 @@
                         }
                         
                         $query =
-                        "UPDATE APPOINTMENTS SET STATUS = 0
+                        "UPDATE APPOINTMENTS SET status = 0
                         WHERE ID = :set1;";
 
                         oneSet($db,$query,$_SESSION['app']);
@@ -366,7 +360,6 @@
                 include('V/_template/navbar.php');
                 include('V/_template/editAppsForm.php');
                 include('V/_template/appsModal.php');
-                include('V/_template/footer.html');
 
             break;
         case(isset($_POST['fetchApps'])):
@@ -430,7 +423,6 @@
                         include('V/_template/navbar.php');
                         include('V/_template/editAppsForm.php');
                         include('V/_template/appsModal.php');
-                        include('V/_template/footer.html');
                     } else {
                         header("Location: index.php?page=login");
                     }

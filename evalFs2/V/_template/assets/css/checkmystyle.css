@@ -328,7 +328,7 @@ ul{
     list-style:none;
 }
 body{
-    background-color:#333333;
+    background-attachment:fixed;
 }
 .section{
     padding-top:20px;
