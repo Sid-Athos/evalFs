@@ -29,7 +29,7 @@
         if(isset($offs[$z]) && !empty($offs)){
             if(strtotime($date) >= strtotime($offs[$z]['starts'])
             && strtotime($date) <= strtotime($offs[$z]['ends'])) {
-                        $week = $week."<td style='background-color:rgba(166, 148, 229, 0.6);min-width:200px;width:200px'
+                        $week = $week."<td style='background-color:rgba(166, 148, 229, 0.6);min-width:200px;width:200px;height:120px;min-height:250px'
                         data-toggle='tooltip' data-placement='top' title='Congé'>$day</td>";
                     } else {
                         if(isset($offs[($z+1)])){

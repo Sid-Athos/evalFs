@@ -11,14 +11,14 @@
                         }
                     }
                 ?>                            
-                            <div class="row" style="margin-bottom:35px;margin-top:45px"> 
+                            <div class="row" style="margin-bottom:35px;margin-top:45px"  > 
                             <?php
                         if(!empty($res)){
                             for($z= 0;$z < 15; $z++){
                                 for($i = 0;$i < count($res);$i++){
                                     ?>
-                        <div class="col-md-6 col-xs-8  ml-auto mr-auto" data-toggle="tooltip" style="max-width:500px" data-placement="right" title="Vos patients">
-                                <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse"  style="margin-top:90px">
+                        <div class="col-md-6 col-xs-8  ml-auto mr-auto" style="max-width:500px">
+                                <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse"  style="margin-top:90px" data-placement="right" title="Vos patients" data-toggle="tooltip">
                         <div class=" container" style="transform:scale(-1,1);background-color:rgba(16,16,16,0.4);height:auto" >
                         <div class="card-header" role="tab" id="heading<?php echo $z; ?>">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $z; ?>" aria-expanded="true" aria-controls="collapse<?php echo $z; ?>" style="color:#ED8F03;font-weight:850">

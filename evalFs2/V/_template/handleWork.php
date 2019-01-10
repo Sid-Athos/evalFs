@@ -132,7 +132,7 @@
                                         if(!empty($specs))
                                         {
                                             ?>
-                                    <div class="col-md-6">  
+                                    <div class="col-md-6" style="color:#fff">  
                                             <h4 class="motto">Lier une spécialité</h4>
                                             <?php 
                                                 for($i = 0;$i < count($specs);$i++)

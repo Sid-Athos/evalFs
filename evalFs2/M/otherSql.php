@@ -74,6 +74,7 @@
         }
         catch(PDOException $ex)
         {   
+            echo $ex;
             $res = false;
         }
         return $res; 

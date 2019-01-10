@@ -57,7 +57,7 @@
             break;
         case(isset($_POST['fetchApps'])):
                 (preg_match("/^[0-9]{4}[-]{1}[0-1]{1}[0-9]{1}[-]{1}[0-3]{1}[0-9]{1}$/", $_POST['fetchApps']))? $messages = $messages : $messages[] = alert("Date incorrecte !");
-                if(count($messages === 0))
+                if(count($messages) === 0)
                 {
                     $query =
                         "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 

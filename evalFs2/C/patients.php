@@ -163,7 +163,8 @@
                 $query = 
                 "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName,  PATIENTS.breed as breed,
                 year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, CONSULTATIONS.ID as consID, ORIGINS.name AS origin,
-                CONSULTATIONS.reason, CONSULTATIONS.food, CONSULTATIONS.mindState as mState,CONSULTATIONS.phyState AS pState, CONSULTATIONS.temper as temp,CONSULTATIONS.notes as cNotes, CONSULTATIONS.weight, CONSULTATIONS.recommandations AS recs, DATE(CONSULTATIONS.consDate) AS consDate, TIME(CONSULTATIONS.consDate) as consH
+                CONSULTATIONS.reason, CONSULTATIONS.food, CONSULTATIONS.mindState as mState,CONSULTATIONS.phyState AS pState, CONSULTATIONS.temper as temp,CONSULTATIONS.notes as cNotes, 
+                CONSULTATIONS.weight, CONSULTATIONS.recommandations AS recs, DATE(CONSULTATIONS.consDate) AS consDate, TIME(CONSULTATIONS.consDate) as consH
                 FROM APPOINTMENTS 
                 JOIN CONSULTATIONS AS CONSULTATIONS ON CONSULTATIONS.appointmentID = APPOINTMENTS.ID
                 JOIN PATIENT_HAS_APPOINTMENTS AS PHA ON PHA.appointmentID = APPOINTMENTS.ID
@@ -173,7 +174,7 @@
                 JOIN SEX ON SEX.ID = PATIENTS.sexID
                 WHERE PATIENTS.ID = :set1
                 AND USER_HAS_APPS.userID = :set2
-                ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
+                ORDER BY DATE(CONSULTATIONS.consDate), TIME(CONSULTATIONS.consDate) DESC;";
 
                 $prevCons = fetchTwoSets($db,$query,$_POST['patientID'],$_SESSION['ID']);
                 

@@ -1,21 +1,12 @@
 
-<body style="background-color:#333333">
-    <div class="wrapper">
-      <div class="page-header clear-filter">
-        
-        <div class="page-header-image" data-parallax="true" 
-        style="background-image:url('V/_template/assets/img/header.jpg');"></div>
-        <div class="container">
-            <div>
-                <div class="content-center-brand" >
             <?php if(isset($messages)){ 
               for($i = count($messages)-1; $i > 0;$i--){
                 echo $messages[$i];
               }
              }?>                            
-                  <div class="col-md-6">
-                      <div class="">
-                        <form class="form" method="POST" action="index.php?page=account" id="form" style="color:white;width:650px;margin-left:15%" autocomplete="off"
+                <div class="row" style="margin-top:9%">
+                  <div class="col-md-6 ml-auto mr-auto">
+                        <form class="form ml-auto mr-auto" method="POST" action="index.php?page=account" id="form" style="color:white;width:650px;" autocomplete="off"
                         enctype="multipart/form-data">
                             <div class="-header text-center">
                               <div class="logo-container mb-3">
@@ -87,8 +78,7 @@
                                   value="">
                               </div>
                               
-                            </div>
-                            <div class="form-check form-check-inline" style="margin-bottom:30px;margin-right:20px;cursor:pointer">
+                            <div class="form-check form-check-inline mlauto mr-auto" style="position:relative;left:45px;margin-bottom:30px;cursor:pointer">
                             <label class="form-check-label">
                                   <input type="checkbox" class="form-check-input" onclick="showPw()" style="color:#FFFFFF" name="password" style="margin:auto"
                                   value="y">
@@ -96,6 +86,7 @@
                                     </span>
                                   </label>
                                   Afficher les mots de passe
+                            </div>
                             </div>
                             <div class="-footer text-center">
                               <button type="submit" class="btn btn-primary btn-round btn-lg btn-block ml-auto mr-auto" 
@@ -107,5 +98,3 @@
                   </div>
                 </div>
             </div>
-          </div>
-        </div>    

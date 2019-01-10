@@ -2,7 +2,7 @@
     session_start();
     
     setlocale(LC_ALL, 'fra');
-
+    include('M/dbConnect.php');
     date_default_timezone_set ("Europe/Paris");
     switch(isset($_GET)):
         case(isset($_GET['page'])):

@@ -2,7 +2,7 @@
     <div class="page-header clear-filter" style="margin-top:0px">
         <div class="page-header-image" data-parallax="true" style="background-image:url('V/_template/assets/img/header.jpg');"></div>
         <?php if(isset($message)){ echo $message; }?>                            
-            <div class="row ml-auto mr-auto" style="max-width:950px;margin-top:15%">
+            <div class="row ml-auto mr-auto" style="max-width:950px;margin-top:8%">
                 <div class="col-md-6" style="max-width:600px">
                     <form class="form" method="POST" action="index.php?page=apps" autocomplete="false">
                         <button type="button" class="sid"
@@ -239,9 +239,9 @@
                                         <?php
                                         for($p = 0;$p < count($prevCons);$p++)
                                         {
-                                                $hours = explode(":",$prevCons[$i]['consH']);
+                                                $hours = explode(":",$prevCons[$p]['consH']);
                                                 $hours = $hours[0].":".$hours[1];
-                                                $datesC = explode("-",$prevCons[$i]['consDate']);
+                                                $datesC = explode("-",$prevCons[$p]['consDate']);
                                                 $datesC = "$datesC[2]-$datesC[1]-$datesC[0]";
                                             ?>
                                                 <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse" >
@@ -255,13 +255,29 @@
                                                         </div>
                                                         <div id="collapse<?php echo $compteur; ?>" class="collapse hide" role="tabpanel" aria-labelledby="heading<?php echo $compteur; $compteur++?>">
                                                             <div class="card-body" style="background:transparent;color:rgb(255,255,255,0.7);">
-                                                                <h6 class="motto">Intitulé : <br><?php echo $prevCons[$i]['appName']; ?><br></h6>
-                                                                <h6 class="motto">Raison : <br><?php echo $prevCons[$i]['reason']; ?><br></h6>
-                                                                <h6 class="motto">État mental : <br><?php echo $prevCons[$i]['mState']; ?><br></h6>
-                                                                <h6 class="motto">État physique : <br><?php echo $prevCons[$i]['pState']; ?><br></h6>
-                                                                <h6 class="motto">Tempérament : <br><?php echo $prevCons[$i]['temp']; ?></h6>
-                                                                <h6 class="motto">Notes : <br><?php echo $prevCons[$i]['cNotes']; ?><br></h6>
-                                                                <h6 class="motto">Poids : <br><?php echo $prevCons[$i]['weight']; ?> kg<br></h6>                                                    
+                                                                <h6 class="motto">Intitulé : <br><?php echo $prevCons[$p]['appName']; ?><br></h6>
+                                                                <h6 class="motto">Raison : <br><?php echo $prevCons[$p]['reason']; ?><br></h6>
+                                                                <h6 class="motto">État mental : <br><?php echo $prevCons[$p]['mState']; ?><br></h6>
+                                                                <h6 class="motto">État physique : <br><?php echo $prevCons[$p]['pState']; ?><br></h6>
+                                                                <h6 class="motto">Tempérament : <br><?php echo $prevCons[$p]['temp']; ?></h6>
+                                                                <h6 class="motto">Notes : <br><?php echo $prevCons[$p]['cNotes']; ?><br></h6>
+                                                                <h6 class="motto">Poids : <br><?php echo $prevCons[$p]['weight']; ?> kg<br></h6> 
+                                                                <h6 class="motto" style="underline:none">Zones opérées<br></h6> 
+                                                                <?php
+                                                                    if(!empty($prevZones[$p])){
+                                                                        for($n = 0;$n < count($prevZones[$p]);$n++){
+                                                                            ?>
+                                                                            <h6 class="motto">=>  <?php echo $prevZones[$p][$n]['name']; ?><br></h6> 
+
+                                                                            <?php
+                                                                        }
+                                                                    } else {
+                                                                        ?>
+                                                                            <h6 class="motto">Aucune<br></h6> 
+                                                                        <?php
+
+                                                                    }
+                                                                ?>
                                                             </div>
                                                         </div>
                                                     </div>

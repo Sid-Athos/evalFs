@@ -1,6 +1,3 @@
-<div class="wrapper" style="background-image:url('V/_template/assets/img/header.jpg');background-attachment:fixed;background-size:contain;background-size:100% 101%;min-height:1200px">
-<div class="row" style="position:relative;top:150px"> 
-    <div class="col-md-6 col-xs-8  ml-auto mr-auto" data-toggle="tooltip" data-placement="right" title="Liste de vos patients" style="margin-bottom:500px">
             <?php 
             //var_dump($zones);
                 if(isset($messages))
@@ -16,12 +13,18 @@
             ?>   
                                 <?php
                                     if(!empty($prevCons)){
+                                        ?>
+                            <div class="row" style="margin-bottom:35px;margin-top:45px"> 
+
+                                        <?php
                                         for($i = 0;$i < count($prevCons);$i++){
                                             $hours = explode(":",$prevCons[$i]['consH']);
                                         $hours = $hours[0].":".$hours[1];
                                         $datesC = explode("-",$prevCons[$i]['consDate']);
                                         $datesC = "$datesC[2]-$datesC[1]-$datesC[0]";
                                             ?>
+                        <div class="col-md-6 col-xs-8  ml-auto mr-auto" data-toggle="tooltip" style="max-width:500px" data-placement="right" title="Les consultations">
+
                             <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse"  style="margin-top:90px;">
                                 <div class=" container" style="transform:scale(-1,1);background-color:rgba(16,16,16,0.4);height:auto" >
                                     <div class="card-header" role="tab" id="heading<?php echo $i; ?>">
@@ -60,7 +63,7 @@
                             
                         
                                         ?>
-                                        <div class="row" style="margin-top:10px">
+                                    <div class="row" style="margin-top:10px">
                                         
                                         <div class="col-md-6"><h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">Intitulé : </h6><?php echo $prevCons[$i]['appName']; ?></div>
                                         <div class="col-md-6"><h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">Raison : </h6><?php echo $prevCons[$i]['reason']; ?></div>
@@ -69,20 +72,23 @@
                                         <div class="col-md-6"><h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">Tempérament :</h6> <?php echo $prevCons[$i]['temp']; ?></div>
                                         <div class="col-md-6"><h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">Notes :</h6> <?php echo $prevCons[$i]['cNotes']; ?></div>
                                         <div class="col-md-6"><h6 class="motto form-check-inline" style="color:rgba(242, 112, 156, 0.7)">Poids :</h6> <?php echo $prevCons[$i]['weight']; ?> kg   </div>
-                                        </div> 
-                                    </div>
+                                    </div> 
                                 </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
                                 <?php 
                                 }
                                 ?>
+</div>
 
-                        </div>
-                    </div>
-                        <?php
+<?php
                         }else {
                             echo alert("Aucune consultation effectuée avec ce patient");
                         }
                         ?>
+                        
                 </div>
 
                </div>

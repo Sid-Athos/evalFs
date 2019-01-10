@@ -69,7 +69,7 @@
                 $_SESSION['app'] = $_POST['consult'];
 
                 $query = 
-                "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, 
+                "SELECT APPOINTMENTS.ID as appId, APPOINTMENTS.name as appName, dayofmonth(APPOINTMENTS.appDay) as dayNum, monthname(appDay) as monthName, CONSULTATIONS.ID as consID,
                 year(appDay) as years, dayname(appDay) as dayName, PATIENTS.ID as patID, APPOINTMENTS.startTime, APPOINTMENTS.place, APPOINTMENTS.notes, ORIGINS.name AS origin, PATIENTS.breed as breed,
                 CONSULTATIONS.reason, CONSULTATIONS.food, CONSULTATIONS.mindState as mState,CONSULTATIONS.phyState AS pState, CONSULTATIONS.temper as temp,CONSULTATIONS.notes as cNotes, CONSULTATIONS.weight, CONSULTATIONS.recommandations AS recs, DATE(CONSULTATIONS.consDate) AS consDate, TIME(CONSULTATIONS.consDate) as consH
                 FROM APPOINTMENTS 
@@ -82,10 +82,19 @@
                 WHERE PATIENTS.ID = :set1
                 AND APPOINTMENTS.status = 1
                 AND USER_HAS_APPS.userID = :set2
-                ORDER BY APPOINTMENTS.appDay,APPOINTMENTS.startTime;";
+                ORDER BY DATE(CONSULTATIONS.consDate), TIME(CONSULTATIONS.consDate) DESC;";
 
                 $prevCons = fetchTwoSets($db,$query,$res[0]['patID'],$_SESSION['ID']);
-
+                $query = 
+                "SELECT ZONES.name
+                FROM ZONE_HANDLED AS ZH
+                JOIN ZONES ON ZONES.ID = ZH.zoneID
+                WHERE ZH.consultationID = :set1;";
+                $prevZones = array();
+                for($i = 0;$i < count($prevCons);$i++)
+                {
+                    $prevZones[] = fetchOneSet($db,$query,$prevCons[$i]['consID']);     
+                }
                 $query =
                 "SELECT ID, name
                 FROM ZONES;";

@@ -1,7 +1,5 @@
 <?php
-    if(!isset($_GET['page'])){
-        header("Location: http://localhost/evalFs/evalFs2/index.php");
-    }
+   
     $page = "Recherche";
     include('M/dbConnect.php');
     include('M/getSql.php');

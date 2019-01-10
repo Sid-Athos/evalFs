@@ -7,11 +7,9 @@
         
         <div class="page-header-image" data-parallax="true" 
         style="background-image:url('V/_template/assets/img/header.jpg');"></div>
-        <div class="container">
             <?php if(isset($message)){ echo $message; }?>                            
-            <div>
-                <div class="content-center brand">
-                  <div class="col-md-6 ml-auto mr-auto">
+                <div class="row" style="margin-top:45px">
+                  <div class="col-md-6 ml-auto mr-auto" style="max-width:450px">
                       <div class="card-login">
                         <form class="form" method="POST" action="index.php?page=login" id="form"  autocomplete="off">
                             <div class="card-header text-center">

@@ -51,6 +51,30 @@
     $messages = array();
 
     switch(isset($_POST)):
+        case(isset($_POST['eraseAppsAddHoli'])):
+                $dates = explode("/",$_POST['eraseAppsAddHoli']);
+
+                $query =
+                "DELETE
+                FROM USER_HAS_APPS WHERE 
+                userID = :set3 AND
+                appointmentID = ANY
+                (SELECT ID
+                FROM APPOINTMENTS
+                WHERE APPOINTMENTS.appDay
+                BETWEEN :set1 AND :set2);";
+
+                $addHolidays =
+                "INSERT INTO HOLIDAYS(startsAt, endsAt, userID)
+                VALUES (:set1, :set2, :set3);";
+
+                if(threeSets($db,$query,$dates[0],$dates[1],$_SESSION['ID'])){
+                    threeSets($db,$query,$dates[0],$dates[1],$_SESSION['ID']);
+                    echo "<div style='position:absolute;top:100px;left:35%'>".alert("Rendez-vous supprimés, vacances ajoutées.")."</div>";
+                }
+                include('V/_template/htmlTop.php');
+                include('V/_template/navbar.php');
+            break;
         case(isset($_POST['handleWork'])):
                 
 
@@ -158,8 +182,11 @@
                                 } else {
                                     $_SESSION['startsAt'] = $_POST['startDate'];
                                     $_SESSION['endDate'] = $_POST['endDate'];
-
-                                    echo alert("<form method='post'><button type='submit' class='btn btn-primary sid' style='background-color:transparent' name='eraseAppsAddHoli' value='".$_POST['startDate']."/".$_POST['endDate']."'>Supprimer les rendez-vous entre les congés et ajouter les vacances</button></form>");
+                                    echo "<div style='position:absolute;top:100px;left:35%'>".alert("<form method='post'><button type='submit' 
+                                    class='btn btn-primary sid' style='background-color:transparent' 
+                                    name='eraseAppsAddHoli' value='".$_POST['startDate']."/".$_POST['endDate']."'>
+                                    Supprimer les rendez-vous entre les congés et ajouter les vacances ?
+                                    </button></form>")."</div>";
                                 }
                             }
                         }
