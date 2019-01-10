@@ -8,7 +8,7 @@
                     <?php 
                         $hour = explode(":",$res[0]['startTime']); $hour = $hour[0].":".$hour[1];
                         if(isset($messages)){ 
-                            for($i = count($messages) -1; $i >= 0; $i--)
+                            for($i = (count($messages) -1); $i >= 0; $i--)
                             {
                                 echo $messages[$i];
                             }

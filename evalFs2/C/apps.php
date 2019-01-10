@@ -1,6 +1,5 @@
 <?php
     $page = "Rendez-vous";
-    include('M/dbConnect.php');
     include('M/getSql.php');
     include('M/otherSql.php');
     include('C/Functions/PHP/messages.php');
@@ -361,8 +360,12 @@
                    SELECT BELONGS.categoryID 
                    FROM BELONGS 
                    WHERE BELONGS.appointmentID = :set1);";
-                for($i = 0;$i <count($messages);$i++){
-                    echo $messages[$i];
+                if(isset($messages))
+                {
+
+                    for($i = 0;$i <count($messages);$i++){
+                        echo $messages[$i];
+                    }
                 }
                 $cats = fetchOneSet($db,$query,$_POST['modApp']);
                 include('V/_template/htmlTop.php');
