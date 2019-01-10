@@ -14,9 +14,9 @@
                             }
                         }
                     ?>                            
-                <div class="content-center brand" style="margin-top:95px">
-                <h4 class="motto">Modification d'un évènement : </h4>
+                <div class="row" style="margin-top:95px">
                   <div class="col-md-6 ml-auto mr-auto">
+                <h4 class="motto">Modification d'un évènement : </h4>
                       <div class=" card-login ">
                             <form class="form" method="POST" action="index.php?page=apps" autocomplete="false">
                                 <div class="card-body">
