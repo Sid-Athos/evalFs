@@ -2,7 +2,6 @@
 <?php
 
     $page = "Gestion de compte";
-    include('M/dbConnect.php');
     require_once('M/getSql.php');
     require_once('M/otherSql.php');
     $actualDate = actualDate($db);
@@ -210,6 +209,16 @@
                         if(isset($_POST['workDays'])){
                             for($i = 0;$i < count($_POST['workDays']);$i++)
                             {
+                                $datas = explode('-',$_POST['workDays'][$i]);
+                                
+                                $query = 
+                                "SELECT DATE(APPOINTMENTS.appDay) as appDay, APPOINTMENTS.startTime
+                                FROM APPOINTMENTS JOIN USER_HAS_APPS on APPOINTMENTS.ID = USER_HAS_APPS.appointmentID
+                                WHERE dayname(APPOINTMENTS.appDay) = :set1
+                                AND DATE(appDay) > DATE(CURRENT_TIMESTAMP())
+                                AND USER_HAS_APPS.userID = :set2;";
+
+                                if(empty($check = fetchTwoSets($db,$query,$datas[1],$_SESSION['ID']))){
                                 if(preg_match("/^[0-9]+$/",$_POST['workDays'][$i])){
                                     $query =
                                     "DELETE FROM USER_HAS_SCHEDULE
@@ -227,6 +236,9 @@
                                         $messages[] = alert("Erreur dans la suppression");
                                     }
                                 }
+                            } else {
+                                $messages[] = alert('Un rendez-vous est prévu le '.$check[0]['appDay'].' à : '.$check[0]['startTime']);
+                            }
                             }
                         }
 

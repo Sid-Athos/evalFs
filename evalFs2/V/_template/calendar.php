@@ -26,9 +26,9 @@
             
                     <div class="content-center-brand" >
                         <div class="bd-example">
-                        <table class="table table-dark table-striped animated" id="calTable" style="margin:auto;max-width:1200px">
+                        <table class="table table-dark ml-auto mr-auto table-striped animated " id="calTable" >
                             <thead>
-                                <tr style="">
+                                <tr>
                                     <th scope="col" style="">Lundi</th>
                                     <th scope="col" style="">Mardi</th>
                                     <th scope="col" style="">Mercredi</th>
@@ -38,7 +38,7 @@
                                     <th scope="col" style="" data-toggle="tooltip" data-placement="top" title="WIK AND">Dimanche</th>
                                 </tr>
                             </thead>
-                            <tbody style="width:900px">
+                            <tbody>
                                 <?php
                                     foreach ($weeks as $week) {
                                         echo $week;
@@ -51,4 +51,9 @@
             </div>
         </div> 
    
-
+<style>
+    td{
+        min-width:200px;
+        min-height:180px;
+    }
+</style>

@@ -12,6 +12,7 @@
                             
                             <div class="card-body" style="text-align:center">
                             <?php if(isset($actualDate)){ echo $actualDate;} ?>
+                              <div class="dropdown-divider"></div>
                               <div class="input-group no-border input-lg">
                                   <div class="input-group-prepend">
                                     <span class="input-group-text">

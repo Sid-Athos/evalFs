@@ -8,7 +8,7 @@
         <div class="page-header-image" data-parallax="true" 
         style="background-image:url('V/_template/assets/img/header.jpg');"></div>
             <?php if(isset($message)){ echo $message; }?>                            
-                <div class="row" style="margin-top:45px">
+                <div class="row" style="margin-top:175px">
                   <div class="col-md-6 ml-auto mr-auto" style="max-width:450px">
                       <div class="card-login">
                         <form class="form" method="POST" action="index.php?page=login" id="form"  autocomplete="off">
@@ -19,6 +19,7 @@
                             </div>
                             <div class="card-body" style="text-align:center">
                             <?php echo "$actualDate"; ?>
+                            <div class="dropdown-divider"></div>
                               <div class="input-group no-border input-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">

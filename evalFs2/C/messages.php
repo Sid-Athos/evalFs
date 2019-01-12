@@ -1,7 +1,6 @@
 <?php
     
     $page = "Messagerie";
-    include('M/dbConnect.php');
     include('M/getSql.php');
     include('M/otherSql.php');
     $actualDate = actualDate($db);

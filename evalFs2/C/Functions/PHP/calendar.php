@@ -29,7 +29,7 @@
         if(isset($offs[$z]) && !empty($offs)){
             if(strtotime($date) >= strtotime($offs[$z]['starts'])
             && strtotime($date) <= strtotime($offs[$z]['ends'])) {
-                        $week = $week."<td style='background-color:rgba(166, 148, 229, 0.6);min-width:200px;width:200px;height:120px;min-height:250px'
+                        $week = $week."<td style='background-color:rgba(166, 148, 229, 0.6);'
                         data-toggle='tooltip' data-placement='top' title='Congé'>$day</td>";
                     } else {
                         if(isset($offs[($z+1)])){
@@ -37,7 +37,7 @@
                         }
 
                         if(!in_array(intval(date('N',strtotime($date))),$noApps)){
-                            $week = $week."<td style='background-color:rgba(66, 66, 63, 0.2);min-width:190px'
+                            $week = $week."<td style='background-color:rgba(66, 66, 63, 0.2)'
                             data-toggle='tooltip' data-placement='top' title='Jour de repos'>$day</td>";
                             $lazy++;
                         } 
@@ -57,7 +57,7 @@
                                     $color = "";
                                     $week = "$week
                                             <div class='row'>
-                                                <div class='col-lg-12' style='margin:auto'>
+                                                <div class='col-lg-12 col-xs-12' style='margin:auto'>
                                                     <form method='post' class='form-check-inline' style='position: relative;top: 10px;'>
                                                         <button type='submit' class='btn btn-secondary form-check form-check-inline'  name='fetchApps' value='$date'
                                                         data-toggle='tooltip' data-placement='top' title='Afficher les évènements de la journée'
@@ -69,7 +69,7 @@
                                                 </div>
                                             </div>
                                             <div class='row'>
-                                                <div class='col-lg-12'>
+                                                <div class='col-lg-12 col-xs-12'>
                                                     <div class='alert alert-info ml-auto mr-auto' id='alert$day' role='alert' style='z-index:4;background-color:#833ab4;
                                                     text-align:center;height:85px;color:#FFFFFF;margin-bottom:-12px;vertical-align:bottom;width:102%;left:-2px;right:0px'>
                                                         <div class='alert-icon'>
@@ -102,7 +102,7 @@
                                 {
                                     $week = "$week
                                         <div class='row'>
-                                            <div class='col-lg-12' style='margin:auto'>
+                                            <div class='col-lg-12 col-xs-12' style='margin:auto'>
                                                 <form method='post' class='form-check-inline'  style='position: relative;top: 10px;'>
                                                     <button type='submit' class='btn btn-secondary form-check form-check-inline'  name='fetchApps' value='$date'
                                                     data-toggle='tooltip' data-placement='top' title='Afficher les évènements de la journée'
@@ -114,7 +114,7 @@
                                             </div>
                                         </div>
                                         <div class='row'>
-                                            <div class='col-lg-12'>
+                                            <div class='col-lg-12 col-xs-12'>
                                                 <div class='alert alert-info ml-auto mr-auto' id='alert$day' role='alert' style='z-index:4;
                                                 text-align:center;height:85px;color:#FFFFFF;margin-bottom:-12px;vertical-align:bottom;width:102%;left:-2px;right:0px'>
                                                     <div class='alert-icon'>
@@ -147,7 +147,7 @@
 
             } else {
                 if(!in_array(intval(date('N',strtotime($date))),$noApps)){
-                    $week = $week."<td style='background-color:rgba(66, 66, 63, 0.2);min-width:190px'
+                    $week = $week."<td style='background-color:rgba(66, 66, 63, 0.2);'
                     data-toggle='tooltip' data-placement='top' title='Jour de repos'>$day</td>";
                     $lazy++;
                 } else {
@@ -164,7 +164,7 @@
                                     $color = "";
                                     $week = "$week
                                     <div class='row'>
-                                        <div class='col-lg-12' style='margin:auto'>
+                                        <div class='col-lg-12 col-xs-12' style='margin:auto'>
                                             <form method='post' class='form-check-inline'>
                                                 <button type='submit' class='btn btn-secondary form-check form-check-inline'  name='fetchApps' value='$date'
                                                 data-toggle='tooltip' data-placement='top' title='Afficher les évènements de la journée'
@@ -176,7 +176,7 @@
                                         </div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-lg-12'>
+                                        <div class='col-lg-12 col-xs-12'>
                                             <div class='alert alert-info ml-auto mr-auto' id='alert$day' role='alert' style='z-index:4;background-color:#833ab4;
                                             text-align:center;height:85px;color:#FFFFFF;margin-bottom:-12px;vertical-align:bottom;width:102%;left:-2px;right:0px'>
                                                 <div class='alert-icon'>
@@ -209,7 +209,7 @@
                             {
                                 $week = "$week
                                     <div class='row'>
-                                        <div class='col-lg-12' style='margin:auto'>
+                                        <div class='col-lg-12 col-xs-12' style='margin:auto'>
                                             <form method='post' class='form-check-inline'>
                                                 <button type='submit' class='btn btn-secondary form-check form-check-inline'  name='fetchApps' value='$date'
                                                 data-toggle='tooltip' data-placement='top' title='Afficher les évènements de la journée'
@@ -221,7 +221,7 @@
                                         </div>
                                     </div>
                                     <div class='row'>
-                                        <div class='col-lg-12'>
+                                        <div class='col-lg-12 col-xs-12'>
                                             <div class='alert alert-info ml-auto mr-auto' id='alert$day' role='alert' style='z-index:4;
                                             text-align:center;height:85px;color:#FFFFFF;margin-bottom:-12px;vertical-align:bottom;width:102%;left:-2px;right:0px'>
                                                 <div class='alert-icon'>

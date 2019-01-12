@@ -5,7 +5,6 @@
     include('C/Functions/PHP/messages.php');
     include('C/Functions/PHP/sessionCheck.php');
     $actualDate = actualDate($db);
-
     $messages = array();
     
     $query = 
@@ -25,7 +24,6 @@
     $query =
     "SELECT *
     FROM ORIGINS";
-
     $origins = fetchNoSets($db,$query);
     $query =
     "SELECT *
@@ -211,7 +209,7 @@
             break;
         case(isset($_POST['modApp']) && preg_match("/^[0-9]+$/",$_POST['modApp'])):
 
-                if(preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/",$_POST['newName'])){
+                if(preg_match("/^[A-Za-z0-9\s\'\-\+]+$/",$_POST['newName'])){
                     $query =
                     "UPDATE APPOINTMENTS
                     SET name = :set1
@@ -224,10 +222,10 @@
                         $messages[] = alert("Erreur lors de la requête...");
                     }
                 } else {
-                    $messages[] = alert("Catégorie invalide !") ;
+                    $messages[] = alert("Nom invalide !") ;
                 }
 
-                if(preg_match("/(*UTF8)[A-Za-z0-9\s\'\-\+]+$/",$_POST['newNotes'])){
+                if(preg_match("/^[A-Za-z0-9\s\'\-\+]+$/",$_POST['newNotes'])){
                     $query =
                     "UPDATE APPOINTMENTS
                     SET notes = :set1
@@ -317,7 +315,7 @@
         
                                     if(twoSets($db,$query,($_POST['newTime'].":00"),$_POST['modApp']))
                                     {
-                                        $messages = success("Heure modifiée, nouvelle date le ".$_POST['newDate']."!");
+                                        $messages[] = success("Heure modifiée, nouvelle date le ".$_POST['newDate']."!");
                                     } else {
                                         $messages[] = alert("Erreur lors de la requête de modification de l'heure et de la durée...");
                                     }
@@ -360,13 +358,7 @@
                    SELECT BELONGS.categoryID 
                    FROM BELONGS 
                    WHERE BELONGS.appointmentID = :set1);";
-                if(isset($messages))
-                {
-
-                    for($i = 0;$i <count($messages);$i++){
-                        echo $messages[$i];
-                    }
-                }
+                
                 $cats = fetchOneSet($db,$query,$_POST['modApp']);
                 include('V/_template/htmlTop.php');
                 include('V/_template/navbar.php');

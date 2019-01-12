@@ -1,7 +1,6 @@
 <?php
 
     $page = "Calendrier";
-    include('M/dbConnect.php');
     include('M/getSql.php');
     include('M/otherSql.php');
     include('C/Functions/PHP/messages.php');

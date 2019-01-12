@@ -19,6 +19,23 @@
 	.btn.form-control:active{
 		background-color:transparent;
 	}
+	.btn.form-control.sid:hover{
+		background-color:transparent;
+	}
+	.btn.form-control.sid:focus{
+		background-color:transparent;
+	}
+	.btn.form-control.sid:active{
+		background-color:transparent;
+	}
+
+	.btn:hover, .btn:focus, .btn:not(:disabled):not(.disabled):active, .btn:not(:disabled):not(.disabled).active, .btn:not(:disabled):not(.disabled):active:focus, .btn:not(:disabled):not(.disabled).active:focus, .btn:active:hover, .btn.active:hover, .show > .btn.dropdown-toggle, .show > .btn.dropdown-toggle:focus, .show > .btn.dropdown-toggle:hover, .navbar .navbar-nav > a.btn:hover, .navbar .navbar-nav > a.btn:focus, .navbar .navbar-nav > a.btn:not(:disabled):not(.disabled):active, .navbar .navbar-nav > a.btn:not(:disabled):not(.disabled).active, .navbar .navbar-nav > a.btn:not(:disabled):not(.disabled):active:focus, .navbar .navbar-nav > a.btn:not(:disabled):not(.disabled).active:focus, .navbar .navbar-nav > a.btn:active:hover, .navbar .navbar-nav > a.btn.active:hover, .show > .navbar .navbar-nav > a.btn.dropdown-toggle, .show > .navbar .navbar-nav > a.btn.dropdown-toggle:focus, .show > .navbar .navbar-nav > a.btn.dropdown-toggle:hover {
+
+		background-color: transparent;
+		color: #FFFFFF;
+		box-shadow: none;
+
+		}
 	</style>
   <body class="index-page sidebar-collapse">
   	<!-- NAVBAR -->
@@ -78,7 +95,7 @@
 							</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
+						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown">
 							<i class="now-ui-icons ui-1_settings-gear-63"></i>
 							<p>Mon Compte</p>
 						</a>
@@ -104,11 +121,11 @@
 						</div>
 					</li>
 					<form class="form-inline ml-auto" data-background-color action="index.php?page=browse" method="POST">
-		                <div class="input-group" style="height:50px;top:-15px">
-		                	<div class="input-group-prepend" style="max-height:40px;position:relative;top:10px">
-		                    	<span class="input-group-text"><i class="now-ui-icons ui-1_zoom-bold"></i></span>
+		                <div class="input-group" style="height:30px;max-height:33px;top:-15px;border:none">
+		                	<div class="input-group-prepend" style="position:relative;top:10px;height:37px;border:none">
+		                    	<span class="input-group-text" style="border:none"><i class="now-ui-icons ui-1_zoom-bold"></i></span>
 		                	</div>
-		                	<button  class="btn form-control"  placeholder="Rechercher">Outil de recherche</button>
+		                	<button  class="btn form-control sid" placeholder="Rechercher" style="border:none">Outil de recherche</button>
 		                </div>
 		            </form>
 				</ul>

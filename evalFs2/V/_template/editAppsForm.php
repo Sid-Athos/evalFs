@@ -13,6 +13,7 @@
                                 echo $messages[$i];
                             }
                         }
+                        //var_dump($res);
                     ?>                            
                 <div class="row" style="margin-top:95px">
                   <div class="col-md-6 ml-auto mr-auto">
@@ -28,9 +29,9 @@
                                         <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
                                         </span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Intitulé du rendez-vous"  name="newName" id="0"
+                                        <input type="text" class="form-control" name="newName" id="0"
                                         data-toggle="tooltip" date-placement="left" title="Intitulé du rendez-vous"
-                                        value="<?php if(isset($res[0]['appName'])){ echo $res[0]['appName']; } ?>" style="color:#FFFFFF" required autocomplete="off">
+                                        placeholder="<?php if(isset($res[0]['appName'])){ echo $res[0]['appName']; } ?>" style="color:#FFFFFF"  autocomplete="off">
                                     </div>
                                     <div class="input-group no-border input-lg">
                                         <div class="input-group-prepend" id="prep">
@@ -38,9 +39,9 @@
                                         <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
                                         </span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Lieu"  name="newPlace" id="1"
+                                        <input type="text" class="form-control"  name="newPlace" id="1"
                                         data-toggle="tooltip" date-placement="left" title="Lieu du rendez-vous"
-                                        value="<?php if(isset($res[0]['place'])){ echo $res[0]['place']; } ?>" style="color:#FFFFFF" required autocomplete="off">
+                                        placeholder="<?php if(isset($res[0]['place'])){ echo $res[0]['place']; } ?>" style="color:#FFFFFF"  autocomplete="off">
                                     </div>
                                     <div class="form-row">
                                         <div class="input-group no-border input-lg" style="max-width:170;left:5px">
@@ -49,9 +50,9 @@
                                             <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
                                             </span>
                                             </div>
-                                            <input type="time" class="form-control" placeholder="Heure de commencement"  name="newTime" id="2"
+                                            <input type="time" class="form-control"  name="newTime" id="2"
                                             data-toggle="tooltip" date-placement="left" title="Débute à..."
-                                            value="<?php if(isset($res[0]['startTime'])){ echo $hour; } ?>" style="color:#FFFFFF;width:100px;max-width:130px" required autocomplete="off">
+                                            placeholder="<?php if(isset($res[0]['startTime'])){ echo $hour; } ?>" style="color:#FFFFFF;width:100px;max-width:130px"  autocomplete="off">
                                         </div>
                                         <div class="input-group no-border input-lg" style="max-width: 180px;float:right;position: absolute;left: 50%;">
                                             <div class="input-group-prepend" id="prep">
@@ -59,9 +60,9 @@
                                             <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
                                             </span>
                                             </div>
-                                            <input type="date" class="form-control" placeholder="Date du Rendez-vous"  name="newDate" id="3"
+                                            <input type="date" class="form-control"   name="newDate" id="3"
                                             data-toggle="tooltip" date-placement="left" title="Date de rdv" min="<?php echo $todays; ?>"
-                                            value="<?php if(isset($res[0]['appDay'])){ echo $res[0]['appDay']; } ?>" style="color:#FFFFFF" required autocomplete="off">
+                                            placeholder="<?php if(isset($res[0]['appDay'])){ echo $res[0]['appDay']; } ?>" style="color:#FFFFFF"  autocomplete="off">
                                         </div>
                                     </div>
                                     
@@ -86,7 +87,7 @@
                                     for($i = 0;$i < count($cats);$i++)
                                     {
                                         ?>
-                                                <option type="checkbox" class="form-check-input" style="color:#FFFFFF;background-color:#333" name="addCat[]" style="margin:auto"
+                                                <option type="checkbox" class="form-check-input" style="color:#FFFFFF;background-color:#333"  style="margin:auto"
                                                 value="<?php echo $cats[$i]['ID']; ?>">
                                                 <span class="form-check-sign form-check-inline">
                                                 <?php echo $cats[$i]['name']; ?>
@@ -102,9 +103,9 @@
                                         <i class="now-ui-icons text_align-center" style="color:#FFFFFF"></i>
                                         </span>
                                         </div>
-                                        <textarea type="time" class="form-control" placeholder="Notes"  name="newNotes" id="5"
-                                        value="" style="color:#FFFFFF" required autocomplete="off"><?php if(isset($res[0]['appNotes'])){ echo $res[0]['appNotes']; } ?>
-                                        </textarea>
+                                        <textarea class="form-control" placeholder="<?php if(isset($res[0]['notes'])){ echo $res[0]['notes']; } ?>"  name="newNotes"
+                                        style="color:#FFFFFF"  autocomplete="off"></textarea>
+                                        
                                 </div>
                                 <div class="-footer text-center">
                                     <button type="submit" class="btn btn-primary btn-round btn-lg btn-block"

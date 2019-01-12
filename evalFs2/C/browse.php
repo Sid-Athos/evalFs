@@ -1,7 +1,6 @@
 <?php
    
     $page = "Recherche";
-    include('M/dbConnect.php');
     include('M/getSql.php');
     include('M/otherSql.php');
     include('C/Functions/PHP/messages.php');
@@ -46,6 +45,7 @@
     $todays = date('Y-m-d',strtotime('+1 day'));
     include('V/_template/htmlTop.php');
     include('V/_template/navbar.php');
+    include('V/_template/appsModal.php');
     switch(isset($_POST)):
         case(!empty($_POST)):
                 if(isset($_POST['browseDate']) && isset($_POST['dateZone']))
@@ -139,6 +139,5 @@
         default:
             include('V/_template/browser.php');
     endswitch;
-    include('V/_template/appsModal.php');
 
 ?>

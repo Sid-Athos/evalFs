@@ -1,7 +1,6 @@
 <?php
     
     $page = "Connexion";
-    include('M/dbConnect.php');
     //include('M/updateData.php');
     include('C/Functions/PHP/sessionKeyler.php');
     include('C/Functions/PHP/messages.php');

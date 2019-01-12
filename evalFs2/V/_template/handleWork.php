@@ -9,7 +9,7 @@
 		}
 	?>
                                 <form class="form" method="POST" action="index.php?page=account" id="form" style="color:white;width:350px;margin-left:15%" autocomplete="off">
-                                        <?php
+                            <?php
                                 if(!empty($workDays))
                                 {
                                     ?>
@@ -21,7 +21,7 @@
                                       <div class="form-check form-check-inline" style="margin-bottom:30px;margin-right:20px;cursor:pointer">
                                           <label class="form-check-label">
                                               <input type="checkbox" class="form-check-input" style="color:#FFFFFF" name="workDays[]" style="margin:auto"
-                                              value="<?php echo $workDays[$i]['ID']; ?>">
+                                              value="<?php echo $workDays[$i]['ID']."-".$workDays[$i]['days']; ?>">
                                               <span class="form-check-sign form-check-inline">
                                               <?php echo $workDays[$i]['days']; ?> de <?php echo $workDays[$i]['De']; ?> à <?php echo $workDays[$i]['A']; ?>
                                                   </span>
@@ -30,7 +30,7 @@
                                       <?php
                                     }
                                 }
-                                    ?>
+                            ?>
                                     <?php
                                         if(!empty($daysAvailable))
                                         {
